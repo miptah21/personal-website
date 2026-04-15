@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Manrope, Newsreader } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import "./globals.css";
+import ScrollProgress from "@/components/ScrollProgress";
+import "../globals.css";
 
 const manrope = Manrope({
   variable: "--font-sans",
@@ -15,11 +16,12 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://miftahudinakbar.com'),
   title: "Miftahudin Akbar | Portfolio",
   description: "Bridging the gap between complex financial systems and data-driven intelligence.",
 };
 
-export default function RootLayout({
+export default function FrontendLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -27,11 +29,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${manrope.variable} ${newsreader.variable}`} suppressHydrationWarning>
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
       </head>
       <body>
+        <ScrollProgress />
+        <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
-        {children}
+        <div id="main-content">
+          {children}
+        </div>
         <Footer />
       </body>
     </html>

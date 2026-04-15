@@ -1,27 +1,36 @@
 {
-  "name": "temp-next",
+  "name": "personal-website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate:types": "payload generate:types",
+    "generate:importmap": "payload generate:importmap",
+    "payload": "payload"
   },
   "dependencies": {
-    "gray-matter": "^4.0.3",
+    "@payloadcms/db-sqlite": "3.82.0",
+    "@payloadcms/next": "3.82.0",
+    "@payloadcms/richtext-lexical": "3.82.0",
+    "@types/nodemailer": "^8.0.0",
+    "graphql": "^16.13.2",
     "next": "16.2.2",
-    "next-mdx-remote": "^6.0.0",
+    "nodemailer": "^8.0.5",
+    "payload": "3.82.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "sharp": "^0.34.5",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
+    "@types/node": "^20.19.39",
+    "@types/react": "^19.2.14",
+    "eslint": "^9.39.4",
     "eslint-config-next": "16.2.2",
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   },
   "ignoreScripts": [
     "sharp",
@@ -30,5 +39,11 @@
   "trustedDependencies": [
     "sharp",
     "unrs-resolver"
-  ]
+  ],
+  "overrides": {
+    "@payloadcms/ui": "3.82.0",
+    "@payloadcms/richtext-lexical": "3.82.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  }
 }

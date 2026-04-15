@@ -1,118 +1,142 @@
 'use server'
 
 import { revalidatePath } from 'next/cache';
+import { getPayload } from 'payload';
+import configPromise from '@/payload.config';
 
-const GITHUB_OWNER = process.env.GITHUB_OWNER || '';
-const GITHUB_REPO = process.env.GITHUB_REPO || '';
-const GITHUB_PAT = process.env.GITHUB_PAT || '';
-
-async function getHeaders() {
-  return {
-    'Accept': 'application/vnd.github.v3+json',
-    'Authorization': `Bearer ${GITHUB_PAT}`,
-    'X-GitHub-Api-Version': '2022-11-28',
-    'User-Agent': 'Vanguard-Portfolio-App'
-  };
-}
-
-async function getOrCreateIssue(slug: string) {
-  if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_PAT) return null;
-  
-  try {
-    // 1. Search for existing issue
-    const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues?labels=article-comments&state=open`, {
-      headers: await getHeaders(),
-    });
-    
-    if (!res.ok) return null;
-    const issues = await res.json();
-    const issue = issues.find((i: any) => i.title === slug);
-    if (issue) return issue.number;
-
-    // 2. Create new issue mapping
-    const createRes = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues`, {
-      method: 'POST',
-      headers: await getHeaders(),
-      body: JSON.stringify({
-        title: slug,
-        body: `Auto-generated database thread for article: ${slug}`,
-        labels: ['article-comments']
-      })
-    });
-    
-    if (!createRes.ok) return null;
-    const newIssue = await createRes.json();
-    return newIssue.number;
-  } catch(e) {
-    return null;
-  }
+async function getInsightId(slug: string) {
+  const payload = await getPayload({ config: configPromise });
+  const { docs } = await payload.find({
+    collection: 'insights',
+    where: { slug: { equals: slug } },
+    depth: 0,
+  });
+  if (docs.length === 0) return null;
+  return { id: docs[0].id, payload };
 }
 
 export async function getCommentsAction(slug: string) {
-  if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_PAT) return { error: 'Missing GitHub Configuration', comments: [] };
-  
-  const issueNumber = await getOrCreateIssue(slug);
-  if (!issueNumber) return { error: 'Failed to resolve issue database', comments: [] };
-
   try {
-    const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues/${issueNumber}/comments`, {
-      headers: await getHeaders(),
-      cache: 'no-store'
-    });
-    
-    if (!res.ok) return { error: 'Failed to fetch comments', comments: [] };
-    const rawComments = await res.json();
-    
-    const comments = rawComments.map((c: any) => {
-      let rawBody = c.body || '';
-      let commenterName = 'Anonymous Reader';
-      let text = rawBody;
-      
-      if (rawBody.startsWith('Author: ')) {
-        const parts = rawBody.split('\n---\n');
-        if (parts.length > 1) {
-          commenterName = parts[0].replace('Author: ', '').trim();
-          text = parts.slice(1).join('\n---\n').trim();
-        }
-      }
-      
-      return {
-        id: c.id,
-        author: commenterName,
-        text: text,
-        date: new Date(c.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-      };
+    const payloadInfo = await getInsightId(slug);
+    if (!payloadInfo) return { error: 'Insight not found', comments: [] };
+    const { id: insightId, payload } = payloadInfo;
+
+    const { docs: comments } = await payload.find({
+      collection: 'comments',
+      where: { insight: { equals: insightId as any } },
+      depth: 1, // Allows populated relationships
+      limit: 100, // Reduced from 1000 for realistic loads
+      sort: 'createdAt',
     });
 
-    return { comments };
-  } catch(e) {
-    return { error: 'Network failiure', comments: [] };
+    const commentsMap = new Map<number | string, any>();
+    const rootComments: any[] = [];
+
+    // Phase 1: Parse Data Properties
+    comments.forEach((c: any) => {
+      const node = {
+        id: c.id,
+        author: c.author || 'Anonymous Reader',
+        text: c.text,
+        date: new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        likes: c.likes || 0,
+        replyToId: c.replyTo ? (typeof c.replyTo === 'object' ? c.replyTo.id : c.replyTo) : null,
+        replies: []
+      };
+      commentsMap.set(c.id, node);
+    });
+
+    // Phase 2: Tree Assembly
+    commentsMap.forEach((node) => {
+      if (node.replyToId && commentsMap.has(node.replyToId)) {
+        commentsMap.get(node.replyToId).replies.push(node);
+      } else {
+        rootComments.push(node);
+      }
+    });
+
+    return { comments: rootComments };
+  } catch (error) {
+    console.error(error);
+    return { error: 'Database failure', comments: [] };
   }
 }
 
-export async function submitCommentAction(slug: string, name: string, message: string) {
-  if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_PAT) return { success: false, error: 'Missing GitHub configuration' };
-  
-  const issueNumber = await getOrCreateIssue(slug);
-  if (!issueNumber) return { success: false, error: 'Failed to locate article database' };
+// Simple in-memory rate limiting map
+// Store IP/identifier or just block huge spikes system-wide
+const submissionTimestamps: number[] = [];
+const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute
+const MAX_SUBMISSIONS_PER_WINDOW = 30; // Max 30 comments per minute system-wide
 
-  const finalName = name.trim() || 'Anonymous Reader';
-  const bodyPayload = `Author: ${finalName}\n---\n${message.trim()}`;
-
+export async function submitCommentAction(slug: string, name: string, message: string, replyToId?: number | null) {
   try {
-    const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues/${issueNumber}/comments`, {
-      method: 'POST',
-      headers: await getHeaders(),
-      body: JSON.stringify({ body: bodyPayload })
-    });
+    // 1. Input Validation
+    if (!message || message.trim().length === 0) return { success: false, error: 'Message is required' };
+    if (message.length > 3000) return { success: false, error: 'Message exceeds maximum length of 3000 characters' };
+    if (name && name.length > 100) return { success: false, error: 'Name exceeds maximum length' };
 
-    if (!res.ok) {
-       return { success: false, error: 'Failed to post comment to server' };
+    // 2. High-Level Rate Limiting
+    const now = Date.now();
+    // Clean old timestamps
+    while (submissionTimestamps.length > 0 && submissionTimestamps[0] < now - RATE_LIMIT_WINDOW_MS) {
+      submissionTimestamps.shift();
     }
     
+    if (submissionTimestamps.length >= MAX_SUBMISSIONS_PER_WINDOW) {
+      return { success: false, error: 'System is currently processing too many submissions. Please wait a moment.' };
+    }
+    submissionTimestamps.push(now);
+
+    const payloadInfo = await getInsightId(slug);
+    if (!payloadInfo) return { success: false, error: 'Insight not found' };
+    const { id: insightId, payload } = payloadInfo;
+
+    await payload.create({
+      collection: 'comments',
+      data: {
+        insight: insightId,
+        author: name.trim() || 'Anonymous Reader',
+        text: message.trim(),
+        likes: 0,
+        replyTo: replyToId || null,
+      } as any,
+    });
+
     revalidatePath(`/insights/${slug}`);
     return { success: true };
-  } catch (e) {
-    return { success: false, error: 'Network failure' };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: 'Failed to post comment to database' };
+  }
+}
+
+export async function likeCommentAction(slug: string, commentId: number | string, isLiking: boolean) {
+  try {
+    const payloadInfo = await getInsightId(slug);
+    if (!payloadInfo) return { success: false, error: 'Insight not found' };
+    const { payload } = payloadInfo;
+
+    const comment = await payload.findByID({
+      collection: 'comments',
+      id: commentId,
+    });
+    
+    let currentLikes = (comment.likes as number) || 0;
+    currentLikes = isLiking ? currentLikes + 1 : currentLikes - 1;
+    if (currentLikes < 0) currentLikes = 0;
+
+    await payload.update({
+      collection: 'comments',
+      id: commentId,
+      data: {
+        likes: currentLikes,
+      },
+    });
+
+    revalidatePath(`/insights/${slug}`);
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: 'Database mutation failed' };
   }
 }

@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Website Portfolio
 
-## Getting Started
+> **High-Performance Next.js Portfolio powered by Payload CMS 3.0**
 
-First, run the development server:
+A modern, responsive, and robust personal portfolio website. Built to handle essays, insights, and interactive native comments safely without third-party dependencies.
 
+## Features
+
+- **Next.js 15 App Router**: Server-Side Rendering (SSR) and dynamic optimizations.
+- **Payload CMS 3.0**: Fully integrated headless CMS that lives natively in standard `/admin` route.
+- **SQLite Database**: Lightweight, serverless-ready local data storage (`payload.db`).
+- **Native Comments System**: Self-hosted custom Payload Collection with Native Server Actions integration.
+- **Obsidian-Ready Workflow**: Lexical RichText editor structurally configured to flawlessly parse block Markdown copy-pasted directly from your Obsidian Reading View.
+
+## Prerequisites
+
+- [Bun](https://bun.sh/) (Runtime & Package Manager)
+- Node.js >= 20.x
+
+## Installation
+
+1. Clone or download the repository.
+2. Install dependencies exclusively via Bun:
+   ```bash
+   bun install
+   ```
+3. Set your environment variables:
+   Create a `.env` file mechanically (Optional for local dev, Required for production).
+   ```env
+   # Payload Secret
+   PAYLOAD_SECRET=your-secure-random-string
+   
+   # Database URI (Defaults to local SQLite)
+   DATABASE_URI=file:./payload.db
+   ```
+
+## Development & Usage
+
+Start the local development server:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Frontend**: [http://localhost:3000](http://localhost:3000)
+- **Admin Dashboard**: [http://localhost:3000/admin](http://localhost:3000/admin)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Setting up the CMS
+1. Upon first run, navigate to the Admin Dashboard.
+2. Follow the prompt to create your First User (Admin).
+3. Start publishing `Insights` and moderating `Comments`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Writing Workflow
+To write Insights directly from your personal knowledge base (e.g., Obsidian):
+1. Open your markdown file in Obsidian.
+2. Switch to **Reading View**.
+3. Select All (`Ctrl+A`) and Copy (`Ctrl+C`).
+4. Paste into the Payload CMS `Content` box. The Payload Lexical editor will perfectly translate all bolding, lists, quotes, and structural hierarchy natively.
 
-## Learn More
+## Deployment Notes
 
-To learn more about Next.js, take a look at the following resources:
+If deploying to Vercel or similar ephemeral serverless hosting, you **must migrate your database adapter** from SQLite to Postgres. Ephemeral environments will reset your `payload.db` on every sleep/wakeup cycle.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Change the adapter in `src/payload.config.ts`:
+```typescript
+import { postgresAdapter } from '@payloadcms/db-postgres'
+// ...
+  db: postgresAdapter({
+    pool: { connectionString: process.env.DATABASE_URI }
+  }),
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Developed securely with [Next.js](https://nextjs.org) and [Payload CMS](https://payloadcms.com).*

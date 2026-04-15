@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import styles from '@/app/page.module.css';
+import styles from '@/app/(frontend)/page.module.css';
 
 export default function Footer() {
   return (
@@ -10,10 +10,10 @@ export default function Footer() {
             <p className={styles.footerCopyright}>© 2024 Vanguard Editorial. Designed for the Financial Professional.</p>
           </div>
           <div className={styles.footerNav}>
-            <Link href="#">LinkedIn</Link>
-            <Link href="#">GitHub</Link>
-            <Link href="#">Email</Link>
-            <Link href="#">Scroll to Top</Link>
+            <Link href="https://www.linkedin.com/in/miftahudin-akbar-758049220/" target="_blank" rel="noopener noreferrer">LinkedIn</Link>
+            <Link href="https://github.com/miptah21" target="_blank" rel="noopener noreferrer">GitHub</Link>
+            <a href="mailto:miftahudinakbar21@gmail.com">Email</a>
+            <a href="#">Scroll to Top</a>
           </div>
         </div>
     </footer>
