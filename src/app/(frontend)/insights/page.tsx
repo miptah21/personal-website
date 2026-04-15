@@ -20,6 +20,10 @@ export default async function InsightsList() {
   return (
     <main style={{ padding: '8rem 0', minHeight: '100vh', backgroundColor: 'var(--surface)' }}>
       <div className="container">
+        <Link href="/" className={styles.backLink}>
+          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_back</span>
+          Back to Home
+        </Link>
         <h1 className="display-lg" style={{ marginBottom: '1rem', color: 'var(--primary-container)' }}>The Monograph</h1>
         <p className="label-sm" style={{ color: 'var(--outline)', marginBottom: '4rem' }}>All Insights</p>
         
@@ -27,8 +31,7 @@ export default async function InsightsList() {
           {posts.map((post) => {
             const cover = typeof post.coverImage === 'object' && post.coverImage !== null ? post.coverImage : null;
             return (
-              <Link key={post.slug} href={`/insights/${post.slug}`}>
-                <div className={styles.insightCard}>
+              <div key={post.slug} className={styles.insightCard}>
                   <div>
                     <div className={styles.insightImageWrapper}>
                       <Image
@@ -40,14 +43,17 @@ export default async function InsightsList() {
                       />
                     </div>
                     <p className={styles.insightCategory}>{post.category || 'Insight'}</p>
-                    <h4 className={styles.insightTitle}>{post.title}</h4>
+                    <h4 className={styles.insightTitle}>
+                      <Link href={`/insights/${post.slug}`} className={styles.insightTitleLink}>
+                        {post.title}
+                      </Link>
+                    </h4>
                   </div>
                   <div className={styles.insightFooter}>
                     <span>{(post.publishedAt || post.createdAt) ? new Date((post.publishedAt || post.createdAt) as string).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase() : ''}</span>
                     <span className="material-symbols-outlined">&#8599;</span>
                   </div>
-                </div>
-              </Link>
+              </div>
             );
           })}
         </div>

@@ -1,12 +1,14 @@
 'use client'
 
-import { useRef, useCallback } from 'react'
+import { useRef, useCallback, useEffect } from 'react'
 import styles from '@/app/(frontend)/contact/contact.module.css'
 
 interface RichTextEditorProps {
   id: string
   name: string
   placeholder?: string
+  value?: string
+  onChange?: (value: string) => void
   disabled?: boolean
   hasError?: boolean
   ariaDescribedBy?: string
@@ -16,6 +18,8 @@ export default function RichTextEditor({
   id,
   name,
   placeholder = 'Write your message...',
+  value,
+  onChange,
   disabled = false,
   hasError = false,
   ariaDescribedBy,
@@ -23,18 +27,32 @@ export default function RichTextEditor({
   const editorRef = useRef<HTMLDivElement>(null)
   const hiddenInputRef = useRef<HTMLInputElement>(null)
 
+
   // Sync contentEditable HTML to hidden input on every change
   const syncToHiddenInput = useCallback(() => {
-    if (editorRef.current && hiddenInputRef.current) {
-      hiddenInputRef.current.value = editorRef.current.innerHTML
+    if (editorRef.current) {
+      const html = editorRef.current.innerHTML
+      if (hiddenInputRef.current) {
+        hiddenInputRef.current.value = html
+      }
+      if (onChange) {
+        onChange(html)
+      }
     }
-  }, [])
+  }, [onChange])
 
-  const execCommand = useCallback((command: string, value?: string) => {
-    document.execCommand(command, false, value)
+  const execCommand = useCallback((command: string, commandValue?: string) => {
+    document.execCommand(command, false, commandValue)
     editorRef.current?.focus()
     syncToHiddenInput()
   }, [syncToHiddenInput])
+
+  // Update contentEditable if value changes externally (e.g. form reset)
+  useEffect(() => {
+    if (editorRef.current && value !== undefined && value !== editorRef.current.innerHTML) {
+      editorRef.current.innerHTML = value
+    }
+  }, [value])
 
   const isActive = useCallback((command: string): boolean => {
     return document.queryCommandState(command)

@@ -10,6 +10,7 @@ import { Media } from './collections/Media'
 import { Tools } from './collections/Tools'
 import { Experiences } from './collections/Experiences'
 import { ContactSubmissions } from './collections/ContactSubmissions'
+import { Projects } from './collections/Projects'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -18,7 +19,7 @@ export default buildConfig({
   admin: {
     user: Users.slug,
   },
-  collections: [Users, Insights, Comments, Media, Tools, Experiences, ContactSubmissions],
+  collections: [Users, Insights, Comments, Media, Tools, Experiences, ContactSubmissions, Projects],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => 
       defaultFeatures.filter((feature) => feature.key !== 'horizontalRule')

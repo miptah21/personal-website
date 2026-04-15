@@ -7,9 +7,9 @@ export default function ContactSection() {
         <h2 className={styles.contactEyebrow}>Inquiries &amp; Partnerships</h2>
         <a href="/contact" className={styles.contactEmail} aria-label="Go to contact page">Get in Touch</a>
         <nav className={styles.contactLinks} aria-label="Social media links">
-          <a href="https://www.linkedin.com/in/miftahudin-akbar-758049220/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://github.com/miptah21" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="mailto:miftahudinakbar21@gmail.com">Email</a>
+          <a href={process.env.NEXT_PUBLIC_LINKEDIN_URL || '#'} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href={process.env.NEXT_PUBLIC_GITHUB_URL || '#'} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href={process.env.NEXT_PUBLIC_CONTACT_EMAIL ? `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}` : '#'}>Email</a>
         </nav>
       </div>
     </section>

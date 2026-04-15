@@ -1,7 +1,8 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { CommentNode } from '@/lib/queries';
 import { getCommentsAction, submitCommentAction, likeCommentAction } from '@/lib/commentsServer';
+import RichTextEditor from '@/components/RichTextEditor';
 
 export default function NativeComments({ slug }: { slug: string }) {
   const [comments, setComments] = useState<CommentNode[]>([]);
@@ -10,8 +11,9 @@ export default function NativeComments({ slug }: { slug: string }) {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const [replyingTo, setReplyingTo] = useState<{id: number, author: string} | null>(null);
-  const [likedLocal, setLikedLocal] = useState<number[]>([]);
+  const [replyingTo, setReplyingTo] = useState<{id: number | string, author: string} | null>(null);
+  const [likedLocal, setLikedLocal] = useState<(number | string)[]>([]);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const fetchComments = () => {
     getCommentsAction(slug).then(res => {
@@ -39,10 +41,13 @@ export default function NativeComments({ slug }: { slug: string }) {
     if (!message.trim()) return;
     setIsSubmitting(true);
     
-    const res = await submitCommentAction(slug, name, message, replyingTo?.id);
+    const res = await submitCommentAction(slug, name, message, replyingTo?.id ? Number(replyingTo.id) : undefined);
     if (res.success) {
       setMessage('');
       setReplyingTo(null);
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto';
+      }
       // Panggil ulang dari server untuk merakit tree UI kembali (Konsisten)
       fetchComments(); 
     } else {
@@ -51,7 +56,7 @@ export default function NativeComments({ slug }: { slug: string }) {
     setIsSubmitting(false);
   };
 
-  const handleLike = async (commentId: number) => {
+  const handleLike = async (commentId: number | string) => {
     const isLiking = !likedLocal.includes(commentId);
     
     // Optimistic Update Traverse Function
@@ -92,9 +97,11 @@ export default function NativeComments({ slug }: { slug: string }) {
            <strong style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--on-surface)' }}>{c.author}</strong>
            <span className="label-sm" style={{ color: 'var(--secondary)' }}>{c.date}</span>
          </div>
-         <p style={{ fontFamily: 'var(--font-serif)', color: 'var(--on-surface-variant)', lineHeight: '1.75', fontSize: depth > 0 ? '1.1rem' : '1.25rem', marginBottom: '1rem' }}>
-           {c.text}
-         </p>
+         <div 
+           style={{ fontFamily: 'var(--font-serif)', color: 'var(--on-surface-variant)', lineHeight: '1.75', fontSize: depth > 0 ? '1.1rem' : '1.25rem', marginBottom: '1rem' }} 
+           className="markdown-comment"
+           dangerouslySetInnerHTML={{ __html: c.text }}
+         />
          
          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
            <button onClick={() => handleLike(c.id)} style={{ background: 'none', border: 'none', color: likedLocal.includes(c.id) ? 'var(--on-surface)' : 'var(--secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: 0, fontFamily: 'var(--font-sans)', fontSize: '0.875rem' }}>
@@ -142,17 +149,30 @@ export default function NativeComments({ slug }: { slug: string }) {
           onChange={e => setName(e.target.value)}
           style={{ width: '100%', padding: '0.75rem', backgroundColor: 'var(--surface)', border: '1px solid var(--surface-container-highest)', color: 'var(--on-surface)', fontFamily: 'var(--font-sans)' }}
         />
-        <textarea 
-          placeholder={replyingTo ? "Your reply regarding this perspective..." : "Contribute your unique insight to this discussion..."}
-          required
-          rows={3}
-          value={message}
-          onChange={e => setMessage(e.target.value)}
-          style={{ width: '100%', padding: '0.75rem', backgroundColor: 'var(--surface)', border: '1px solid var(--surface-container-highest)', color: 'var(--on-surface)', resize: 'vertical', fontFamily: 'var(--font-serif)', fontSize: '1.125rem' }}
-        />
+        <div style={{
+          '--editor-border': 'var(--surface-container-highest)',
+          '--editor-border-focus': 'var(--on-surface)',
+          '--editor-bg': 'var(--surface)',
+          '--editor-icon': 'var(--secondary)',
+          '--editor-icon-hover': 'var(--on-surface)',
+          '--editor-icon-hover-bg': 'var(--surface-container)',
+          '--editor-text': 'var(--on-surface)',
+          '--editor-placeholder': 'var(--secondary)',
+          '--editor-divider': 'var(--surface-container-highest)',
+          '--editor-scroll': 'var(--surface-container-highest)'
+        } as React.CSSProperties}>
+          <RichTextEditor 
+            id="comment-message"
+            name="message"
+            placeholder={replyingTo ? "Your reply regarding this perspective..." : "Contribute your unique insight to this discussion..."}
+            value={message}
+            onChange={setMessage}
+          />
+        </div>
         <button 
           type="submit" 
-          disabled={isSubmitting || message.trim().length === 0}
+          disabled={isSubmitting || message.trim().length === 0 ? true : undefined}
+          suppressHydrationWarning
           style={{ padding: '0.75rem 1.5rem', backgroundColor: 'var(--black)', color: 'var(--white)', border: 'none', cursor: 'pointer', alignSelf: 'flex-start', fontFamily: 'var(--font-sans)', fontWeight: 600, letterSpacing: '0.05em', transition: 'opacity 0.2s', opacity: (isSubmitting || message.trim().length === 0) ? 0.5 : 1 }}
         >
           {isSubmitting ? 'Submitting...' : (replyingTo ? 'Post Reply' : 'Post Comment')}

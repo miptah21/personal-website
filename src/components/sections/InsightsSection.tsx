@@ -23,7 +23,7 @@ export default function InsightsSection({ insights }: InsightsSectionProps) {
           {insights.map((post) => {
             const cover = typeof post.coverImage === 'object' && post.coverImage !== null ? post.coverImage : null;
             return (
-              <Link key={post.slug} href={`/insights/${post.slug}`} className={styles.insightCard} role="listitem">
+              <div key={post.slug} className={styles.insightCard} role="listitem">
                 <div>
                   <div className={styles.insightImageWrapper}>
                     <Image
@@ -35,13 +35,17 @@ export default function InsightsSection({ insights }: InsightsSectionProps) {
                     />
                   </div>
                   <p className={styles.insightCategory}>{post.category || 'Insight'}</p>
-                  <h4 className={styles.insightTitle}>{post.title}</h4>
+                  <h4 className={styles.insightTitle}>
+                    <Link href={`/insights/${post.slug}`} className={styles.insightTitleLink}>
+                      {post.title}
+                    </Link>
+                  </h4>
                 </div>
                 <div className={styles.insightFooter}>
                   <span>{(post.publishedAt || post.createdAt) ? new Date(post.publishedAt || post.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase() : ''}</span>
                   <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '20px' }}>north_east</span>
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>

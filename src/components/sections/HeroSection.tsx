@@ -16,10 +16,13 @@ export default function HeroSection() {
               <p className={styles.heroDescription}>
                 A strategic analyst specialized in Computational Finance and Data-Driven Systems. I transform raw market signals into actionable financial strategies, leveraging a background that spans across high-growth tech ecosystems and deep academic foundations.
               </p>
-              <div style={{ paddingTop: '1.5rem' }}>
+              <div style={{ paddingTop: '1.5rem', display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
                 <a href="#contact" className={styles.btnRoundedPrimary} aria-label="Navigate to contact section">
                   <span>Let&apos;s Connect</span>
                   <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '18px' }}>arrow_forward</span>
+                </a>
+                <a href="#projects" className={styles.linkUnderline} aria-label="View Selected Works">
+                  View Selected Works
                 </a>
               </div>
             </div>

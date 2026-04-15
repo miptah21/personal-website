@@ -7,11 +7,11 @@ interface ExperienceSectionProps {
 
 export default function ExperienceSection({ experiences }: ExperienceSectionProps) {
   return (
-    <section className={styles.experienceSection} id="projects">
+    <section className={styles.experienceSection} id="experience">
       <div className={styles.container}>
         <div className={styles.expGrid}>
           <div className={styles.expHeaderCol}>
-            <h2 className={styles.expStickyHeadline}>Professional Tenure</h2>
+            <h2 className={styles.expStickyHeadline}>Experience</h2>
           </div>
           <div className={styles.expListCol} role="list" aria-label="Professional experience">
             {experiences.length > 0 ? experiences.map((exp, index) => {
@@ -35,7 +35,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
               );
             }) : (
               <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--outline)' }}>
-                <p><i>The Professional Tenure is currently empty. Add items via the Payload Admin interface.</i></p>
+                <p><i>The Experience section is currently empty. Add items via the Payload Admin interface.</i></p>
               </div>
             )}
           </div>

@@ -12,6 +12,25 @@
   }
 }
 
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--on-surface-variant);
+  margin-bottom: 4rem;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+.backLink:hover {
+  color: var(--primary-container);
+}
+
+
 /* Typography Shared */
 .fontSerif { font-family: var(--font-serif); }
 .fontSans { font-family: var(--font-sans); }
@@ -398,6 +417,8 @@
   flex-direction: column;
   justify-content: space-between;
   height: 500px;
+  position: relative;
+  cursor: pointer;
   transition: background-color 0.5s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .insightCard:hover {
@@ -427,17 +448,34 @@
   font-weight: 700;
   color: rgba(2, 28, 16, 0.6);
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
 }
 .insightTitle {
   font-family: var(--font-serif);
   font-size: 1.875rem;
   color: var(--primary-container);
   line-height: 1.25;
+  position: relative;
+  z-index: 2;
+}
+.insightTitleLink {
+  color: inherit;
+  text-decoration: none;
+}
+/* Stretched link: pseudo-element covers the entire card */
+.insightTitleLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 .insightFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 .insightFooter span:first-child {
   font-family: var(--font-sans);
@@ -646,6 +684,265 @@
   margin-top: 1rem;
 }
 @media (min-width: 768px) { .expDates { margin-top: 0; } }
+
+/* Projects / Selected Works */
+.projectsSection {
+  background-color: var(--primary-container);
+  padding: 8rem 0;
+  overflow: hidden;
+}
+@media (min-width: 768px) { .projectsSection { padding: 12rem 0; } }
+
+.projectsHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6rem;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .projectsHeader {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.projectsSectionLabel {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.projectsSectionHeadline {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  color: var(--on-primary);
+  line-height: 0.9;
+}
+
+.projectsLinkUnderline {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  padding-bottom: 0.5rem;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+.projectsLinkUnderline:hover { color: var(--on-primary); }
+
+/* Asymmetric grid: hero (2-row left) + 2 stacked right */
+.projectsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .projectsGrid {
+    grid-template-columns: 7fr 5fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
+.projectCard {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 340px;
+  padding: 2.5rem;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.projectCard:hover,
+.projectCard:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+}
+
+/* Hero card spans both rows on desktop */
+.projectCardHero {
+  min-height: 400px;
+}
+@media (min-width: 768px) {
+  .projectCardHero {
+    grid-row: span 2;
+    min-height: unset;
+  }
+}
+
+/* Gradient backdrop */
+.projectCardBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.projectCard:hover .projectCardBg,
+.projectCard:focus-within .projectCardBg {
+  transform: scale(1.05);
+}
+
+/* Dark gradient overlay for text legibility */
+.projectOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.4) 40%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  transition: background 0.5s;
+}
+.projectCard:hover .projectOverlay,
+.projectCard:focus-within .projectOverlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.5) 40%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+}
+
+/* Content layer sits above overlay */
+.projectContent {
+  position: relative;
+  z-index: 2;
+}
+
+.projectYear {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 2;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.projectCategory {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.75rem;
+}
+
+.projectTitle {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  color: var(--on-primary);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  text-wrap: balance;
+}
+.projectCardHero .projectTitle {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.projectTitleLink {
+  color: inherit;
+  text-decoration: none;
+}
+/* Stretched link: pseudo-element covers entire card */
+.projectTitleLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.projectDescription {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 32rem;
+  margin-bottom: 1.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Tech stack tags — staggered hover reveal */
+.projectTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.projectCard:hover .projectTags,
+.projectCard:focus-within .projectTags {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.projectTag {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.35rem 0.75rem;
+  transition: border-color 0.3s, color 0.3s;
+}
+.projectCard:hover .projectTag,
+.projectCard:focus-within .projectTag {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.projectArrow {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.4);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.4s;
+}
+.projectCard:hover .projectArrow,
+.projectCard:focus-within .projectArrow {
+  transform: translate(4px, -4px);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projectCard,
+  .projectCardBg,
+  .projectTags,
+  .projectArrow {
+    transition: opacity 0.5s !important;
+    transform: none !important;
+  }
+  .projectCard:hover,
+  .projectCard:focus-within {
+    transform: none !important;
+  }
+}
 
 /* Contact */
 .contactSection {

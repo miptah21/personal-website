@@ -46,6 +46,21 @@ export type ExperienceDoc = {
   order: number
 }
 
+// Map the generated Project schema over to our application type
+export type ProjectDoc = {
+  id: string
+  title: string
+  description: string
+  category: string
+  year: string
+  coverGradient: string
+  tags: { tag: string; id?: string }[]
+  liveUrl?: string | null
+  githubUrl?: string | null
+  featured?: boolean | null
+  order: number
+}
+
 /** Shared Payload instance getter */
 export async function getPayloadClient() {
   return getPayload({ config: configPromise })
@@ -104,4 +119,27 @@ export async function getExperiences(limit = 20) {
     limit,
   })
   return docs as unknown as ExperienceDoc[]
+}
+
+/** Fetch all featured projects for the homepage */
+export async function getFeaturedProjects(limit = 3) {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'projects',
+    where: { featured: { equals: true } },
+    sort: 'order',
+    limit,
+  })
+  return docs as unknown as ProjectDoc[]
+}
+
+/** Fetch all projects for the library page */
+export async function getAllProjects(limit = 50) {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'projects',
+    sort: 'order',
+    limit,
+  })
+  return docs as unknown as ProjectDoc[]
 }

@@ -44,11 +44,11 @@ export default function Navbar() {
           </button>
 
           <div className={`${styles.navLinks} ${isMobileMenuOpen ? styles.navLinksOpen : ''}`}>
-            <Link href="/#about" onClick={() => setIsMobileMenuOpen(false)} className={pathname === '/' ? styles.navLinkActive : styles.navLink}>About</Link>
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className={pathname === '/' ? styles.navLinkActive : styles.navLink}>About</Link>
             <Link href="/insights" onClick={() => setIsMobileMenuOpen(false)} className={pathname.startsWith('/insights') ? styles.navLinkActive : styles.navLink}>Insights</Link>
-            <Link href="/#projects" onClick={() => setIsMobileMenuOpen(false)} className={styles.navLink}>Projects</Link>
+            <Link href="/projects" onClick={() => setIsMobileMenuOpen(false)} className={pathname.startsWith('/projects') ? styles.navLinkActive : styles.navLink}>Projects</Link>
             <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className={pathname === '/contact' ? styles.navLinkActive : styles.navLink}>Contact</Link>
-            <a href="/CV.md" download className={styles.btnPrimary} style={{ textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}>Download CV</a>
+            <a href={process.env.NEXT_PUBLIC_CV_URL || '/CV.md'} target="_blank" rel="noopener noreferrer" download className={styles.btnPrimary} style={{ textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}>Download CV</a>
           </div>
         </div>
     </nav>

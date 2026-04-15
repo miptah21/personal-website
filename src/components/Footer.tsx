@@ -10,9 +10,9 @@ export default function Footer() {
             <p className={styles.footerCopyright}>© 2024 Vanguard Editorial. Designed for the Financial Professional.</p>
           </div>
           <div className={styles.footerNav}>
-            <Link href="https://www.linkedin.com/in/miftahudin-akbar-758049220/" target="_blank" rel="noopener noreferrer">LinkedIn</Link>
-            <Link href="https://github.com/miptah21" target="_blank" rel="noopener noreferrer">GitHub</Link>
-            <a href="mailto:miftahudinakbar21@gmail.com">Email</a>
+            <Link href={process.env.NEXT_PUBLIC_LINKEDIN_URL || '#'} target="_blank" rel="noopener noreferrer">LinkedIn</Link>
+            <Link href={process.env.NEXT_PUBLIC_GITHUB_URL || '#'} target="_blank" rel="noopener noreferrer">GitHub</Link>
+            <a href={process.env.NEXT_PUBLIC_CONTACT_EMAIL ? `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}` : '#'}>Email</a>
             <a href="#">Scroll to Top</a>
           </div>
         </div>

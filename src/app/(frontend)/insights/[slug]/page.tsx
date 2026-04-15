@@ -66,7 +66,7 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
 
         <div className="prose">
           {post.content ? (
-            <RichText data={post.content} />
+            <RichText data={post.content as import('lexical').SerializedEditorState} />
           ) : (
             <p style={{ color: 'var(--outline)', fontStyle: 'italic' }}>No content yet.</p>
           )}

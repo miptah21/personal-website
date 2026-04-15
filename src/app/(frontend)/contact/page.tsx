@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
 import styles from './contact.module.css'
@@ -18,6 +19,10 @@ export default function ContactPage() {
   return (
     <main className={styles.contactPage}>
       <div className={styles.contactPageContainer}>
+        <Link href="/" className={styles.contactPageBackLink}>
+          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_back</span>
+          Back to Home
+        </Link>
         <div className={styles.contactPageGrid}>
           {/* Left — Context Column */}
           <div className={styles.contextCol}>
@@ -33,13 +38,13 @@ export default function ContactPage() {
             </p>
 
             <nav className={styles.socialLinks} aria-label="Social media links">
-              <a href="https://www.linkedin.com/in/miftahudin-akbar-758049220/" target="_blank" rel="noopener noreferrer">
+              <a href={process.env.NEXT_PUBLIC_LINKEDIN_URL || '#'} target="_blank" rel="noopener noreferrer">
                 LinkedIn
               </a>
-              <a href="https://github.com/miptah21" target="_blank" rel="noopener noreferrer">
+              <a href={process.env.NEXT_PUBLIC_GITHUB_URL || '#'} target="_blank" rel="noopener noreferrer">
                 GitHub
               </a>
-              <a href="mailto:miftahudinakbar21@gmail.com">
+              <a href={process.env.NEXT_PUBLIC_CONTACT_EMAIL ? `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}` : '#'}>
                 Email
               </a>
             </nav>

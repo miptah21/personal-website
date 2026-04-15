@@ -1,10 +1,11 @@
-import { getTools, getInsights, getExperiences } from '@/lib/queries';
+import { getTools, getInsights, getExperiences, getFeaturedProjects } from '@/lib/queries';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import InsightsSection from '@/components/sections/InsightsSection';
 import ToolkitSection from '@/components/sections/ToolkitSection';
 import ExperienceSection from '@/components/sections/ExperienceSection';
 import ContactSection from '@/components/sections/ContactSection';
+import ProjectsSection from '@/components/sections/ProjectsSection';
 import type { Metadata } from 'next';
 
 export const revalidate = 3600; // Caching Frontend: revalidate every 1 hour (ISR)
@@ -34,6 +35,7 @@ export default async function Home() {
   const latestInsights = await getInsights(3);
   const tools = await getTools(50);
   const experiences = await getExperiences(10);
+  const featuredProjects = await getFeaturedProjects(3);
   
   return (
     <main>
@@ -42,6 +44,7 @@ export default async function Home() {
       <InsightsSection insights={latestInsights} />
       <ToolkitSection tools={tools} />
       <ExperienceSection experiences={experiences} />
+      {featuredProjects && featuredProjects.length > 0 && <ProjectsSection projects={featuredProjects} />}
       <ContactSection />
     </main>
   );

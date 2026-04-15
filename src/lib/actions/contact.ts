@@ -14,7 +14,7 @@ const contactSchema = z.object({
     .string()
     .email('Please provide a valid email address.'),
   subject: z.enum(['general', 'collaboration', 'freelance', 'other'], {
-    errorMap: () => ({ message: 'Please select a subject.' }),
+    message: 'Please select a subject.',
   }),
   message: z
     .string()

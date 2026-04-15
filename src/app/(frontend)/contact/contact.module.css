@@ -16,6 +16,24 @@
 }
 @media (min-width: 768px) { .contactPageContainer { padding: 0 4rem; } }
 
+.contactPageBackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 4rem;
+  transition: color 0.3s;
+  text-decoration: none;
+}
+.contactPageBackLink:hover {
+  color: #fff;
+}
+
 .contactPageGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -325,11 +343,11 @@
 
 /* Rich Text Editor */
 .richEditor {
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid var(--editor-border, rgba(255,255,255,0.15));
   transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .richEditor:focus-within {
-  border-color: rgba(255,255,255,0.5);
+  border-color: var(--editor-border-focus, rgba(255,255,255,0.5));
 }
 .richEditorError {
   border-color: #ff6b6b !important;
@@ -344,8 +362,8 @@
   align-items: center;
   gap: 2px;
   padding: 0.4rem 0.5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--editor-border, rgba(255,255,255,0.15));
+  background: var(--editor-bg, rgba(255,255,255,0.03));
   flex-wrap: wrap;
 }
 
@@ -357,15 +375,15 @@
   height: 32px;
   background: transparent;
   border: none;
-  color: rgba(255,255,255,0.6);
+  color: var(--editor-icon, rgba(255,255,255,0.6));
   cursor: pointer;
   font-family: var(--font-serif);
   font-size: 14px;
   transition: color 0.2s, background-color 0.2s;
 }
 .toolbarBtn:hover {
-  color: #ffffff;
-  background: rgba(255,255,255,0.1);
+  color: var(--editor-icon-hover, #ffffff);
+  background: var(--editor-icon-hover-bg, rgba(255,255,255,0.1));
 }
 .toolbarBtn:disabled {
   opacity: 0.3;
@@ -375,7 +393,7 @@
 .toolbarDivider {
   width: 1px;
   height: 20px;
-  background: rgba(255,255,255,0.12);
+  background: var(--editor-divider, rgba(255,255,255,0.12));
   margin: 0 4px;
 }
 
@@ -387,14 +405,14 @@
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.7;
-  color: var(--on-primary);
+  color: var(--editor-text, var(--on-primary));
   outline: none;
   cursor: text;
 }
 
 .editorContent:empty::before {
   content: attr(data-placeholder);
-  color: rgba(255,255,255,0.25);
+  color: var(--editor-placeholder, rgba(255,255,255,0.25));
   font-style: italic;
   pointer-events: none;
 }
@@ -433,7 +451,7 @@
   background: transparent;
 }
 .editorContent::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.15);
+  background: var(--editor-scroll, rgba(255,255,255,0.15));
   border-radius: 2px;
 }
 
