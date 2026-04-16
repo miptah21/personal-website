@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Miftahudin Akbar | Computational Finance Professional',
     description: 'Transforming raw market signals into actionable financial strategies.',
-    url: 'https://miftahudinakbar.com',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://heymiftah.my.id',
     siteName: 'Miftahudin Akbar',
     images: [
       {
-        url: '/portrait.png', // Or a dedicated OG image
+        url: '/portrait.png',
         width: 1200,
         height: 630,
         alt: 'Miftahudin Akbar Portfolio',

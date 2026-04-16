@@ -37,6 +37,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Custom scrollbar — editorial sharp style */
 html {
   scrollbar-width: thin;

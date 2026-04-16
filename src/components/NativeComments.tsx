@@ -29,7 +29,9 @@ export default function NativeComments({ slug }: { slug: string }) {
     if (savedLikesString) {
       try {
         setLikedLocal(JSON.parse(savedLikesString));
-      } catch (e) {}
+      } catch {
+        // ignore
+      }
     }
 
     fetchComments();
@@ -171,8 +173,7 @@ export default function NativeComments({ slug }: { slug: string }) {
         </div>
         <button 
           type="submit" 
-          disabled={isSubmitting || message.trim().length === 0 ? true : undefined}
-          suppressHydrationWarning
+          disabled={isSubmitting || message.trim().length === 0}
           style={{ padding: '0.75rem 1.5rem', backgroundColor: 'var(--black)', color: 'var(--white)', border: 'none', cursor: 'pointer', alignSelf: 'flex-start', fontFamily: 'var(--font-sans)', fontWeight: 600, letterSpacing: '0.05em', transition: 'opacity 0.2s', opacity: (isSubmitting || message.trim().length === 0) ? 0.5 : 1 }}
         >
           {isSubmitting ? 'Submitting...' : (replyingTo ? 'Post Reply' : 'Post Comment')}

@@ -43,3 +43,5 @@ next-env.d.ts
 # Payload Database
 payload.db
 payload.db-journal
+
+.vercel

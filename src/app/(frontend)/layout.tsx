@@ -16,7 +16,7 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://miftahudinakbar.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://heymiftah.my.id'),
   title: "Miftahudin Akbar | Portfolio",
   description: "Bridging the gap between complex financial systems and data-driven intelligence.",
 };
@@ -29,6 +29,7 @@ export default function FrontendLayout({
   return (
     <html lang="en" className={`${manrope.variable} ${newsreader.variable}`} suppressHydrationWarning>
       <head>
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
       </head>
       <body>

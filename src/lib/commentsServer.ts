@@ -3,6 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { getPayload } from 'payload';
 import configPromise from '@/payload.config';
+import DOMPurify from 'isomorphic-dompurify';
+import type { CommentNode } from '@/lib/queries';
 
 async function getInsightId(slug: string) {
   const payload = await getPayload({ config: configPromise });
@@ -29,18 +31,19 @@ export async function getCommentsAction(slug: string) {
       sort: 'createdAt',
     });
 
-    const commentsMap = new Map<number | string, any>();
-    const rootComments: any[] = [];
+    const commentsMap = new Map<number | string, CommentNode>();
+    const rootComments: CommentNode[] = [];
 
     // Phase 1: Parse Data Properties
-    comments.forEach((c: any) => {
-      const node = {
+    comments.forEach((c) => {
+      const replyTo = c.replyTo as { id: number | string } | number | string | null | undefined;
+      const node: CommentNode = {
         id: c.id,
-        author: c.author || 'Anonymous Reader',
-        text: c.text,
+        author: (c.author as string) || 'Anonymous Reader',
+        text: DOMPurify.sanitize((c.text as string) || ''),
         date: new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-        likes: c.likes || 0,
-        replyToId: c.replyTo ? (typeof c.replyTo === 'object' ? c.replyTo.id : c.replyTo) : null,
+        likes: (c.likes as number) || 0,
+        replyToId: replyTo ? (typeof replyTo === 'object' ? replyTo.id : replyTo) : null,
         replies: []
       };
       commentsMap.set(c.id, node);
@@ -49,7 +52,7 @@ export async function getCommentsAction(slug: string) {
     // Phase 2: Tree Assembly
     commentsMap.forEach((node) => {
       if (node.replyToId && commentsMap.has(node.replyToId)) {
-        commentsMap.get(node.replyToId).replies.push(node);
+        commentsMap.get(node.replyToId)!.replies.push(node);
       } else {
         rootComments.push(node);
       }
@@ -91,15 +94,17 @@ export async function submitCommentAction(slug: string, name: string, message: s
     if (!payloadInfo) return { success: false, error: 'Insight not found' };
     const { id: insightId, payload } = payloadInfo;
 
+    const sanitizedText = DOMPurify.sanitize(message.trim());
+
     await payload.create({
       collection: 'comments',
       data: {
         insight: insightId,
         author: name.trim() || 'Anonymous Reader',
-        text: message.trim(),
+        text: sanitizedText,
         likes: 0,
         replyTo: replyToId || null,
-      } as any,
+      },
     });
 
     revalidatePath(`/insights/${slug}`);

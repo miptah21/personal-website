@@ -48,9 +48,25 @@ export const Experiences: CollectionConfig = {
       defaultValue: false,
     },
     {
-      name: 'description',
+      name: 'scope',
       type: 'textarea',
-      label: 'Brief Description (Optional)',
+      label: 'Scope / Context (e.g., Led a team of X, Architecture for Y)',
+    },
+    {
+      name: 'impactAndOutcomes',
+      type: 'richText',
+      label: 'Impact & Outcomes (Bullet points highly recommended)',
+    },
+    {
+      name: 'skills',
+      type: 'array',
+      label: 'Skills & Tech Stack',
+      fields: [
+        {
+          name: 'skill',
+          type: 'text',
+        }
+      ]
     },
     {
       name: 'order',

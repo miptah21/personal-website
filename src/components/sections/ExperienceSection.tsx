@@ -1,5 +1,6 @@
 import styles from '@/app/(frontend)/page.module.css';
 import type { ExperienceDoc } from '@/lib/queries';
+import Link from 'next/link';
 
 interface ExperienceSectionProps {
   experiences: ExperienceDoc[];
@@ -11,7 +12,14 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
       <div className={styles.container}>
         <div className={styles.expGrid}>
           <div className={styles.expHeaderCol}>
-            <h2 className={styles.expStickyHeadline}>Experience</h2>
+            <div className={styles.expStickyHeadline}>
+              <h2 style={{ fontSize: 'inherit', fontWeight: 'inherit', margin: 0 }}>Experience</h2>
+              <div style={{ marginTop: '2rem', display: 'block' }}>
+                <Link href="/experience" className={styles.linkUnderline} style={{ fontSize: '10px' }}>
+                  View Detailed CV
+                </Link>
+              </div>
+            </div>
           </div>
           <div className={styles.expListCol} role="list" aria-label="Professional experience">
             {experiences.length > 0 ? experiences.map((exp, index) => {

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Contact | Miftahudin Akbar',
     description: 'Get in touch for collaboration, freelance work, or general inquiries.',
-    url: 'https://miftahudinakbar.com/contact',
+    url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://heymiftah.my.id'}/contact`,
     siteName: 'Miftahudin Akbar',
     type: 'website',
   },

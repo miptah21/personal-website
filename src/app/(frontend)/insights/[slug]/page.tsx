@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: post.title,
       description: `Read insights on ${post.category || 'technology and finance'}.`,
       type: 'article',
-      url: `https://miftahudinakbar.com/insights/${slug}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://heymiftah.my.id'}/insights/${slug}`,
       images: [
         {
           url: coverUrl || '',

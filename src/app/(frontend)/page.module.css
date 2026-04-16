@@ -685,6 +685,76 @@
 }
 @media (min-width: 768px) { .expDates { margin-top: 0; } }
 
+.expItemHeader {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .expItemHeader { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+
+.expContent {
+  margin-top: 2rem;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .expContent { padding-left: 5rem; } /* Align with expCompany, past the number */
+}
+
+.expScope {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  color: var(--on-surface-variant);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.expOutcomes {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--on-surface-variant);
+  margin-bottom: 2rem;
+}
+
+.expOutcomes ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+.expOutcomes li {
+  margin-bottom: 0.5rem;
+}
+
+.expSkills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.skillPill {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  background-color: transparent;
+  color: var(--primary-container);
+  border: 1px solid rgba(2, 28, 16, 0.2);
+  transition: all 0.3s ease;
+}
+
+.skillPill:hover {
+  background-color: var(--primary-container);
+  color: white;
+  border-color: var(--primary-container);
+}
+
 /* Projects / Selected Works */
 .projectsSection {
   background-color: var(--primary-container);

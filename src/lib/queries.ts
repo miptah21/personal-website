@@ -42,7 +42,9 @@ export type ExperienceDoc = {
   startDate: string
   endDate: string
   isActive?: boolean | null
-  description?: string | null
+  scope?: string | null
+  impactAndOutcomes?: unknown
+  skills?: { skill: string; id?: string }[] | null
   order: number
 }
 

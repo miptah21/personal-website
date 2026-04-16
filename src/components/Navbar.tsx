@@ -45,6 +45,7 @@ export default function Navbar() {
 
           <div className={`${styles.navLinks} ${isMobileMenuOpen ? styles.navLinksOpen : ''}`}>
             <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className={pathname === '/' ? styles.navLinkActive : styles.navLink}>About</Link>
+            <Link href="/experience" onClick={() => setIsMobileMenuOpen(false)} className={pathname.startsWith('/experience') ? styles.navLinkActive : styles.navLink}>Experience</Link>
             <Link href="/insights" onClick={() => setIsMobileMenuOpen(false)} className={pathname.startsWith('/insights') ? styles.navLinkActive : styles.navLink}>Insights</Link>
             <Link href="/projects" onClick={() => setIsMobileMenuOpen(false)} className={pathname.startsWith('/projects') ? styles.navLinkActive : styles.navLink}>Projects</Link>
             <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className={pathname === '/contact' ? styles.navLinkActive : styles.navLink}>Contact</Link>

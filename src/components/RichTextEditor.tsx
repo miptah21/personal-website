@@ -54,10 +54,6 @@ export default function RichTextEditor({
     }
   }, [value])
 
-  const isActive = useCallback((command: string): boolean => {
-    return document.queryCommandState(command)
-  }, [])
-
   return (
     <div className={`${styles.richEditor} ${hasError ? styles.richEditorError : ''} ${disabled ? styles.richEditorDisabled : ''}`}>
       {/* Toolbar */}

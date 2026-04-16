@@ -3,6 +3,8 @@
 import { z } from 'zod'
 import { getPayloadClient } from '@/lib/queries'
 import nodemailer from 'nodemailer'
+import { headers } from 'next/headers'
+import DOMPurify from 'isomorphic-dompurify'
 
 // ---------- Schema ----------
 const contactSchema = z.object({
@@ -86,8 +88,11 @@ export async function submitContact(
     return { success: true } // Silent success to fool bots
   }
 
-  // 3. Rate limiting
-  const ip = formData.get('_client_ip') as string | null ?? 'unknown'
+  // 3. Rate limiting — read IP from request headers (not client-submitted data)
+  const headersList = await headers()
+  const ip = headersList.get('x-forwarded-for')?.split(',')[0]?.trim()
+    ?? headersList.get('x-real-ip')
+    ?? 'unknown'
   if (isRateLimited(ip)) {
     return { error: 'Too many submissions. Please try again later.' }
   }
@@ -112,7 +117,10 @@ export async function submitContact(
     return { error: 'Please fix the errors below.', fieldErrors }
   }
 
-  const { name, email, subject, message } = result.data
+  const { name, email, subject, message: rawMessage } = result.data
+
+  // Sanitize HTML to prevent XSS and email injection
+  const message = DOMPurify.sanitize(rawMessage)
 
   // Extract plain text for validation
   const plainMessage = stripHtmlTags(message)
@@ -176,7 +184,7 @@ export async function submitContact(
             </table>
             <div style="background: #f5f3ee; padding: 16px; margin-top: 16px;">
               <p style="color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 8px 0;"><strong>Message</strong></p>
-              <div style="color: #1b1c19; line-height: 1.6; margin: 0;">${message}</div>
+              <div style="color: #1b1c19; line-height: 1.6; margin: 0;">${plainMessage}</div>
             </div>
             <p style="color: #999; font-size: 11px; margin-top: 24px; text-align: center;">
               Sent from your portfolio contact form

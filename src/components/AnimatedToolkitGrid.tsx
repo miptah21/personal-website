@@ -11,7 +11,7 @@ interface Tool {
   columnSpan: string;
 }
 
-const ToolCard = ({ tool }: { tool: any }) => {
+const ToolCard = ({ tool }: { tool: Tool }) => {
   let cardClass = styles.toolCard;
   let iconClass = styles.toolIcon;
   let titleClass = styles.toolTitle;
@@ -39,9 +39,9 @@ const ToolCard = ({ tool }: { tool: any }) => {
   );
 };
 
-const FlippingSlot = ({ tool, onMouseEnter, onMouseLeave }: { tool: any, onMouseEnter: () => void, onMouseLeave: () => void }) => {
-  const [frontTool, setFrontTool] = useState(tool);
-  const [backTool, setBackTool] = useState(tool);
+const FlippingSlot = ({ tool, onMouseEnter, onMouseLeave }: { tool: Tool, onMouseEnter: () => void, onMouseLeave: () => void }) => {
+  const [frontTool, setFrontTool] = useState<Tool>(tool);
+  const [backTool, setBackTool] = useState<Tool>(tool);
   const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const FlippingSlot = ({ tool, onMouseEnter, onMouseLeave }: { tool: any, onMouse
   );
 };
 
-export default function AnimatedToolkitGrid({ tools }: { tools: any[] }) {
+export default function AnimatedToolkitGrid({ tools }: { tools: Tool[] }) {
   const [slot1Index, setSlot1Index] = useState(0);
   const [slot2Index, setSlot2Index] = useState(1);
   const hoverRefs = useRef([false, false]);

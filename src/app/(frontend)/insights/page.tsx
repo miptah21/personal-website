@@ -18,7 +18,7 @@ export default async function InsightsList() {
   const posts = await getInsights(50);
 
   return (
-    <main style={{ padding: '8rem 0', minHeight: '100vh', backgroundColor: 'var(--surface)' }}>
+    <main style={{ padding: '8rem 0', minHeight: '100vh', backgroundColor: 'var(--surface-container-low)' }}>
       <div className="container">
         <Link href="/" className={styles.backLink}>
           <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_back</span>
