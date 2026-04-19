@@ -40,6 +40,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         },
       ],
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: `Read insights on ${post.category || 'technology and finance'}.`,
+    },
   };
 }
 
@@ -63,6 +68,24 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
             {post.title}
           </h1>
         </header>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: post.title,
+              image: post.coverImage && typeof post.coverImage === 'object' && 'url' in post.coverImage ? process.env.NEXT_PUBLIC_SITE_URL + post.coverImage.url : process.env.NEXT_PUBLIC_SITE_URL + '/portrait.webp',
+              datePublished: post.publishedAt || post.createdAt,
+              dateModified: post.updatedAt,
+              author: {
+                "@type": "Person",
+                name: "Miftahudin Akbar"
+              }
+            })
+          }}
+        />
 
         <div className="prose">
           {post.content ? (

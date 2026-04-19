@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://heymiftah.my.id'),
   title: "Miftahudin Akbar | Portfolio",
   description: "Bridging the gap between complex financial systems and data-driven intelligence.",
+  twitter: {
+    card: 'summary_large_image',
+    title: "Miftahudin Akbar | Portfolio",
+    description: "Bridging the gap between complex financial systems and data-driven intelligence.",
+  },
 };
 
 export default function FrontendLayout({
