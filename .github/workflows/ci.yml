@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: Lint & Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+      
+      - name: Lint Code
+        run: bun run lint
+      
+      - name: Build Application
+        run: bun run build
+        env:
+          # Payload CMS and Next.js require build-time variables if any are used in SSG
+          # NEXT_PUBLIC_SITE_URL: "https://heymiftah.my.id"
+          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET || 'dummy-secret-for-build' }}
+          DATABASE_URI: ${{ secrets.DATABASE_URI || 'postgres://dummy:dummy@localhost:5432/dummy' }}
