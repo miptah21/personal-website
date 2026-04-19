@@ -8,3 +8,10 @@ tsconfig.tsbuildinfo
 media/
 public/media/
 .DS_Store
+.agents/
+docs/
+AGENTS.md
+CHANGELOG.md
+CV.md
+"Draft CV.pdf"
+Example.html

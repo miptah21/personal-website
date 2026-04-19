@@ -1,178 +1,112 @@
-# Project Init
+# Miftahudin Akbar | Computational Finance Professional
 
-[![AGENTS.md](https://img.shields.io/badge/AGENTS.md-standard-blue)](https://agents.md)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
+[![Payload CMS](https://img.shields.io/badge/Payload_CMS-v3-black)](https://payloadcms.com/)
+[![Bun](https://img.shields.io/badge/Bun-Runtime-black?logo=bun)](https://bun.sh/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript)](https://www.typescriptlang.org/)
 
-> Development template for AI-assisted TypeScript/JavaScript projects.
-> Optimized for **Antigravity** (Google DeepMind), compatible with other AI coding assistants.
+> A highly optimized, CMS-driven digital portfolio bridging the gap between complex financial systems and data-driven intelligence.
+
+This repository contains the source code for my personal website. It serves as a professional showcase of my technical toolkit, academic research, professional experience, and computational finance projects. 
 
 ---
 
-## What is this?
+## 🏛️ Design Philosophy: "Editorial Luxury"
 
-Project Init is a curated collection of instructions, skills, workflows, and conventions that make AI coding agents significantly more effective. It follows the [AGENTS.md](https://agents.md) open standard (Linux Foundation). Copy this template to get:
+The aesthetic of this project is meticulously crafted to reflect the precision and authority of the financial sector. The design language is heavily inspired by prestigious academic journals and institutional financial terminals (e.g., Bloomberg, Monocle).
 
-- ✅ **Agent instructions** (`AGENTS.md`) — Slim, focused behavioral rules (~200 lines)
-- ✅ **33 skills** — PR review, security audit, web design, testing, Python, Node, data analysis, and more
-- ✅ **10 workflows** — Step-by-step procedures including self-reflection
-- ✅ **Convention docs** — TypeScript, testing, React/Next.js, comments, implementation protocol, communication style
-- ✅ **Token optimization** — [RTK](https://github.com/rtk-ai/rtk) integration rules for 60-90% token savings on shell outputs
+- **Typography-Driven Hierarchy**: The interface pairs `Newsreader` (a classic serif) for authoritative headings with `Inter` (a modern sans-serif) for dense, data-heavy precision text.
+- **Zero-Radius Geometry**: All components utilize sharp, 0px border-radiuses. The absence of playful rounded corners enforces a strict, professional tone.
+- **Color Palette**: Built on deep, institutional greens (Surface: `#0e1210`) with stark typography (`#c2c8c2`) and subtle metallic gold/bronze accents (`#775a19`).
+- **Dynamic Micro-Interactions**: Features such as the 3D-tilting ID badge, magnetic scroll progress indicators, and precise hover states provide a premium, modern user experience without compromising readability.
 
-### Stack Focus
+---
 
-This template is optimized for **TypeScript/JavaScript** projects using **Bun** as the runtime. For other stacks (Python, Go, Rust):
-- Remove JS-specific convention docs from `docs/`
-- Remove React-specific skills if not applicable
-- Add your own convention docs
+## ⚙️ Technical Architecture
 
-## Quick Start
+The platform is engineered for maximum performance, type safety, and content maintainability.
 
-### 1. Copy to your new project
+- **Framework**: [Next.js 16 (App Router)](https://nextjs.org/) — Utilizing Server Components by default for optimal page load speeds and SEO.
+- **Content Management**: [Payload CMS v3](https://payloadcms.com/) — Integrated directly into the Next.js runtime. Content is fetched server-side via the Payload Local API, eliminating network overhead.
+- **Runtime**: [Bun](https://bun.sh/) — Chosen for its incredibly fast startup times, built-in package management, and strict lockfile adherence (`bun.lock`).
+- **Styling**: Vanilla CSS Modules (`*.module.css`) — Chosen over utility classes (like Tailwind) to maintain strict, granular control over the complex grid layouts and custom CSS animations required by the Editorial Luxury design system.
 
+---
+
+## 📊 CMS Collections & Data Flow
+
+Every section of the website is entirely dynamic and manageable via the Payload Admin Dashboard (`/admin`).
+
+| Collection | Purpose | Features |
+|------------|---------|----------|
+| **Projects** | *The Laboratory* | Showcases GitHub repositories (e.g., `stockScreener`, `zen-writer`). Supports featured toggles and rich descriptions. |
+| **Education** | *Academic Credentials* | Displays high-level university details, GPA, thesis summaries, and grouped relevant coursework. |
+| **Tools** | *Technical Toolkit* | Renders the interactive 3D-flip grid. Categorized into AI Engineering, Data Engineering, Financial Modeling, etc. |
+| **Awards** | *Certifications* | Professional licenses and hackathon wins, displayed in a unified grid with a custom high-res Lightbox implementation. |
+| **Experiences**| *CV Timeline* | Chronological work history and internships. |
+| **Insights** | *Publications* | A blog/archive for deep-dive research and financial analyses. |
+
+---
+
+## 🚀 Local Development Setup
+
+To run this project locally, ensure you have [Bun](https://bun.sh/) installed.
+
+### 1. Clone & Install
 ```bash
-git clone <this-repo-url> my-new-project
-cd my-new-project
-rm -rf .git && git init
-```
-
-### 2. Customize AGENTS.md
-
-Edit `AGENTS.md` to add project-specific context:
-- Build & test commands
-- Architecture overview
-- Project-specific conventions
-
-### 3. Install dependencies
-
-```bash
+git clone https://github.com/miptah21/personal-website.git
+cd personal-website
 bun install
 ```
 
-### 4. Remove what you don't need
-
-- Not using React? Remove `docs/react-best-practices.md` and `.agents/skills/react-useeffect/`
-- Not using TypeScript? Remove `docs/typescript-conventions.md`
-- See `/new-project` workflow for the full setup checklist
-
-### 5. Start coding with AI
-
-The agent reads `AGENTS.md` automatically and follows established patterns.
-
-## Structure
-
-```
-.
-├── AGENTS.md                          # 🧠 Agent behavioral rules (~170 lines)
-├── README.md                          # This file
-├── CHANGELOG.md                       # Version history
-├── LICENSE                            # MIT license
-├── package.json                       # Template package config
-├── tsconfig.json                      # TypeScript configuration
-├── .editorconfig                      # Editor formatting consistency
-├── .gitattributes                     # Line ending normalization
-├── .gitignore                         # Git ignore rules
-│
-├── .agents/
-│   ├── skills/                        # 🛠️ Structured prompt templates
-│   │   ├── pr-review-expert/          # PR review with blast radius analysis
-│   │   ├── security-auditor/          # Security vulnerability scanning
-│   │   ├── dependency-auditor/        # Dependency health & license check
-│   │   ├── performance-profiler/      # Performance bottleneck detection
-│   │   ├── ci-cd-pipeline-builder/    # CI/CD pipeline generation
-│   │   ├── tech-debt-tracker/         # Tech debt scoring & tracking
-│   │   ├── web-design-guidelines/     # UI/UX review (vendored guidelines)
-│   │   ├── react-useeffect/           # React hooks best practices
-│   │   └── git-workflow/              # Commit, branch, PR conventions
-│   │
-│   └── workflows/                     # 📋 Step-by-step procedures
-│       ├── code-review.md             # Code review workflow
-│       ├── dependency-audit.md        # Dependency audit workflow
-│       ├── deploy-check.md            # Pre-deployment checklist
-│       ├── interview.md               # Interactive user interviewing
-│       ├── new-project.md             # New project setup
-│       ├── oss-research.md            # Open-source library research
-│       ├── planning.md                # Multi-step task planning
-│       ├── prd.md                     # Product requirements drafting
-│       ├── reflect.md                 # Self-reflection & improvement
-│       └── tech-docs.md               # Technical documentation writing
-│
-└── docs/                              # 📖 On-demand convention docs
-    ├── typescript-conventions.md       # TypeScript standards
-    ├── testing-conventions.md          # Testing patterns
-    ├── react-best-practices.md        # React/Next.js optimization
-    ├── comment-policy.md              # Comment standards
-    ├── implementation-protocol.md     # Delegation, verification, recovery
-    └── communication-style.md         # Agent communication rules
+### 2. Environment Variables
+Create a `.env` file in the root directory. You can copy `.env.example` if it exists, or manually set:
+```env
+PAYLOAD_SECRET=your_secret_key_here
+NEXT_PUBLIC_SERVER_URL=http://localhost:3000
 ```
 
-## Skills
+### 3. Database Initialization & Seeding
+The project uses a local database (e.g., SQLite/Postgres via Payload). You can instantly populate the site with real data using the built-in seed scripts:
+```bash
+# Seed the Technical Toolkit
+bun run src/lib/seed-tools.ts
 
-| Skill | What it does |
-|-------|-------------|
-| **pr-review-expert** | 30+ item checklist, blast radius analysis, security scan |
-| **security-auditor** | Code execution risks, prompt injection, supply chain |
-| **dependency-auditor** | CVE scanning, license compliance, upgrade planning |
-| **performance-profiler** | CPU/memory profiling, bundle analysis, N+1 detection |
-| **ci-cd-pipeline-builder** | Stack detection → GitHub Actions/GitLab CI generation |
-| **tech-debt-tracker** | Debt scanning, scoring, prioritization, trend tracking |
-| **web-design-guidelines** | Vendored Vercel guidelines + 10-point review checklist |
-| **react-useeffect** | React hooks anti-patterns and state sync fixes |
-| **git-workflow** | Conventional commits, branch naming, PR templates |
-| **seo-optimizer** | Strategy, technical SEO, keywords |
-| **ag-md-improver** | Audit, check, and improve AGENTS.md |
-| **agentic-eval** | Self-critique, evaluator-optimizer pipelines |
-| **algorithmic-art** | Seeded randomness, interactive parameters |
-| **canvas-design** | Visual art in .png and .pdf |
-| **chrome-devtools** | Chrome DevTools MCP, profiling, network |
-| **clean-code** | Concise, direct, no over-engineering |
-| **database-design** | Indexing, ORM, serverless databases |
-| **docx** | Create, read, edit Word docs |
-| **frontend-design** | Distinctive, production-grade interfaces |
-| **image-manipulation-image-magick** | Resize, convert, batch process |
-| **knowledge-synthesis** | Combine sources, deduplicate, attribute |
-| **nextjs-best-practices** | Server Components, routing, data fetching |
-| **payload** | Schema, hooks, access control |
-| **pdf** | Read, merge, split, watermark, OCR |
-| **playwright** | E2E automation via terminal |
-| **python-expert** | Best practices, PEP 8, debugging |
-| **react-patterns** | Hooks, composition, performance |
-| **refactor** | Improve maintainability, eliminate smells |
-| **skill-writer** | Author/design new SKILL.md files |
-| **uv-package-manager** | Fast dependency management with uv |
-| **webapp-testing** | Playwright-based local UI debugging |
-| **worktree-manager** | Create/manage git worktrees |
-| **xlsx** | Open, read, edit, clean tabular data |
+# Seed the Education Section
+bun run src/lib/seed-education.ts
 
-## Workflows
+# Seed the Projects (from GitHub pinned repos)
+bun run src/lib/seed-projects.ts
 
-| Workflow | Trigger |
-|----------|---------|
-| Code Review | `/code-review` or reviewing changes |
-| Dependency Audit | `/dependency-audit` or checking packages |
-| Deploy Check | `/deploy-check` or pushing to prod |
-| Interview | `/interview` or vague requirements |
-| New Project | `/new-project` or starting fresh |
-| OSS Research | `/oss-research` or evaluating libraries |
-| Planning | `/planning` or complex multi-step tasks |
-| PRD | `/prd` or writing feature specs |
-| Reflect | `/reflect` or end of major tasks |
-| Tech Docs | `/tech-docs` or writing documentation |
+# Seed the Awards/Certifications
+bun run src/lib/seed-awards.ts
+```
 
-## Design Principles
+### 4. Run the Development Server
+```bash
+bun run dev
+```
+- **Live Site**: [http://localhost:3000](http://localhost:3000)
+- **CMS Admin Panel**: [http://localhost:3000/admin](http://localhost:3000/admin)
 
-1. **Progressive Disclosure** — Root AGENTS.md is <200 lines. Details in on-demand `docs/` files
-2. **Single Source of Truth** — Each convention lives in one file, referenced from AGENTS.md
-3. **Situational Triggers** — Skills and workflows fire based on activity patterns, not just commands
-4. **Self-Improving** — The `/reflect` workflow updates conventions based on real experience
-5. **Cross-Tool Compatible** — Follows [AGENTS.md](https://agents.md) standard (Linux Foundation/AAIF)
+---
 
-## Credits
+## 📁 Key Project Structure
 
-- [AGENTS.md Standard](https://agents.md) — Open format by AAIF/Linux Foundation
-- [jarrodwatts/claude-code-config](https://github.com/jarrodwatts/claude-code-config) — Rules, skills, agents
-- [Manus Context Engineering](https://manus.im/blog/Context-Engineering-for-AI-Agents) — Planning principles
-- [vercel-labs/web-interface-guidelines](https://github.com/vercel-labs/web-interface-guidelines) — UI guidelines
+```text
+src/
+├── app/                  # Next.js App Router (Frontend & Admin routes)
+│   ├── (frontend)/       # Public facing pages & CSS modules
+│   └── (payload)/        # Payload CMS admin interface routes
+├── collections/          # Payload CMS Data Schemas (Projects, Tools, etc.)
+├── components/           # Reusable UI Components (Navbar, NameTagHero, etc.)
+├── lib/                  # Utilities, queries, and Seed Scripts
+└── payload.config.ts     # Master Payload configuration
+```
 
-## License
+---
 
-MIT — see [LICENSE](LICENSE)
+## 📝 License
+
+&copy; 2026 Miftahudin Akbar. All Rights Reserved.
+Designed for the Financial Professional.
