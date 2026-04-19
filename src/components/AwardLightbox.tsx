@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import styles from '@/app/(frontend)/page.module.css';
 
 interface AwardLightboxItem {
@@ -8,6 +9,9 @@ interface AwardLightboxItem {
   title: string;
   issuer: string;
   year: string;
+  category: string;
+  description: string | null;
+  credentialUrl: string | null;
   certificateUrl: string | null;
   certificateAlt: string;
 }
@@ -103,46 +107,77 @@ export function AwardLightbox({ awards }: AwardLightboxProps) {
               <span className="material-symbols-outlined">close</span>
             </button>
 
-            {/* Navigation */}
-            {awardsWithCerts.length > 1 && (
-              <>
-                <button
-                  className={`${styles.lightboxNav} ${styles.lightboxNavPrev}`}
-                  onClick={goPrev}
-                  aria-label="Previous certificate"
-                >
-                  <span className="material-symbols-outlined">chevron_left</span>
-                </button>
-                <button
-                  className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
-                  onClick={goNext}
-                  aria-label="Next certificate"
-                >
-                  <span className="material-symbols-outlined">chevron_right</span>
-                </button>
-              </>
-            )}
-
-            {/* Image */}
+            {/* Left Pane: Image */}
             <div className={styles.lightboxImageWrap}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              {/* Navigation Arrows */}
+              {awardsWithCerts.length > 1 && (
+                <>
+                  <button
+                    className={`${styles.lightboxNav} ${styles.lightboxNavPrev}`}
+                    onClick={goPrev}
+                    aria-label="Previous certificate"
+                  >
+                    <span className="material-symbols-outlined">chevron_left</span>
+                  </button>
+                  <button
+                    className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
+                    onClick={goNext}
+                    aria-label="Next certificate"
+                  >
+                    <span className="material-symbols-outlined">chevron_right</span>
+                  </button>
+                </>
+              )}
+
+              <Image
                 src={active.certificateUrl!}
                 alt={active.certificateAlt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 66vw"
                 className={styles.lightboxImage}
+                priority
               />
             </div>
 
-            {/* Caption */}
-            <div className={styles.lightboxCaption}>
-              <h4 className={styles.lightboxTitle}>{active.title}</h4>
-              <p className={styles.lightboxMeta}>
-                {active.issuer} &middot; {active.year}
-              </p>
+            {/* Right Pane: Details Sidebar */}
+            <div className={styles.lightboxSidebar}>
+              <div className={styles.lightboxCategory}>
+                {active.category === 'award' ? 'Award' : active.category === 'honor' ? 'Honor' : 'Certification'}
+              </div>
+              <h3 className={styles.lightboxTitle}>{active.title}</h3>
+              
+              <div className={styles.lightboxDetailsList}>
+                <div className={styles.lightboxDetailItem}>
+                  <span className={styles.lightboxDetailLabel}>Issuing Organization</span>
+                  <span className={styles.lightboxDetailValue}>{active.issuer}</span>
+                </div>
+                <div className={styles.lightboxDetailItem}>
+                  <span className={styles.lightboxDetailLabel}>Year Awarded</span>
+                  <span className={styles.lightboxDetailValue}>{active.year}</span>
+                </div>
+              </div>
+
+              {active.description && (
+                <p className={styles.lightboxDescription}>{active.description}</p>
+              )}
+
+              {active.credentialUrl && (
+                <a 
+                  href={active.credentialUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={styles.lightboxVerifyBtn}
+                  aria-label={`Verify credential for ${active.title}`}
+                >
+                  <span className="material-symbols-outlined">verified</span>
+                  Verify Credential
+                </a>
+              )}
+
               {awardsWithCerts.length > 1 && (
-                <span className={styles.lightboxCounter}>
-                  {activeIndex! + 1} / {awardsWithCerts.length}
-                </span>
+                <div className={styles.lightboxCounter}>
+                  {activeIndex! + 1} of {awardsWithCerts.length}
+                </div>
               )}
             </div>
           </div>

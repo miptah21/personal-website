@@ -62,6 +62,14 @@ export const Awards: CollectionConfig = {
       },
     },
     {
+      name: 'credentialUrl',
+      type: 'text',
+      label: 'Credential URL (optional)',
+      admin: {
+        description: 'Link to the external verification page or project.',
+      },
+    },
+    {
       name: 'certificate',
       type: 'upload',
       relationTo: 'media',

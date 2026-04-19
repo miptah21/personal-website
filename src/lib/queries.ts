@@ -153,6 +153,7 @@ export type AwardDoc = {
   year: string
   category: 'award' | 'certification' | 'honor'
   description?: string | null
+  credentialUrl?: string | null
   certificate?: {
     url?: string | null
     alt?: string | null

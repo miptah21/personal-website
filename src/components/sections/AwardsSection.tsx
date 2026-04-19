@@ -110,6 +110,9 @@ export default function AwardsSection({ awards }: AwardsSectionProps) {
           title: a.title,
           issuer: a.issuer,
           year: a.year,
+          category: a.category,
+          description: a.description || null,
+          credentialUrl: a.credentialUrl || null,
           certificateUrl: a.certificateUrl,
           certificateAlt: a.certificateAlt,
         }))}
