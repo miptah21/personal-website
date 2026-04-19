@@ -11,6 +11,22 @@ jobs:
     name: Lint & Build
     runs-on: ubuntu-latest
     
+    # Add a Postgres service container for Payload CMS to connect to during Next.js build
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: dummy
+          POSTGRES_PASSWORD: dummy
+          POSTGRES_DB: dummy
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -30,6 +46,6 @@ jobs:
         run: bun run build
         env:
           # Payload CMS and Next.js require build-time variables if any are used in SSG
-          # NEXT_PUBLIC_SITE_URL: "https://heymiftah.my.id"
           PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET || 'dummy-secret-for-build' }}
+          # Connect to the PostgreSQL service container created above
           DATABASE_URI: ${{ secrets.DATABASE_URI || 'postgres://dummy:dummy@localhost:5432/dummy' }}
