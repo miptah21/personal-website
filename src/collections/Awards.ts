@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { revalidatePaths } from '../lib/revalidate.ts'
+import { revalidatePaths } from '../lib/revalidate'
 
 export const Awards: CollectionConfig = {
   slug: 'awards',

@@ -1,7 +1,7 @@
 # Agent Instructions
 
 > This is the master instruction file for AI coding agents working on this project.
-> Optimized for **Antigravity** (Google DeepMind), compatible with other AI coding assistants.
+> Optimized for **Antigravity** (Google DeepMind), compatible with other AI coding assistants. Follows AGENTS.md standard (Linux Foundation/AAIF).
 
 ---
 
@@ -45,6 +45,30 @@ Before doing anything, classify the request:
 | Building/reviewing UI | `web-design-guidelines` | Read guidelines → review |
 | Writing/reviewing React hooks | `react-useeffect` | Anti-patterns + alternatives |
 | Git commits, branches, PRs | `git-workflow` | Conventional commits, PR templates |
+| SEO optimization | `seo-optimizer` | Strategy, technical SEO, keywords |
+| Editing/updating AGENTS.md | `ag-md-improver` | Audit, check, and improve AGENTS.md |
+| AI agent evaluation | `agentic-eval` | Self-critique, evaluator-optimizer pipelines |
+| Generative art/p5.js | `algorithmic-art` | Seeded randomness, interactive parameters |
+| Poster/graphic design | `canvas-design` | Visual art in .png and .pdf |
+| Browser automation | `chrome-devtools` | Chrome DevTools MCP, profiling, network |
+| Pragmatic clean code | `clean-code` | Concise, direct, no over-engineering |
+| Database schema design | `database-design` | Indexing, ORM, serverless databases |
+| Word documents (.docx) | `docx` | Create, read, edit Word docs |
+| Frontend components | `frontend-design` | Distinctive, production-grade interfaces |
+| Image processing | `image-manipulation-image-magick` | Resize, convert, batch process |
+| Research summarization | `knowledge-synthesis` | Combine sources, deduplicate, attribute |
+| Next.js App Router | `nextjs-best-practices` | Server Components, routing, data fetching |
+| Payload CMS | `payload` | Schema, hooks, access control |
+| PDF manipulation | `pdf` | Read, merge, split, watermark, OCR |
+| Playwright testing | `playwright` | E2E automation via terminal |
+| Python development | `python-expert` | Best practices, PEP 8, debugging |
+| React architecture | `react-patterns` | Hooks, composition, performance |
+| Surgical code changes | `refactor` | Improve maintainability, eliminate smells |
+| Creating Agent Skills | `skill-writer` | Author/design new SKILL.md files |
+| Python environments | `uv-package-manager` | Fast dependency management with uv |
+| Web app testing | `webapp-testing` | Playwright-based local UI debugging |
+| Parallel development | `worktree-manager` | Create/manage git worktrees |
+| Spreadsheets (.xlsx) | `xlsx` | Open, read, edit, clean tabular data |
 
 ### Workflow Triggers (read workflow file when situation matches)
 
@@ -95,42 +119,7 @@ Should I proceed with your original request, or try the alternative?
 
 ---
 
-## Token Optimization (RTK)
 
-[RTK](https://github.com/rtk-ai/rtk) reduces LLM token consumption by 60-90% on shell command outputs. Single Rust binary, <10ms overhead.
-
-### Detection
-
-At session start, check: `rtk --version`
-- **If available**: prefix eligible commands with `rtk` equivalents below
-- **If unavailable**: use standard commands — zero degradation
-
-### Command Mapping
-
-| Standard Command | RTK Equivalent | Savings |
-|-----------------|----------------|---------|
-| `git status` | `rtk git status` | ~90% |
-| `git diff` | `rtk git diff` | ~85% |
-| `git log -n N` | `rtk git log -n N` | ~80% |
-| `git add/commit/push/pull` | `rtk git add/commit/push/pull` | ~95% |
-| `ls`, `tree` | `rtk ls`, `rtk tree` | ~80% |
-| `cat/head/tail <file>` | `rtk read <file>` | ~70% |
-| `grep/rg <pattern> <path>` | `rtk grep <pattern> <path>` | ~80% |
-| `find "*.ext" .` | `rtk find "*.ext" .` | ~75% |
-| `bun test` / test runners | `rtk test bun test` | ~90% |
-| `bun run build` / build errors | `rtk err bun run build` | ~80% |
-| `bun run lint` / ESLint/Biome | `rtk lint` | ~84% |
-| `bun run typecheck` / tsc | `rtk tsc` | ~83% |
-| `docker ps/images/logs` | `rtk docker ps/images/logs` | ~85% |
-| `curl <url>` | `rtk curl <url>` | ~80% |
-
-### Rules
-- Never use RTK for file writes — only for reads, queries, and status commands
-- If a command fails via RTK, retry without `rtk` prefix as fallback
-- Use `rtk gain` periodically to report token savings to the user
-- Use `rtk discover` to find missed optimization opportunities
-
----
 
 ## Code Standards
 
@@ -141,6 +130,7 @@ At session start, check: `rtk --version`
 > - `docs/react-best-practices.md` — React/Next.js performance (if applicable)
 > - `docs/implementation-protocol.md` — Delegation, verification, failure recovery
 > - `docs/communication-style.md` — How to communicate with the user
+> - `docs/rtk-optimization.md` — RTK Token Optimization rules and command mapping
 
 **Key rules (always enforced):**
 - NO `any`, `@ts-ignore`, `@ts-expect-error` without justification
@@ -187,16 +177,21 @@ bun run build                  # Build
 
 ## Architecture Overview
 
-_Add a brief overview of your project architecture here_
+- **Framework**: Next.js 16 (App Router exclusively).
+- **CMS**: Payload CMS v3 integrated directly into Next.js.
+- **Database**: Postgres (via `@payloadcms/db-postgres`).
+- **Runtime**: Bun.
 
 ## Project-Specific Conventions
 
-_Add any project-specific conventions here_
+- **Payload CMS**: Use Local API for server-side data fetching instead of REST/GraphQL where possible.
+- **Next.js**: Use Server Components by default. Add `'use client'` only when React hooks or browser APIs are strictly required.
 
 ## Pattern Discovery
 
 When you discover reusable patterns during development, **update this file**:
 
+- Use the `/reflect` workflow to update conventions based on real experience
 - Add discovered patterns to **Architecture Overview**
 - Add gotchas to **Project-Specific Conventions**
 - Add build/test commands to **Build & Test** when you learn them

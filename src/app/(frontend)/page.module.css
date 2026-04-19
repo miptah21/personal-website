@@ -65,29 +65,48 @@
 }
 .navLogo {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
-  font-style: italic;
-  color: var(--primary-container);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(to right, #c2c8c2 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  padding-right: 0.1em; /* Prevent italic/serif clipping */
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+.navLogo:hover {
+  opacity: 0.8;
 }
 .navLinks {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background-color: var(--surface);
-  padding: 2rem;
-  gap: 2rem;
-  align-items: flex-start;
-  transform: translateY(-10px);
+  top: calc(100% + 0.5rem);
+  right: 2rem;
+  left: auto;
+  width: auto;
+  min-width: 220px;
+  background-color: rgba(251, 249, 244, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: 1.5rem;
+  gap: 1.5rem;
+  align-items: flex-end; /* Right align the links */
+  border-radius: 16px;
+  border: 1px solid rgba(194, 200, 194, 0.3);
+  
+  transform: translateY(-10px) scale(0.95);
+  transform-origin: top right;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04);
 }
 .navLinksOpen {
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   opacity: 1;
   pointer-events: auto;
 }
@@ -96,7 +115,12 @@
     position: static;
     flex-direction: row;
     width: auto;
+    min-width: auto;
     background-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    border-radius: 0;
     padding: 0;
     gap: 3rem;
     align-items: center;
@@ -153,9 +177,18 @@
 .heroSection {
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  padding-top: 6rem;
+  flex-direction: column;
+  padding-top: 6rem; /* Restored closer distance */
   padding-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .heroSection {
+    padding-top: 8rem; /* Balanced desktop padding */
+  }
+}
+.heroSection > .container {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 .heroGrid {
   display: grid;
@@ -765,6 +798,260 @@
   color: white;
   border-color: var(--primary-container);
 }
+
+/* ═══════════════════════════════════════════
+   Education
+   ═══════════════════════════════════════════ */
+.educationSection {
+  background-color: var(--surface-container-low);
+  padding: 8rem 0;
+  position: relative;
+}
+@media (min-width: 768px) { .educationSection { padding: 12rem 0; } }
+
+/* Subtle top border accent — gold thread */
+.educationSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(119, 90, 25, 0.25) 20%,
+    rgba(119, 90, 25, 0.25) 80%,
+    transparent
+  );
+}
+
+.eduGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+}
+@media (min-width: 768px) { .eduGrid { grid-template-columns: repeat(12, 1fr); } }
+
+.eduHeaderCol { }
+@media (min-width: 768px) { .eduHeaderCol { grid-column: span 4; } }
+
+.eduContentCol { }
+@media (min-width: 768px) { .eduContentCol { grid-column: span 8; } }
+
+.eduStickyHeadline {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  color: var(--primary-container);
+  position: sticky;
+  top: 8rem;
+}
+
+/* Credential Card */
+.eduCard {
+  background-color: var(--surface);
+  border: 1px solid rgba(194, 200, 194, 0.25);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s;
+}
+@media (max-width: 767px) {
+  .eduCard { padding: 2rem; gap: 2rem; }
+}
+.eduCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.06);
+  border-color: rgba(119, 90, 25, 0.2);
+}
+
+/* University header */
+.eduCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.eduIconWrap {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-container);
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.eduCard:hover .eduIconWrap {
+  transform: scale(1.08);
+}
+
+.eduIcon {
+  font-size: 1.5rem !important;
+  color: var(--on-primary);
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.eduUniversity {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--primary-container);
+  line-height: 1.15;
+  margin-bottom: 0.35rem;
+}
+
+.eduLocation {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--on-surface-variant);
+}
+
+/* Degree block */
+.eduDegreeBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.eduDegree {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  color: var(--on-surface-variant);
+  line-height: 1.4;
+}
+
+.eduConcentration {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  color: var(--secondary);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* Metrics row */
+.eduMetrics {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+@media (max-width: 480px) {
+  .eduMetrics { gap: 1.5rem; }
+}
+
+.eduMetricItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.eduMetricNumber {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  color: var(--primary-container);
+  line-height: 1;
+}
+
+.eduMetricLabel {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--on-surface-variant);
+}
+
+.eduMetricDivider {
+  width: 1px;
+  height: 3rem;
+  background-color: rgba(194, 200, 194, 0.4);
+  flex-shrink: 0;
+}
+
+/* Horizontal divider */
+.eduDivider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(194, 200, 194, 0.4),
+    rgba(194, 200, 194, 0.1)
+  );
+}
+
+/* Block label (shared between Thesis and Coursework) */
+.eduBlockLabel {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Thesis block */
+.eduThesisBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.eduThesisTitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--primary-container);
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+.eduThesisSummary {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  line-height: 1.75;
+  opacity: 0.8;
+}
+
+/* Coursework block */
+.eduCourseworkBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.eduCourseworkGroup {
+  margin-bottom: 1.5rem;
+}
+.eduCourseworkGroup:last-child {
+  margin-bottom: 0;
+}
+
+.eduCourseworkGroupLabel {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--on-surface-variant);
+  margin-bottom: 0.75rem;
+  opacity: 0.7;
+}
+
+.eduPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 /* Awards & Certifications */
 .awardsSection {
   background-color: var(--surface-container-low);
@@ -1524,9 +1811,15 @@
 }
 .footerLogo {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
-  color: var(--primary-container);
-  letter-spacing: -0.05em;
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(to right, #c2c8c2 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  padding-right: 0.1em;
 }
 .footerCopyright {
   font-family: var(--font-sans);

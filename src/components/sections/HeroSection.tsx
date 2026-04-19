@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import styles from '@/app/(frontend)/page.module.css';
+import NameTagHero from '@/components/NameTagHero';
 
 export default function HeroSection() {
   return (
@@ -30,17 +30,7 @@ export default function HeroSection() {
           
           <div className={styles.heroRight}>
             <div className={styles.heroRightInner}>
-              <div className={styles.heroImageWrapper}>
-                <Image 
-                  src="/portrait.webp" 
-                  alt="Portrait of Miftahudin Akbar" 
-                  fill 
-                  sizes="(max-width: 768px) 100vw, 420px"
-                  className={styles.heroImage}
-                  style={{ objectPosition: 'top center' }}
-                  priority
-                />
-              </div>
+              <NameTagHero />
               <div className={styles.heroDecoration} aria-hidden="true"></div>
             </div>
           </div>

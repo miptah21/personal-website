@@ -1,0 +1,196 @@
+/* ========================================
+   AnimatedPortrait — Liquid distortion
+   reveal with orbital decorations
+   ======================================== */
+
+.portraitContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  overflow: visible;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+@media (min-width: 1024px) {
+  .portraitContainer {
+    border-radius: 20px;
+  }
+}
+
+/* ---- Shared layer base ---- */
+.illustrationLayer,
+.photoLayer {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+/* ---- Back layer: Illustration ---- */
+.illustrationLayer {
+  z-index: 1;
+  background-color: var(--surface-container-low, #F5F3EE);
+}
+
+.illustration {
+  object-fit: cover;
+  object-position: top center;
+  will-change: transform;
+  animation: illustrationFloat 6s ease-in-out infinite;
+}
+
+@keyframes illustrationFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.01); }
+}
+
+/* ---- Front layer: Real photo (with SVG liquid filter) ---- */
+.photoLayer {
+  z-index: 2;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08);
+  will-change: filter, opacity;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.photo {
+  object-fit: cover;
+}
+
+/* When liquid distortion is active, partially fade
+   the photo so the illustration behind shows through */
+.revealed .photoLayer {
+  opacity: 0.15;
+}
+
+/* ---- Orbital ring decorations ---- */
+.orbitalRing {
+  position: absolute;
+  inset: -20px;
+  border: 1px solid rgba(23, 49, 36, 0.08);
+  border-radius: 50%;
+  z-index: 0;
+  will-change: transform;
+  animation: orbitSpin 25s linear infinite;
+}
+
+.orbitalRing::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--secondary, #775A19);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.orbitalRingSecond {
+  position: absolute;
+  inset: -36px;
+  border: 1px dashed rgba(23, 49, 36, 0.05);
+  border-radius: 50%;
+  z-index: 0;
+  will-change: transform;
+  animation: orbitSpinReverse 35s linear infinite;
+}
+
+.orbitalRingSecond::before {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  right: 30%;
+  width: 4px;
+  height: 4px;
+  background: var(--primary-container, #173124);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbitSpinReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* ---- Glow pulse ---- */
+.glowPulse {
+  position: absolute;
+  inset: -8px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(119, 90, 25, 0.06) 0%,
+    rgba(23, 49, 36, 0.03) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  z-index: 0;
+  will-change: transform, opacity;
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* ---- Reveal state enhancements ---- */
+.revealed .orbitalRing {
+  border-color: rgba(23, 49, 36, 0.2);
+  transition: border-color 0.6s;
+}
+
+.revealed .orbitalRingSecond {
+  border-color: rgba(23, 49, 36, 0.12);
+  transition: border-color 0.6s;
+}
+
+.revealed .glowPulse {
+  animation-duration: 2s;
+}
+
+.revealed .illustration {
+  animation: illustrationReveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+             illustrationFloat 6s ease-in-out 0.5s infinite;
+}
+
+@keyframes illustrationReveal {
+  from {
+    transform: scale(0.92);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---- Accessibility: Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .illustration,
+  .orbitalRing,
+  .orbitalRingSecond,
+  .glowPulse {
+    animation: none;
+  }
+
+  .revealed .photoLayer {
+    transition: opacity 0.2s ease;
+  }
+
+  .revealed .illustration {
+    animation: none;
+  }
+}

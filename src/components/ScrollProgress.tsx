@@ -55,7 +55,7 @@ export default function ScrollProgress() {
         left: 0,
         right: 0,
         height: '3px',
-        backgroundColor: 'var(--secondary)', // Matches Vanguard Editorial's gold flavor
+        backgroundColor: 'var(--secondary)', // Matches brand gold flavor
         transformOrigin: '0% 50%',
         transform: 'scaleX(0)',
         willChange: 'transform',

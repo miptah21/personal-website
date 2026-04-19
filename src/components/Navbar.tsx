@@ -32,7 +32,7 @@ export default function Navbar() {
   return (
     <nav className={styles.navBar} style={{ transform: isVisible ? 'translateY(0)' : 'translateY(-100%)', transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)' }} aria-label="Main navigation">
         <div className={styles.navContainer}>
-          <Link href="/" className={styles.navLogo} aria-label="Vanguard Editorial Home">Vanguard Editorial</Link>
+          <Link href="/" className={styles.navLogo} aria-label="Miftahudin Akbar Home">M.</Link>
           
           <button 
             className={styles.mobileMenuBtn} 

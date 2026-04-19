@@ -1,9 +1,15 @@
 import type { CollectionConfig } from 'payload'
+import { revalidatePaths } from '../lib/revalidate'
 
 export const Insights: CollectionConfig = {
   slug: 'insights',
   admin: {
     useAsTitle: 'title',
+  },
+  hooks: {
+    afterChange: [
+      revalidatePaths((doc) => ['/', '/insights', `/insights/${doc.slug}`])
+    ]
   },
   fields: [
     {
@@ -15,6 +21,7 @@ export const Insights: CollectionConfig = {
       name: 'slug',
       type: 'text',
       required: true,
+      index: true,
       admin: {
         position: 'sidebar',
       },

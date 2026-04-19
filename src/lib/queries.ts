@@ -171,3 +171,35 @@ export async function getAwards(limit = 20) {
   })
   return docs as unknown as AwardDoc[]
 }
+
+export type EducationDoc = {
+  id: string
+  university: string
+  location: string
+  degree: string
+  concentration?: string | null
+  gpa?: string | null
+  gpaScale?: string | null
+  graduationDate: string
+  isExpected?: boolean | null
+  thesisTitle?: string | null
+  thesisSummary?: string | null
+  courseworkGroups?: {
+    groupLabel: string
+    courses?: { course: string; id?: string }[] | null
+    id?: string
+  }[] | null
+  icon?: string | null
+  order: number
+}
+
+/** Fetch all education entries */
+export async function getEducation(limit = 10) {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'education',
+    sort: 'order',
+    limit,
+  })
+  return docs as unknown as EducationDoc[]
+}

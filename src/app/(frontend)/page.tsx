@@ -1,10 +1,11 @@
-import { getTools, getInsights, getExperiences, getFeaturedProjects, getAwards } from '@/lib/queries';
+import { getTools, getInsights, getExperiences, getFeaturedProjects, getAwards, getEducation } from '@/lib/queries';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import InsightsSection from '@/components/sections/InsightsSection';
 import ToolkitSection from '@/components/sections/ToolkitSection';
 import ExperienceSection from '@/components/sections/ExperienceSection';
 import AwardsSection from '@/components/sections/AwardsSection';
+import EducationSection from '@/components/sections/EducationSection';
 import ContactSection from '@/components/sections/ContactSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import type { Metadata } from 'next';
@@ -38,11 +39,13 @@ export default async function Home() {
   const experiences = await getExperiences(10);
   const featuredProjects = await getFeaturedProjects(3);
   const awards = await getAwards(10);
+  const education = await getEducation(10);
   
   return (
     <main>
       <HeroSection />
       <AboutSection />
+      <EducationSection education={education} />
       <InsightsSection insights={latestInsights} />
       <ToolkitSection tools={tools} />
       <ExperienceSection experiences={experiences} />

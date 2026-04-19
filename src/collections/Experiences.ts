@@ -1,13 +1,18 @@
 import type { CollectionConfig } from 'payload'
+import { revalidatePaths } from '../lib/revalidate'
 
 export const Experiences: CollectionConfig = {
   slug: 'experiences',
   admin: {
     useAsTitle: 'company',
-    defaultColumns: ['company', 'role', 'startDate', 'endDate'],
+    defaultColumns: ['company', 'role', 'startDate', 'endDate', 'isActive'],
+    description: 'Manage professional experiences displayed in the Experience section.',
   },
   access: {
     read: () => true, // Publicly readable
+  },
+  hooks: {
+    afterChange: [revalidatePaths(['/', '/experience'])],
   },
   fields: [
     {

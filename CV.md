@@ -22,6 +22,18 @@ Data Analysis, Marketing Management, Business Communication and Negotiation, Fin
 
 ## 💼 Experience
 
+### **Mandiri Taspen**, Sleman, D.I Yogyakarta
+
+**General Banking Intern**  
+Feb 2025 – Jun 2025
+
+- Supported daily branch operations including customer transactions, account services, and pension-related banking activities in compliance with banking procedures
+- Processed and verified 50+ customer financial records weekly, reducing risk of documentation errors and improving data reliability
+- Handled customer inquiries related to savings, pension disbursement, and loan products, improving service responsiveness
+- Gained hands-on exposure to retail banking processes, credit products for pensioners, and risk awareness in financial services
+
+---
+
 ### **Ruangguru** (Remote)
 
 **Back-End Engineering Student**  

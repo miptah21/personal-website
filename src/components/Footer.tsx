@@ -6,8 +6,8 @@ export default function Footer() {
     <footer className={styles.footer}>
         <div className={styles.footerContainer}>
           <div className={styles.footerBrand}>
-            <span className={styles.footerLogo}>Vanguard Editorial</span>
-            <p className={styles.footerCopyright}>© {new Date().getFullYear()} Vanguard Editorial. Designed for the Financial Professional.</p>
+            <span className={styles.footerLogo}>M.</span>
+            <p className={styles.footerCopyright}>© {new Date().getFullYear()} Miftahudin Akbar. Designed for the Financial Professional.</p>
           </div>
           <div className={styles.footerNav}>
             <Link href={process.env.NEXT_PUBLIC_LINKEDIN_URL || '#'} target="_blank" rel="noopener noreferrer">LinkedIn</Link>

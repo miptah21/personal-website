@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload';
+import { revalidatePaths } from '../lib/revalidate';
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
@@ -6,6 +7,11 @@ export const Projects: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'year', 'featured'],
     description: 'Manage the high-impact projects displayed in The Laboratory section.',
+  },
+  hooks: {
+    afterChange: [
+      revalidatePaths(['/', '/projects'])
+    ]
   },
   fields: [
     {

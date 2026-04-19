@@ -1,0 +1,351 @@
+/* ========================================
+   NameTagHero — Digital ID Card Style
+   ======================================== */
+
+/* ---------- Container / Stage ---------- */
+.nameTagScene {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 4 / 5;
+  perspective: 1200px;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .nameTagScene {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+}
+
+/* ---------- The Physical Card Wrapper ---------- */
+.idCardWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  cursor: pointer;
+  outline: none;
+}
+
+/* ---------- The Rotating Inner Container ---------- */
+.idCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  /* Smooth transition for mouse leave / flip. The rAF handles continuous movement. */
+  transition: transform 0.15s ease-out;
+}
+
+/* ---------- Front and Back Faces ---------- */
+.cardFront, .cardBack {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px !important;
+  background-color: var(--surface-container-low, #E8E5DD);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    0 30px 60px rgba(0, 0, 0, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  
+  /* Critical for 3D flip */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.cardBack {
+  transform: rotateY(180deg);
+}
+
+/* ---------- Full-Bleed Photo ---------- */
+.idPhoto {
+  object-fit: cover;
+  object-position: top center;
+  z-index: 0;
+  will-change: transform;
+  animation: photoZoom 12s ease-in-out infinite alternate;
+}
+
+@keyframes photoZoom {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.05) translateY(1%); }
+}
+
+/* ---------- Acrylic Glass Overlay ---------- */
+/* Gives the photo a printed-on-plastic look */
+.idCardOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 20px !important;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 20%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.4) 100% /* Gradient at bottom for text contrast */
+  );
+}
+
+/* ---------- Holographic Shimmer ---------- */
+.holographicShimmer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.3) 30%,
+    rgba(255, 255, 255, 0.6) 38%,
+    rgba(255, 255, 255, 0.1) 46%,
+    transparent 55%
+  );
+  background-size: 200% 100%;
+  transition: opacity 0.4s ease;
+}
+
+.idCardWrapper:hover .holographicShimmer {
+  opacity: 1;
+  animation: shimmerSlide 2.5s ease-in-out infinite;
+}
+
+@keyframes shimmerSlide {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ---------- Minimalist Bottom Bar ---------- */
+.idBottomBar {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px) saturate(1.5);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px !important; /* Pill shape */
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.statusPulse {
+  width: 6px;
+  height: 6px;
+  background: #4ade80;
+  border-radius: 50% !important;
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.8);
+  animation: statusPulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 12px rgba(74, 222, 128, 0.8); }
+  50% { opacity: 0.5; box-shadow: 0 0 16px rgba(74, 222, 128, 0.4); }
+}
+
+.barcodeContainer {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  height: 16px;
+}
+
+.barcodeLine {
+  width: 2px;
+  background: #FFFFFF;
+  opacity: 0.7;
+}
+
+.idNumber {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
+}
+
+/* ---------- Lanyard Hardware ---------- */
+.lanyardHole {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.lanyardHoleInner {
+  width: 32px;
+  height: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px !important;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.lanyardString {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 120px;
+  background: linear-gradient(
+    to bottom,
+    rgba(23, 49, 36, 0.9),
+    rgba(10, 25, 15, 1)
+  );
+  border-radius: 4px !important;
+  z-index: 4;
+  box-shadow: 
+    -2px 0 6px rgba(0,0,0,0.3),
+    2px 0 6px rgba(0,0,0,0.3);
+}
+
+.lanyardClip {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 14px;
+  background: linear-gradient(135deg, #E0E0E0, #909090);
+  border-radius: 2px !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* ---------- Decorative Orbital Rings ---------- */
+.orbitalRing {
+  position: absolute;
+  inset: -28px;
+  border: 1px solid rgba(23, 49, 36, 0.06);
+  border-radius: 50% !important;
+  z-index: 0;
+  will-change: transform;
+  animation: orbitSpin 30s linear infinite;
+  pointer-events: none;
+}
+
+.orbitalRing::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--secondary, #775A19);
+  border-radius: 50% !important;
+  opacity: 0.4;
+}
+
+.orbitalRingSecond {
+  position: absolute;
+  inset: -44px;
+  border: 1px dashed rgba(23, 49, 36, 0.04);
+  border-radius: 50% !important;
+  z-index: 0;
+  will-change: transform;
+  animation: orbitSpinReverse 40s linear infinite;
+  pointer-events: none;
+}
+
+.orbitalRingSecond::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: 30%;
+  width: 4px;
+  height: 4px;
+  background: var(--primary-container, #173124);
+  border-radius: 50% !important;
+  opacity: 0.25;
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbitSpinReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* ---------- Glow Pulse ---------- */
+.glowPulse {
+  position: absolute;
+  inset: -12px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(119, 90, 25, 0.05) 0%,
+    rgba(23, 49, 36, 0.02) 40%,
+    transparent 70%
+  );
+  border-radius: 50% !important;
+  z-index: 0;
+  will-change: transform, opacity;
+  animation: pulseGlow 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+/* ---------- Entrance Animation ---------- */
+.idCardWrapper {
+  animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(24px) rotateX(8deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+/* ---------- Accessibility: Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .idPhoto,
+  .orbitalRing,
+  .orbitalRingSecond,
+  .glowPulse,
+  .idCardWrapper {
+    animation: none;
+  }
+
+  .idCardWrapper:hover .holographicShimmer {
+    animation: none;
+    opacity: 0.5;
+  }
+
+  .statusPulse {
+    animation: none;
+  }
+}
