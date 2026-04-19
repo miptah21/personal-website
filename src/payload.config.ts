@@ -3,14 +3,15 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { Users } from './collections/Users'
-import { Insights } from './collections/Insights'
-import { Comments } from './collections/Comments'
-import { Media } from './collections/Media'
-import { Tools } from './collections/Tools'
-import { Experiences } from './collections/Experiences'
-import { ContactSubmissions } from './collections/ContactSubmissions'
-import { Projects } from './collections/Projects'
+import { Users } from './collections/Users.ts'
+import { Insights } from './collections/Insights.ts'
+import { Comments } from './collections/Comments.ts'
+import { Media } from './collections/Media.ts'
+import { Tools } from './collections/Tools.ts'
+import { Experiences } from './collections/Experiences.ts'
+import { ContactSubmissions } from './collections/ContactSubmissions.ts'
+import { Projects } from './collections/Projects.ts'
+import { Awards } from './collections/Awards.ts'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -19,7 +20,7 @@ export default buildConfig({
   admin: {
     user: Users.slug,
   },
-  collections: [Users, Insights, Comments, Media, Tools, Experiences, ContactSubmissions, Projects],
+  collections: [Users, Insights, Comments, Media, Tools, Experiences, ContactSubmissions, Projects, Awards],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => 
       defaultFeatures.filter((feature) => feature.key !== 'horizontalRule')

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const coverUrl = post.coverImage && typeof post.coverImage === 'object' && 'url' in post.coverImage 
     ? post.coverImage.url 
-    : '/portrait.png'; // Fallback to portrait
+    : '/portrait.webp'; // Fallback to portrait
 
   return {
     title: `${post.title} | Miftahudin Akbar`,

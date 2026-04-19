@@ -29,17 +29,20 @@ export default function HeroSection() {
           </div>
           
           <div className={styles.heroRight}>
-            <div className={styles.heroImageWrapper}>
-              <Image 
-                src="/portrait.png" 
-                alt="Portrait of Miftahudin Akbar" 
-                fill 
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className={styles.heroImage}
-                priority
-              />
+            <div className={styles.heroRightInner}>
+              <div className={styles.heroImageWrapper}>
+                <Image 
+                  src="/portrait.webp" 
+                  alt="Portrait of Miftahudin Akbar" 
+                  fill 
+                  sizes="(max-width: 768px) 100vw, 420px"
+                  className={styles.heroImage}
+                  style={{ objectPosition: 'top center' }}
+                  priority
+                />
+              </div>
+              <div className={styles.heroDecoration} aria-hidden="true"></div>
             </div>
-            <div className={styles.heroDecoration} aria-hidden="true"></div>
           </div>
         </div>
       </div>

@@ -145,3 +145,29 @@ export async function getAllProjects(limit = 50) {
   })
   return docs as unknown as ProjectDoc[]
 }
+
+export type AwardDoc = {
+  id: string
+  title: string
+  issuer: string
+  year: string
+  category: 'award' | 'certification' | 'honor'
+  description?: string | null
+  certificate?: {
+    url?: string | null
+    alt?: string | null
+  } | number | null
+  icon?: string | null
+  order: number
+}
+
+/** Fetch all awards & certifications */
+export async function getAwards(limit = 20) {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'awards',
+    sort: 'order',
+    limit,
+  })
+  return docs as unknown as AwardDoc[]
+}
