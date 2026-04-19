@@ -96,74 +96,42 @@ export function AwardLightbox({ awards }: AwardLightboxProps) {
           aria-modal="true"
           aria-label={`Certificate: ${active.title}`}
         >
-          <div className={styles.lightboxContent}>
-            {/* Close button */}
-            <button
-              className={styles.lightboxClose}
-              onClick={close}
-              aria-label="Close certificate view"
-            >
-              <span className="material-symbols-outlined">close</span>
-            </button>
+          {/* Close button */}
+          <button
+            className={styles.lightboxClose}
+            onClick={close}
+            aria-label="Close certificate view"
+          >
+            <span className="material-symbols-outlined">close</span>
+          </button>
 
-            {/* Navigation */}
-            {awardsWithCerts.length > 1 && (
-              <>
-                <button
-                  className={`${styles.lightboxNav} ${styles.lightboxNavPrev}`}
-                  onClick={goPrev}
-                  aria-label="Previous certificate"
-                >
-                  <span className="material-symbols-outlined">chevron_left</span>
-                </button>
-                <button
-                  className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
-                  onClick={goNext}
-                  aria-label="Next certificate"
-                >
-                  <span className="material-symbols-outlined">chevron_right</span>
-                </button>
-              </>
-            )}
+          {/* Navigation */}
+          {awardsWithCerts.length > 1 && (
+            <>
+              <button
+                className={`${styles.lightboxNav} ${styles.lightboxNavPrev}`}
+                onClick={goPrev}
+                aria-label="Previous certificate"
+              >
+                <span className="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button
+                className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
+                onClick={goNext}
+                aria-label="Next certificate"
+              >
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+            </>
+          )}
 
-            {/* Image */}
-            <div className={styles.lightboxImageWrap}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={active.certificateUrl!}
-                alt={active.certificateAlt}
-                className={styles.lightboxImage}
-              />
-            </div>
-
-            {/* Caption */}
-            <div className={styles.lightboxCaption}>
-              <h4 className={styles.lightboxTitle}>{active.title}</h4>
-              <div className={styles.lightboxMeta}>
-                <span>{active.issuer} &middot; {active.year}</span>
-                {active.credentialUrl && (
-                  <a 
-                    href={active.credentialUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={styles.lightboxVerifyBtn}
-                    aria-label={`Verify credential for ${active.title}`}
-                  >
-                    <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>verified</span>
-                    Verify
-                  </a>
-                )}
-              </div>
-              {active.description && (
-                <p className={styles.lightboxDescription}>{active.description}</p>
-              )}
-              {awardsWithCerts.length > 1 && (
-                <span className={styles.lightboxCounter}>
-                  {activeIndex! + 1} / {awardsWithCerts.length}
-                </span>
-              )}
-            </div>
-          </div>
+          {/* Image Only */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={active.certificateUrl!}
+            alt={active.certificateAlt}
+            className={styles.lightboxImage}
+          />
         </div>
       )}
     </>
