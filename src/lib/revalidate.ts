@@ -2,7 +2,7 @@ import { CollectionAfterChangeHook } from 'payload';
 import { revalidatePath } from 'next/cache';
 
 export const revalidatePaths = (
-  pathsOrBuilder: string[] | ((doc: any) => string[])
+  pathsOrBuilder: string[] | ((doc: Record<string, unknown>) => string[])
 ): CollectionAfterChangeHook => {
   return async ({ doc, req: { payload }, operation }) => {
     if (operation === 'create' || operation === 'update') {

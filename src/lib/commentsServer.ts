@@ -25,7 +25,7 @@ export async function getCommentsAction(slug: string) {
 
     const { docs: comments } = await payload.find({
       collection: 'comments',
-      where: { insight: { equals: insightId as any } },
+      where: { insight: { equals: insightId as string | number } },
       depth: 1, // Allows populated relationships
       limit: 100, // Reduced from 1000 for realistic loads
       sort: 'createdAt',

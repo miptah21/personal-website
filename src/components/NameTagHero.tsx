@@ -41,7 +41,7 @@ export default function NameTagHero() {
   );
 
   // 3D tilt and flip animation loop
-  const animateTilt = useCallback(() => {
+  const animateTilt = useCallback(function tick() {
     const card = cardRef.current;
     if (!card) return;
 
@@ -84,7 +84,7 @@ export default function NameTagHero() {
       Math.abs(target.y - ry) > 0.01 ||
       Math.abs(target.z - rz) > 0.01
     ) {
-      rafRef.current = requestAnimationFrame(animateTilt);
+      rafRef.current = requestAnimationFrame(tick);
     }
   }, []);
 

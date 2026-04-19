@@ -43,24 +43,20 @@ const FlippingSlot = ({ tool, onMouseEnter, onMouseLeave }: { tool: Tool, onMous
   const [frontTool, setFrontTool] = useState<Tool>(tool);
   const [backTool, setBackTool] = useState<Tool>(tool);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [prevToolId, setPrevToolId] = useState<string>(tool.id);
 
-  useEffect(() => {
-    // Determine the current shown tool based on flip state
-    const currentShownTool = isFlipped ? backTool : frontTool;
-    
-    // If the prop tool changes and is different from the currently shown tool
-    if (tool.id !== currentShownTool.id) {
-      if (isFlipped) {
-        // Currently showing back, so update front and flip to front
-        setFrontTool(tool);
-        setIsFlipped(false);
-      } else {
-        // Currently showing front, so update back and flip to back
-        setBackTool(tool);
-        setIsFlipped(true);
-      }
+  if (tool.id !== prevToolId) {
+    if (isFlipped) {
+      // Currently showing back, so update front and flip to front
+      setFrontTool(tool);
+      setIsFlipped(false);
+    } else {
+      // Currently showing front, so update back and flip to back
+      setBackTool(tool);
+      setIsFlipped(true);
     }
-  }, [tool, isFlipped, frontTool, backTool]);
+    setPrevToolId(tool.id);
+  }
 
   return (
     <div 

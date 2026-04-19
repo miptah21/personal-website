@@ -29,7 +29,7 @@ export default function AnimatedPortrait() {
   const [isHovered, setIsHovered] = useState(false);
 
   // Liquid distortion animation loop
-  const animate = useCallback(() => {
+  const animate = useCallback(function tick() {
     const turbulence = turbulenceRef.current;
     const displacement = displacementRef.current;
     if (!turbulence || !displacement) return;
@@ -47,7 +47,7 @@ export default function AnimatedPortrait() {
 
     // Keep animating if there's still motion
     if (Math.abs(scale.target - scale.current) > 0.5 || scale.target > 0) {
-      rafRef.current = requestAnimationFrame(animate);
+      rafRef.current = requestAnimationFrame(tick);
     }
   }, []);
 
