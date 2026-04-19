@@ -108,5 +108,7 @@ src/
 
 ## 📝 License
 
-&copy; 2026 Miftahudin Akbar. All Rights Reserved.
+This project is open-source and available under the [MIT License](LICENSE).
+
+&copy; 2026 Miftahudin Akbar.
 Designed for the Financial Professional.
