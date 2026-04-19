@@ -76,7 +76,7 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
               "@context": "https://schema.org",
               "@type": "Article",
               headline: post.title,
-              image: post.coverImage && typeof post.coverImage === 'object' && 'url' in post.coverImage ? process.env.NEXT_PUBLIC_SITE_URL + post.coverImage.url : process.env.NEXT_PUBLIC_SITE_URL + '/portrait.webp',
+              image: post.coverImage && typeof post.coverImage === 'object' && 'url' in post.coverImage ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://heymiftah.my.id') + post.coverImage.url : (process.env.NEXT_PUBLIC_SITE_URL || 'https://heymiftah.my.id') + '/portrait.webp',
               datePublished: post.publishedAt || post.createdAt,
               dateModified: post.updatedAt,
               author: {
