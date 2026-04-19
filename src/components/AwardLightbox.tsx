@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import styles from '@/app/(frontend)/page.module.css';
 
 interface AwardLightboxItem {
@@ -124,12 +125,14 @@ export function AwardLightbox({ awards }: AwardLightboxProps) {
             )}
 
             {/* Image */}
-            <div className={styles.lightboxImageWrap}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+            <div className={styles.lightboxImageWrap} style={{ position: 'relative' }}>
+              <Image
                 src={active.certificateUrl!}
                 alt={active.certificateAlt}
+                fill
+                sizes="(max-width: 1200px) 100vw, 1200px"
                 className={styles.lightboxImage}
+                style={{ objectFit: 'contain' }}
               />
             </div>
 
