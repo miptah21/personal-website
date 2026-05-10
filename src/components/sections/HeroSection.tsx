@@ -1,12 +1,13 @@
 import styles from '@/app/(frontend)/page.module.css';
 import NameTagHero from '@/components/NameTagHero';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export default function HeroSection() {
   return (
     <section className={styles.heroSection}>
       <div className={styles.container}>
         <div className={styles.heroGrid}>
-          <div className={styles.heroLeft}>
+          <ScrollReveal delay={3.4} className={styles.heroLeft}>
             <p className={styles.heroEyebrow}>Computational Finance Professional</p>
             <h1 className={styles.heroTitle}>Miftahudin<br/>Akbar.</h1>
             <div className={styles.heroBody}>
@@ -26,14 +27,14 @@ export default function HeroSection() {
                 </a>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
           
-          <div className={styles.heroRight}>
+          <ScrollReveal delay={3.6} direction="left" className={styles.heroRight}>
             <div className={styles.heroRightInner}>
               <NameTagHero />
               <div className={styles.heroDecoration} aria-hidden="true"></div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

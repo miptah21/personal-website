@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styles from '@/app/(frontend)/page.module.css';
 import type { ProjectDoc } from '@/lib/queries';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export type ProjectsSectionProps = {
   projects: ProjectDoc[];
@@ -53,21 +54,25 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
     <section id="projects" className={styles.projectsSection}>
       <div className={styles.container}>
-        <div className={styles.projectsHeader}>
-          <div>
-            <h2 className={`${styles.projectsSectionLabel} ${styles.italic}`}>Selected Works</h2>
-            <h3 className={styles.projectsSectionHeadline}>The Laboratory</h3>
+        <ScrollReveal>
+          <div className={styles.projectsHeader}>
+            <div>
+              <h2 className={`${styles.projectsSectionLabel} ${styles.italic}`}>Selected Works</h2>
+              <h3 className={styles.projectsSectionHeadline}>The Laboratory</h3>
+            </div>
+            <Link href="/projects" className={styles.projectsLinkUnderline}>
+              View Full Archive
+            </Link>
           </div>
-          <Link href="/projects" className={styles.projectsLinkUnderline}>
-            View Full Archive
-          </Link>
-        </div>
+        </ScrollReveal>
 
         <div className={styles.projectsGrid} role="list" aria-label="Featured projects">
           {projects.map((project, index) => (
-            <div key={project.id} role="listitem">
-              <ProjectCard project={project} isHero={index === 0} />
-            </div>
+            <ScrollReveal delay={index * 0.2} key={project.id}>
+              <div role="listitem">
+                <ProjectCard project={project} isHero={index === 0} />
+              </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

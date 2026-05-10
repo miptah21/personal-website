@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import styles from '@/app/(frontend)/page.module.css';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export default function AboutSection() {
   return (
     <section id="about" className={styles.aboutSection}>
       <div className={styles.container}>
         <div className={styles.aboutGrid}>
-          <div className={styles.aboutImageCol}>
+          <ScrollReveal direction="right" className={styles.aboutImageCol}>
             <div className={styles.aboutImageWrapper}>
               <Image 
                 src="/abstract.png" 
@@ -19,8 +20,8 @@ export default function AboutSection() {
             <div className={styles.aboutQuoteBox}>
               <p>&ldquo;Complexity is the canvas.&rdquo;</p>
             </div>
-          </div>
-          <div className={styles.aboutTextCol}>
+          </ScrollReveal>
+          <ScrollReveal delay={0.2} className={styles.aboutTextCol}>
             <div className={styles.aboutTextInner}>
               <h2 className={styles.sectionLabel}>The Philosophy</h2>
               <h3 className={styles.sectionHeadline}>Systems Thinking as a Strategic Lever</h3>
@@ -43,7 +44,7 @@ export default function AboutSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

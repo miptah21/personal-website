@@ -1,6 +1,7 @@
 import styles from '@/app/(frontend)/page.module.css';
 import type { AwardDoc } from '@/lib/queries';
 import { AwardLightbox } from '../AwardLightbox';
+import ScrollReveal from '@/components/ScrollReveal';
 
 interface AwardsSectionProps {
   awards: AwardDoc[];
@@ -34,70 +35,74 @@ export default function AwardsSection({ awards }: AwardsSectionProps) {
   return (
     <section id="awards" className={styles.awardsSection}>
       <div className={styles.container}>
-        <div className={styles.awardsHeader}>
-          <div>
-            <h2 className={`${styles.awardsSectionLabel} ${styles.italic}`}>Recognition</h2>
-            <h3 className={styles.awardsSectionHeadline}>Awards &amp; Certifications</h3>
+        <ScrollReveal>
+          <div className={styles.awardsHeader}>
+            <div>
+              <h2 className={`${styles.awardsSectionLabel} ${styles.italic}`}>Recognition</h2>
+              <h3 className={styles.awardsSectionHeadline}>Awards &amp; Certifications</h3>
+            </div>
+            <p className={styles.awardsSubline}>
+              Competitive distinctions and professional certifications that validate
+              technical expertise and innovation.
+            </p>
           </div>
-          <p className={styles.awardsSubline}>
-            Competitive distinctions and professional certifications that validate
-            technical expertise and innovation.
-          </p>
-        </div>
+        </ScrollReveal>
 
         <div className={styles.awardsGrid} role="list" aria-label="Awards and certifications">
           {awardsWithCerts.map((award, index) => {
             const numStr = (index + 1).toString().padStart(2, '0');
             return (
-              <div key={award.id || index} className={styles.awardCard} role="listitem">
-                {/* Top decorative row */}
-                <div className={styles.awardCardTop}>
-                  <span className={styles.awardNumber} aria-hidden="true">{numStr}</span>
-                  <span className={styles.awardCategory}>
-                    {CATEGORY_LABELS[award.category] || award.category}
-                  </span>
-                </div>
-
-                {/* Icon */}
-                <div className={styles.awardIconWrap}>
-                  <span
-                    className={`material-symbols-outlined ${styles.awardIcon}`}
-                    aria-hidden="true"
-                  >
-                    {award.icon || 'emoji_events'}
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className={styles.awardContent}>
-                  <h4 className={styles.awardTitle}>{award.title}</h4>
-                  <div className={styles.awardMeta}>
-                    <span className={styles.awardIssuer}>{award.issuer}</span>
-                    <span className={styles.awardYear}>{award.year}</span>
-                  </div>
-                  {award.description && (
-                    <p className={styles.awardDescription}>{award.description}</p>
-                  )}
-                </div>
-
-                {/* View Certificate CTA — only when certificate exists */}
-                {award.certificateUrl && (
-                  <button
-                    type="button"
-                    className={styles.awardCertBtn}
-                    data-cert-index={index}
-                    aria-label={`View certificate: ${award.title}`}
-                  >
-                    <span className="material-symbols-outlined" aria-hidden="true">
-                      verified
+              <ScrollReveal delay={index * 0.15} key={award.id || index}>
+                <div className={styles.awardCard} role="listitem">
+                  {/* Top decorative row */}
+                  <div className={styles.awardCardTop}>
+                    <span className={styles.awardNumber} aria-hidden="true">{numStr}</span>
+                    <span className={styles.awardCategory}>
+                      {CATEGORY_LABELS[award.category] || award.category}
                     </span>
-                    <span>View Certificate</span>
-                  </button>
-                )}
+                  </div>
 
-                {/* Decorative corner accent */}
-                <div className={styles.awardAccent} aria-hidden="true" />
-              </div>
+                  {/* Icon */}
+                  <div className={styles.awardIconWrap}>
+                    <span
+                      className={`material-symbols-outlined ${styles.awardIcon}`}
+                      aria-hidden="true"
+                    >
+                      {award.icon || 'emoji_events'}
+                    </span>
+                  </div>
+
+                  {/* Content */}
+                  <div className={styles.awardContent}>
+                    <h4 className={styles.awardTitle}>{award.title}</h4>
+                    <div className={styles.awardMeta}>
+                      <span className={styles.awardIssuer}>{award.issuer}</span>
+                      <span className={styles.awardYear}>{award.year}</span>
+                    </div>
+                    {award.description && (
+                      <p className={styles.awardDescription}>{award.description}</p>
+                    )}
+                  </div>
+
+                  {/* View Certificate CTA — only when certificate exists */}
+                  {award.certificateUrl && (
+                    <button
+                      type="button"
+                      className={styles.awardCertBtn}
+                      data-cert-index={index}
+                      aria-label={`View certificate: ${award.title}`}
+                    >
+                      <span className="material-symbols-outlined" aria-hidden="true">
+                        verified
+                      </span>
+                      <span>View Certificate</span>
+                    </button>
+                  )}
+
+                  {/* Decorative corner accent */}
+                  <div className={styles.awardAccent} aria-hidden="true" />
+                </div>
+              </ScrollReveal>
             );
           })}
         </div>

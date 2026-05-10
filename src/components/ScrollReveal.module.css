@@ -1,0 +1,12 @@
+.revealWrapper {
+  /* Prevent content shifting */
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealWrapper {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
