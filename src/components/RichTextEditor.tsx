@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect } from 'react'
-import styles from '@/app/(frontend)/contact/contact.module.css'
+import styles from './RichTextEditor.module.css'
 
 interface RichTextEditorProps {
   id: string

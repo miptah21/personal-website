@@ -130,9 +130,9 @@ export default function NativeComments({ slug }: { slug: string }) {
     <div style={{ maxWidth: '800px', width: '100%', borderTop: '1px solid var(--surface-container-high)', paddingTop: '4rem', marginTop: '6rem' }}>
       <h3 className="label-sm" style={{ marginBottom: '2rem', color: 'var(--secondary)' }}>Participant Discussion</h3>
       
-      {errorMsg && errorMsg.includes('Missing GitHub') ? (
+      {errorMsg ? (
         <div style={{ padding: '2rem', backgroundColor: 'var(--surface-container)', color: 'var(--on-surface-variant)', fontStyle: 'italic', fontSize: '0.875rem', margin: '0 0 2rem 0' }}>
-          <strong>Background Database Pending:</strong> Configure GITHUB_OWNER, GITHUB_REPO, and GITHUB_PAT parameters in .env file.
+          <strong>Error loading comments:</strong> {errorMsg}
         </div>
       ) : null}
 
