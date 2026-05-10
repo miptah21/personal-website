@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Icon from '@/components/Icon';
 import styles from '@/app/(frontend)/page.module.css';
 
 interface AwardLightboxItem {
@@ -102,7 +103,7 @@ export function AwardLightbox({ awards }: AwardLightboxProps) {
             onClick={close}
             aria-label="Close certificate view"
           >
-            <span className="material-symbols-outlined">close</span>
+            <Icon name="close" size={24} />
           </button>
 
           {/* Navigation */}
@@ -113,14 +114,14 @@ export function AwardLightbox({ awards }: AwardLightboxProps) {
                 onClick={goPrev}
                 aria-label="Previous certificate"
               >
-                <span className="material-symbols-outlined">chevron_left</span>
+                <Icon name="chevron_left" size={24} />
               </button>
               <button
                 className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
                 onClick={goNext}
                 aria-label="Next certificate"
               >
-                <span className="material-symbols-outlined">chevron_right</span>
+                <Icon name="chevron_right" size={24} />
               </button>
             </>
           )}

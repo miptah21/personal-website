@@ -5,6 +5,7 @@ import { submitContact } from '@/lib/actions/contact'
 import type { ContactFormState } from '@/lib/actions/contact'
 import RichTextEditor from '@/components/RichTextEditor'
 import CustomSelect from '@/components/CustomSelect'
+import Icon from '@/components/Icon'
 import styles from '@/app/(frontend)/contact/contact.module.css'
 
 export default function ContactForm() {
@@ -60,7 +61,7 @@ export default function ContactForm() {
       {/* Global error */}
       {state?.error && !state.fieldErrors && (
         <div className={styles.formAlert} role="alert">
-          <span className="material-symbols-outlined" style={{ fontSize: 18 }}>error</span>
+          <Icon name="error" size={18} />
           {state.error}
         </div>
       )}
@@ -157,7 +158,7 @@ export default function ContactForm() {
         ) : (
           <>
             <span>Send Message</span>
-            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span>
+            <Icon name="arrow_forward" size={18} />
           </>
         )}
       </button>

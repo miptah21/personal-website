@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import type { CommentNode } from '@/lib/queries';
 import { getCommentsAction, submitCommentAction, likeCommentAction } from '@/lib/commentsServer';
 import RichTextEditor from '@/components/RichTextEditor';
+import Icon from '@/components/Icon';
 
 export default function NativeComments({ slug }: { slug: string }) {
   const [comments, setComments] = useState<CommentNode[]>([]);
@@ -111,11 +112,11 @@ export default function NativeComments({ slug }: { slug: string }) {
          
          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
            <button onClick={() => handleLike(c.id)} style={{ background: 'none', border: 'none', color: likedLocal.includes(c.id) ? 'var(--on-surface)' : 'var(--secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: 0, fontFamily: 'var(--font-sans)', fontSize: '0.875rem' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '16px', fontVariationSettings: likedLocal.includes(c.id) ? "'FILL' 1" : "'FILL' 0" }}>thumb_up</span>
+              <Icon name="thumb_up" size={16} />
               {c.likes > 0 ? c.likes : 'Like'}
            </button>
            <button onClick={() => setReplyingTo({ id: c.id, author: c.author })} style={{ background: 'none', border: 'none', color: 'var(--secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: 0, fontFamily: 'var(--font-sans)', fontSize: '0.875rem' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>reply</span>
+              <Icon name="arrow_forward" size={16} />
               Reply
            </button>
          </div>
@@ -145,7 +146,7 @@ export default function NativeComments({ slug }: { slug: string }) {
         {replyingTo && (
            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'var(--surface)', padding: '0.5rem 1rem', borderLeft: '3px solid var(--black)' }}>
               <span style={{ fontSize: '0.875rem', color: 'var(--on-surface-variant)' }}>Replying to <strong>{replyingTo.author}</strong></span>
-              <button type="button" onClick={() => setReplyingTo(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--secondary)' }} aria-label="Cancel reply"><span className="material-symbols-outlined" style={{ fontSize: '16px' }}>close</span></button>
+              <button type="button" onClick={() => setReplyingTo(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--secondary)' }} aria-label="Cancel reply"><Icon name="close" size={16} /></button>
            </div>
         )}
         <input 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useCallback, useEffect } from 'react'
+import Icon from '@/components/Icon'
 import styles from './RichTextEditor.module.css'
 
 interface RichTextEditorProps {
@@ -103,7 +104,7 @@ export default function RichTextEditor({
           disabled={disabled}
           aria-label="Bullet list"
         >
-          <span className="material-symbols-outlined" style={{ fontSize: 16 }}>format_list_bulleted</span>
+          <Icon name="format_list_bulleted" size={16} />
         </button>
         <button
           type="button"
@@ -114,7 +115,7 @@ export default function RichTextEditor({
           disabled={disabled}
           aria-label="Numbered list"
         >
-          <span className="material-symbols-outlined" style={{ fontSize: 16 }}>format_list_numbered</span>
+          <Icon name="format_list_numbered" size={16} />
         </button>
 
         <span className={styles.toolbarDivider} aria-hidden="true" />
@@ -128,7 +129,7 @@ export default function RichTextEditor({
           disabled={disabled}
           aria-label="Quote"
         >
-          <span className="material-symbols-outlined" style={{ fontSize: 16 }}>format_quote</span>
+          <Icon name="format_quote" size={16} />
         </button>
         <button
           type="button"
@@ -139,7 +140,7 @@ export default function RichTextEditor({
           disabled={disabled}
           aria-label="Clear formatting"
         >
-          <span className="material-symbols-outlined" style={{ fontSize: 16 }}>format_clear</span>
+          <Icon name="format_clear" size={16} />
         </button>
       </div>
 

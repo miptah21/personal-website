@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styles from '@/app/(frontend)/page.module.css';
 import type { InsightDoc } from '@/lib/queries';
 import ScrollReveal from '@/components/ScrollReveal';
+import Icon from '@/components/Icon';
 
 interface InsightsSectionProps {
   insights: InsightDoc[];
@@ -46,7 +47,7 @@ export default function InsightsSection({ insights }: InsightsSectionProps) {
                     </div>
                     <div className={styles.insightFooter}>
                       <span>{(post.publishedAt || post.createdAt) ? new Date(post.publishedAt || post.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase() : ''}</span>
-                      <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '20px' }}>north_east</span>
+                      <Icon name="north_east" size={20} />
                     </div>
                   </div>
                 </Link>

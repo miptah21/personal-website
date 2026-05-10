@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getExperiences } from '@/lib/queries';
 import { RichText } from '@payloadcms/richtext-lexical/react';
+import Icon from '@/components/Icon';
 import styles from './experience.module.css';
 import ScrollReveal from '@/components/ScrollReveal';
 
@@ -23,9 +24,7 @@ export default async function ExperiencePage() {
     <main className={styles.page}>
       <div className={styles.container}>
         <Link href="/" className={styles.backLink}>
-          <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>
-            arrow_back
-          </span>
+          <Icon name="arrow_back" size={14} />
           Back to Home
         </Link>
 
@@ -122,9 +121,7 @@ export default async function ExperiencePage() {
           </div>
         ) : (
           <div className={styles.emptyState}>
-            <span className={`material-symbols-outlined ${styles.emptyStateIcon}`}>
-              work_history
-            </span>
+            <Icon name="work_history" className={styles.emptyStateIcon} size={48} />
             <p className={styles.emptyStateText}>
               The experience profile is currently being updated. Check back soon.
             </p>
@@ -137,9 +134,7 @@ export default async function ExperiencePage() {
           </p>
           <Link href="/contact" className={styles.ctaLink}>
             <span>Get in Touch</span>
-            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
-              arrow_forward
-            </span>
+            <Icon name="arrow_forward" size={18} />
           </Link>
         </div>
       </div>

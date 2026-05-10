@@ -1,6 +1,7 @@
 import styles from '@/app/(frontend)/page.module.css';
 import NameTagHero from '@/components/NameTagHero';
 import ScrollReveal from '@/components/ScrollReveal';
+import Icon from '@/components/Icon';
 
 export default function HeroSection() {
   return (
@@ -20,7 +21,7 @@ export default function HeroSection() {
               <div style={{ paddingTop: '1.5rem', display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
                 <a href="#contact" className={styles.btnRoundedPrimary} aria-label="Navigate to contact section">
                   <span>Let&apos;s Connect</span>
-                  <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '18px' }}>arrow_forward</span>
+                  <Icon name="arrow_forward" size={18} />
                 </a>
                 <a href="#projects" className={styles.linkUnderline} aria-label="View Selected Works">
                   View Selected Works

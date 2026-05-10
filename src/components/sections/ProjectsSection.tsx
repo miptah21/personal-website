@@ -2,6 +2,7 @@ import Link from 'next/link';
 import styles from '@/app/(frontend)/page.module.css';
 import type { ProjectDoc } from '@/lib/queries';
 import ScrollReveal from '@/components/ScrollReveal';
+import Icon from '@/components/Icon';
 
 export type ProjectsSectionProps = {
   projects: ProjectDoc[];
@@ -23,12 +24,8 @@ function ProjectCard({ project, isHero }: { project: ProjectDoc; isHero: boolean
       <span className={styles.projectYear} aria-hidden="true">{project.year}</span>
 
       {/* Arrow indicator */}
-      <span
-        className={`material-symbols-outlined ${styles.projectArrow}`}
-        aria-hidden="true"
-        style={{ fontSize: '20px' }}
-      >
-        north_east
+      <span className={styles.projectArrow} aria-hidden="true">
+        <Icon name="north_east" size={20} />
       </span>
 
       {/* Card content */}

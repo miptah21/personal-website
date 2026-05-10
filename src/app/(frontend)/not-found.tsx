@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Icon from '@/components/Icon';
 import styles from './page.module.css';
 
 export default function NotFound() {
@@ -12,7 +13,7 @@ export default function NotFound() {
         </p>
         <Link href="/" className={styles.btnRoundedPrimary}>
           <span>Return Home</span>
-          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '18px' }}>arrow_forward</span>
+          <Icon name="arrow_forward" size={18} />
         </Link>
       </div>
     </main>

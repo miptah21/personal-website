@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import Icon from '@/components/Icon'
 import styles from '@/app/(frontend)/contact/contact.module.css'
 
 interface Option {
@@ -119,12 +120,8 @@ export default function CustomSelect({
         disabled={disabled}
       >
         <span>{selected.label}</span>
-        <span
-          className={`material-symbols-outlined ${styles.selectArrow}`}
-          style={{ fontSize: 18 }}
-          aria-hidden="true"
-        >
-          {isOpen ? 'expand_less' : 'expand_more'}
+        <span className={styles.selectArrow} aria-hidden="true">
+          <Icon name={isOpen ? 'expand_less' : 'expand_more'} size={18} />
         </span>
       </button>
 
@@ -154,13 +151,7 @@ export default function CustomSelect({
             >
               <span>{option.label}</span>
               {option.value === selected.value && (
-                <span
-                  className="material-symbols-outlined"
-                  style={{ fontSize: 16 }}
-                  aria-hidden="true"
-                >
-                  check
-                </span>
+                <Icon name="check" size={16} />
               )}
             </li>
           ))}

@@ -1,6 +1,7 @@
 import styles from '@/app/(frontend)/page.module.css';
 import AnimatedToolkitGrid from '@/components/AnimatedToolkitGrid';
 import ScrollReveal from '@/components/ScrollReveal';
+import Icon from '@/components/Icon';
 import type { ToolDoc } from '@/lib/queries';
 
 interface ToolkitSectionProps {
@@ -50,7 +51,7 @@ export default function ToolkitSection({ tools }: ToolkitSectionProps) {
                       return (
                         <div key={`${tool.id}-${index}`} className={cardClass}>
                           <div>
-                            <span className={`material-symbols-outlined ${iconClass}`} aria-hidden="true">{tool.icon}</span>
+                            <Icon name={tool.icon} className={iconClass} size={24} />
                             <h4 className={titleClass}>{tool.title}</h4>
                             <p className={descClass}>{tool.description}</p>
                           </div>

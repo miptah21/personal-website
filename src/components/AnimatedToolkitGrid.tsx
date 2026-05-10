@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
+import Icon from '@/components/Icon';
 import styles from '@/app/(frontend)/page.module.css';
 
 interface Tool {
@@ -31,7 +32,7 @@ const ToolCard = ({ tool }: { tool: Tool }) => {
   return (
     <div className={cardClass} style={{ height: '100%' }}>
       <div>
-        <span className={`material-symbols-outlined ${iconClass}`}>{tool.icon}</span>
+        <Icon name={tool.icon} className={iconClass} size={24} />
         <h4 className={titleClass}>{tool.title}</h4>
         <p className={descClass}>{tool.description}</p>
       </div>

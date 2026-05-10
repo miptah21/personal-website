@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import styles from '../page.module.css';
 import { getInsights } from '@/lib/queries';
 import ScrollReveal from '@/components/ScrollReveal';
+import Icon from '@/components/Icon';
 
 export const metadata: Metadata = {
   title: 'The Monograph | Miftahudin Akbar',
@@ -22,7 +23,7 @@ export default async function InsightsList() {
     <main style={{ padding: '8rem 0', minHeight: '100vh' }}>
       <div className="container">
         <Link href="/" className={styles.backLink}>
-          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_back</span>
+          <Icon name="arrow_back" size={16} />
           Back to Home
         </Link>
         <ScrollReveal>
@@ -54,7 +55,7 @@ export default async function InsightsList() {
                     </div>
                     <div className={styles.insightFooter}>
                       <span>{(post.publishedAt || post.createdAt) ? new Date((post.publishedAt || post.createdAt) as string).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase() : ''}</span>
-                      <span className="material-symbols-outlined">&#8599;</span>
+                      <Icon name="north_east" size={20} />
                     </div>
                   </div>
                 </Link>

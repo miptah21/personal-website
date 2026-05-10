@@ -321,7 +321,7 @@
   background-color: var(--primary-container);
   transform: scale(1.05);
 }
-.btnRoundedPrimary span:not(:global(.material-symbols-outlined)) {
+.btnRoundedPrimary span:first-child {
   font-family: var(--font-sans);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1344,9 +1344,9 @@
   z-index: 2;
 }
 
-.awardCertBtn .material-symbols-outlined {
-  font-size: 1rem;
-  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+.awardCertBtn svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .awardCertBtn:hover {
@@ -1419,8 +1419,9 @@
   transform: scale(1.15);
 }
 
-.lightboxClose .material-symbols-outlined {
-  font-size: 1.75rem;
+.lightboxClose svg {
+  width: 1.75rem;
+  height: 1.75rem;
 }
 
 .lightboxNav {

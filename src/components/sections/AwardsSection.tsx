@@ -2,6 +2,7 @@ import styles from '@/app/(frontend)/page.module.css';
 import type { AwardDoc } from '@/lib/queries';
 import { AwardLightbox } from '../AwardLightbox';
 import ScrollReveal from '@/components/ScrollReveal';
+import Icon from '@/components/Icon';
 
 interface AwardsSectionProps {
   awards: AwardDoc[];
@@ -64,12 +65,7 @@ export default function AwardsSection({ awards }: AwardsSectionProps) {
 
                   {/* Icon */}
                   <div className={styles.awardIconWrap}>
-                    <span
-                      className={`material-symbols-outlined ${styles.awardIcon}`}
-                      aria-hidden="true"
-                    >
-                      {award.icon || 'emoji_events'}
-                    </span>
+                    <Icon name={award.icon || 'emoji_events'} className={styles.awardIcon} size={24} />
                   </div>
 
                   {/* Content */}
@@ -92,9 +88,7 @@ export default function AwardsSection({ awards }: AwardsSectionProps) {
                       data-cert-index={index}
                       aria-label={`View certificate: ${award.title}`}
                     >
-                      <span className="material-symbols-outlined" aria-hidden="true">
-                        verified
-                      </span>
+                      <Icon name="verified" size={18} />
                       <span>View Certificate</span>
                     </button>
                   )}

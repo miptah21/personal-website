@@ -43,6 +43,25 @@ export default async function Home() {
   
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Miftahudin Akbar",
+            alternateName: "Miftah",
+            url: process.env.NEXT_PUBLIC_SITE_URL || "https://heymiftah.my.id",
+            jobTitle: "Computational Finance Professional",
+            description: "Bridging the gap between complex financial systems and data-driven intelligence.",
+            image: `${process.env.NEXT_PUBLIC_SITE_URL || "https://heymiftah.my.id"}/portrait.webp`,
+            sameAs: [
+              process.env.NEXT_PUBLIC_LINKEDIN_URL,
+              process.env.NEXT_PUBLIC_GITHUB_URL,
+            ].filter(Boolean),
+          }),
+        }}
+      />
       <HeroSection />
       <AboutSection />
       <EducationSection education={education} />

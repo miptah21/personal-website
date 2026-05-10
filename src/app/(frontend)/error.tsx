@@ -1,5 +1,6 @@
 'use client';
 import { useEffect } from 'react';
+import Icon from '@/components/Icon';
 import styles from './page.module.css';
 
 export default function Error({
@@ -28,7 +29,7 @@ export default function Error({
           style={{ cursor: 'pointer' }}
         >
           <span>Try Again</span>
-          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '18px' }}>refresh</span>
+          <Icon name="refresh" size={18} />
         </button>
       </div>
     </main>

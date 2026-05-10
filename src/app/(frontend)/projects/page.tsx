@@ -5,6 +5,7 @@ import pageStyles from './page.module.css';
 import { getAllProjects } from '@/lib/queries';
 import type { ProjectDoc } from '@/lib/queries';
 import ScrollReveal from '@/components/ScrollReveal';
+import Icon from '@/components/Icon';
 
 export const metadata: Metadata = {
   title: 'The Laboratory | Miftahudin Akbar',
@@ -32,12 +33,8 @@ function ProjectCard({ project }: { project: ProjectDoc }) {
       <span className={styles.projectYear} aria-hidden="true">{project.year}</span>
 
       {/* Arrow indicator */}
-      <span
-        className={`material-symbols-outlined ${styles.projectArrow}`}
-        aria-hidden="true"
-        style={{ fontSize: '20px' }}
-      >
-        north_east
+      <span className={styles.projectArrow} aria-hidden="true">
+        <Icon name="north_east" size={20} />
       </span>
 
       {/* Card content */}
@@ -110,7 +107,7 @@ export default async function ProjectsPage() {
     <main className={pageStyles.projectsPageMain}>
       <div className={styles.container}>
         <Link href="/" className={pageStyles.projectsPageBackLink}>
-          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_back</span>
+          <Icon name="arrow_back" size={16} />
           Back to Home
         </Link>
 

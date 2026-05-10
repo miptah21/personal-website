@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
+import Icon from '@/components/Icon'
 import styles from './contact.module.css'
 import ScrollReveal from '@/components/ScrollReveal'
 
@@ -21,7 +22,7 @@ export default function ContactPage() {
     <main className={styles.contactPage}>
       <div className={styles.contactPageContainer}>
         <Link href="/" className={styles.contactPageBackLink}>
-          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_back</span>
+          <Icon name="arrow_back" size={16} />
           Back to Home
         </Link>
         <div className={styles.contactPageGrid}>
@@ -40,19 +41,19 @@ export default function ContactPage() {
               </p>
 
               <nav className={styles.socialLinks} aria-label="Social media links">
-                <a href={process.env.NEXT_PUBLIC_LINKEDIN_URL || '#'} target="_blank" rel="noopener noreferrer">
+                <a href={process.env.NEXT_PUBLIC_LINKEDIN_URL || '#'} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">
                   LinkedIn
                 </a>
-                <a href={process.env.NEXT_PUBLIC_GITHUB_URL || '#'} target="_blank" rel="noopener noreferrer">
+                <a href={process.env.NEXT_PUBLIC_GITHUB_URL || '#'} target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in new tab)">
                   GitHub
                 </a>
-                <a href={process.env.NEXT_PUBLIC_CONTACT_EMAIL ? `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}` : '#'}>
+                <a href={process.env.NEXT_PUBLIC_CONTACT_EMAIL ? `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}` : '#'} aria-label="Send email">
                   Email
                 </a>
               </nav>
 
               <div className={styles.responseBadge}>
-                <span className="material-symbols-outlined" style={{ fontSize: 16 }}>schedule</span>
+                <Icon name="schedule" size={16} />
                 <span>Usually responds within 24 hours</span>
               </div>
             </div>
@@ -74,7 +75,7 @@ export default function ContactPage() {
               Prefer to stay anonymous? Leave feedback at{' '}
               <a href="https://admonymous.co/miftah" target="_blank" rel="noopener noreferrer">
                 admonymous.co/miftah
-                <span className="material-symbols-outlined" style={{ fontSize: 14, verticalAlign: 'middle', marginLeft: 4 }}>north_east</span>
+                <Icon name="north_east" size={14} style={{ verticalAlign: 'middle', marginLeft: 4 }} />
               </a>
             </p>
             <p className={styles.anonymousBody}>

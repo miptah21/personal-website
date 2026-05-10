@@ -1,6 +1,7 @@
 import styles from '@/app/(frontend)/page.module.css';
 import type { EducationDoc } from '@/lib/queries';
 import ScrollReveal from '@/components/ScrollReveal';
+import Icon from '@/components/Icon';
 
 interface EducationSectionProps {
   education: EducationDoc[];
@@ -28,9 +29,7 @@ export default function EducationSection({ education }: EducationSectionProps) {
                   {/* University header */}
                   <div className={styles.eduCardHeader}>
                     <div className={styles.eduIconWrap} aria-hidden="true">
-                      <span className={`material-symbols-outlined ${styles.eduIcon}`}>
-                        {edu.icon || 'school'}
-                      </span>
+                      <Icon name={edu.icon || 'school'} className={styles.eduIcon} size={24} />
                     </div>
                     <div>
                       <h3 className={styles.eduUniversity}>{edu.university}</h3>
@@ -75,9 +74,7 @@ export default function EducationSection({ education }: EducationSectionProps) {
                       <div className={styles.eduDivider} aria-hidden="true" />
                       <div className={styles.eduThesisBlock}>
                         <p className={styles.eduBlockLabel}>
-                          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '14px', verticalAlign: 'middle', marginRight: '0.5rem' }}>
-                            description
-                          </span>
+                          <Icon name="description" size={14} style={{ verticalAlign: 'middle', marginRight: '0.5rem' }} />
                           Thesis
                         </p>
                         <p className={styles.eduThesisTitle}>
@@ -96,9 +93,7 @@ export default function EducationSection({ education }: EducationSectionProps) {
                       <div className={styles.eduDivider} aria-hidden="true" />
                       <div className={styles.eduCourseworkBlock}>
                         <p className={styles.eduBlockLabel}>
-                          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '14px', verticalAlign: 'middle', marginRight: '0.5rem' }}>
-                            menu_book
-                          </span>
+                          <Icon name="menu_book" size={14} style={{ verticalAlign: 'middle', marginRight: '0.5rem' }} />
                           Key Coursework
                         </p>
                         {edu.courseworkGroups.map((group) => (
