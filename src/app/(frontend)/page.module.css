@@ -610,12 +610,10 @@
 .sliderMarquee {
   display: flex;
   overflow: hidden;
-  width: 100%;
+  width: 100vw;
   position: relative;
   left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  transform: translateX(-50%);
   padding: 1rem 0 3rem 0;
   --mask: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   -webkit-mask-image: var(--mask);
