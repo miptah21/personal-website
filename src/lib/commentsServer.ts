@@ -3,7 +3,16 @@
 import { revalidatePath } from 'next/cache';
 import { getPayload } from 'payload';
 import configPromise from '@/payload.config';
-import DOMPurify from 'isomorphic-dompurify';
+function sanitizeHTML(html: string) {
+  if (!html) return '';
+  let clean = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+  clean = clean.replace(/<(iframe|object|embed|style|link|meta|base)\b[^<]*(?:(?!<\/\1>)<[^<]*)*<\/\1>/gi, '');
+  clean = clean.replace(/ on\w+="[^"]*"/gi, '');
+  clean = clean.replace(/ on\w+='[^']*'/gi, '');
+  clean = clean.replace(/ on\w+=[^\s>]+/gi, '');
+  clean = clean.replace(/href="javascript:[^"]*"/gi, 'href="#"');
+  return clean;
+}
 import type { CommentNode } from '@/lib/queries';
 
 async function getInsightId(slug: string) {
@@ -40,7 +49,7 @@ export async function getCommentsAction(slug: string) {
       const node: CommentNode = {
         id: c.id,
         author: (c.author as string) || 'Anonymous Reader',
-        text: DOMPurify.sanitize((c.text as string) || ''),
+        text: sanitizeHTML((c.text as string) || ''),
         date: new Date(c.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
         likes: (c.likes as number) || 0,
         replyToId: replyTo ? (typeof replyTo === 'object' ? replyTo.id : replyTo) : null,
@@ -59,9 +68,9 @@ export async function getCommentsAction(slug: string) {
     });
 
     return { comments: rootComments };
-  } catch (error) {
-    console.error(error);
-    return { error: 'Database failure', comments: [] };
+  } catch (error: any) {
+    console.error('getCommentsAction ERROR:', error);
+    return { error: `Database failure: ${error?.message || 'Unknown'}`, comments: [] };
   }
 }
 
@@ -94,7 +103,7 @@ export async function submitCommentAction(slug: string, name: string, message: s
     if (!payloadInfo) return { success: false, error: 'Insight not found' };
     const { id: insightId, payload } = payloadInfo;
 
-    const sanitizedText = DOMPurify.sanitize(message.trim());
+    const sanitizedText = sanitizeHTML(message.trim());
 
     await payload.create({
       collection: 'comments',

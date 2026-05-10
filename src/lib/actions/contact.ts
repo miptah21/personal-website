@@ -4,7 +4,16 @@ import { z } from 'zod'
 import { getPayloadClient } from '@/lib/queries'
 import nodemailer from 'nodemailer'
 import { headers } from 'next/headers'
-import DOMPurify from 'isomorphic-dompurify'
+function sanitizeHTML(html: string) {
+  if (!html) return '';
+  let clean = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+  clean = clean.replace(/<(iframe|object|embed|style|link|meta|base)\b[^<]*(?:(?!<\/\1>)<[^<]*)*<\/\1>/gi, '');
+  clean = clean.replace(/ on\w+="[^"]*"/gi, '');
+  clean = clean.replace(/ on\w+='[^']*'/gi, '');
+  clean = clean.replace(/ on\w+=[^\s>]+/gi, '');
+  clean = clean.replace(/href="javascript:[^"]*"/gi, 'href="#"');
+  return clean;
+}
 
 // ---------- Schema ----------
 const contactSchema = z.object({
@@ -120,7 +129,7 @@ export async function submitContact(
   const { name, email, subject, message: rawMessage } = result.data
 
   // Sanitize HTML to prevent XSS and email injection
-  const message = DOMPurify.sanitize(rawMessage)
+  const message = sanitizeHTML(rawMessage)
 
   // Extract plain text for validation
   const plainMessage = stripHtmlTags(message)

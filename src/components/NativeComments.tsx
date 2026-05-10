@@ -20,6 +20,10 @@ export default function NativeComments({ slug }: { slug: string }) {
       if (res.comments) setComments(res.comments);
       if (res.error) setErrorMsg(res.error);
       setLoading(false);
+    }).catch(err => {
+      console.error(err);
+      setErrorMsg('Failed to connect to discussion server.');
+      setLoading(false);
     });
   };
 
