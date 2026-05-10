@@ -75,7 +75,15 @@ export default function Navbar() {
   }, [isMobileMenuOpen, handleMenuKeyDown]);
 
   return (
-    <nav ref={navRef} className={styles.navBar} style={{ transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)' }} aria-label="Main navigation">
+    <nav 
+      ref={navRef} 
+      className={styles.navBar} 
+      style={{ 
+        transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
+        animation: pathname === '/' ? 'slideDownNav 0.8s cubic-bezier(0.22, 1, 0.36, 1) 2.6s both' : 'none'
+      }} 
+      aria-label="Main navigation"
+    >
         <div className={styles.navContainer}>
           <Link href="/" className={styles.navLogo} aria-label="Miftahudin Akbar Home">M.</Link>
           

@@ -8,7 +8,7 @@ export default function HeroSection() {
     <section className={styles.heroSection}>
       <div className={styles.container}>
         <div className={styles.heroGrid}>
-          <ScrollReveal delay={3.4} className={styles.heroLeft}>
+          <ScrollReveal delay={2.4} className={styles.heroLeft}>
             <p className={styles.heroEyebrow}>Computational Finance Professional</p>
             <h1 className={styles.heroTitle}>Miftah<span style={{ opacity: 0.45 }}>udin</span><br/><span style={{ opacity: 0.45 }}>Akbar.</span></h1>
             <div className={styles.heroBody}>
@@ -30,7 +30,7 @@ export default function HeroSection() {
             </div>
           </ScrollReveal>
           
-          <ScrollReveal delay={3.6} direction="left" className={styles.heroRight}>
+          <ScrollReveal delay={2.6} direction="left" className={styles.heroRight}>
             <div className={styles.heroRightInner}>
               <NameTagHero />
               <div className={styles.heroDecoration} aria-hidden="true"></div>

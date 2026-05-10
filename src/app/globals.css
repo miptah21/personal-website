@@ -40,7 +40,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
+@keyframes slideDownNav {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 html {
   scroll-behavior: smooth;
