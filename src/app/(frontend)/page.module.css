@@ -309,7 +309,6 @@
 
 /* About / Vignette */
 .aboutSection {
-  background-color: var(--surface);
   padding: 8rem 0;
 }
 @media (min-width: 768px) { .aboutSection { padding: 12rem 0; } }
@@ -534,7 +533,6 @@
 
 /* Toolkit */
 .toolkitSection {
-  background-color: var(--surface);
   padding: 8rem 0;
 }
 @media (min-width: 768px) { .toolkitSection { padding: 12rem 0; } }
@@ -651,7 +649,6 @@
 
 /* Experience */
 .experienceSection {
-  background-color: var(--surface);
   padding: 8rem 0;
 }
 @media (min-width: 768px) { .experienceSection { padding: 12rem 0; } }
