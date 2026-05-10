@@ -561,8 +561,6 @@
   font-size: 1.875rem;
   color: var(--primary-container);
   line-height: 1.25;
-  position: relative;
-  z-index: 2;
 }
 .insightTitleLink {
   color: inherit;
