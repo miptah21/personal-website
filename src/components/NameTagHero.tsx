@@ -202,6 +202,15 @@ export default function NameTagHero() {
             <div className={styles.lanyardHole} aria-hidden="true">
               <div className={styles.lanyardHoleInner} />
             </div>
+
+            {/* Back Face Bar */}
+            <div className={styles.idBottomBar}>
+              <span className={styles.statusPulse} title="Active" style={{ background: '#60a5fa', boxShadow: '0 0 12px rgba(96, 165, 250, 0.8)' }} />
+              <div className={styles.barcodeContainer} aria-hidden="true">
+                {barcodeElements}
+              </div>
+              <span className={styles.idNumber}>EST-2018</span>
+            </div>
           </div>
 
         </div>
