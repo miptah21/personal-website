@@ -1,0 +1,62 @@
+.introContainer {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: var(--surface, #fbfdf9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: all;
+}
+
+.fadeOut {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mSvg {
+  width: 140px;
+  height: 140px;
+  animation: scaleUp 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.mPath {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  /* Garis akan digambar selama 1.8 detik */
+  animation: drawM 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: 0.2s; /* Sedikit delay sebelum mulai */
+}
+
+@keyframes drawM {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+/* Aksesibilitas: Matikan animasi bagi pengguna yang pusing melihat gerakan */
+@media (prefers-reduced-motion: reduce) {
+  .mPath {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .mSvg {
+    animation: none;
+  }
+  .introContainer {
+    transition: none;
+  }
+}

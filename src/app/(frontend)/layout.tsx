@@ -3,6 +3,7 @@ import { Manrope, Newsreader } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
+import IntroAnimation from "@/components/IntroAnimation";
 import "../globals.css";
 
 const manrope = Manrope({
@@ -43,6 +44,7 @@ export default function FrontendLayout({
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
       </head>
       <body>
+        <IntroAnimation />
         <ScrollProgress />
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
