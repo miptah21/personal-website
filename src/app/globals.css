@@ -65,8 +65,10 @@ body {
   }
 }
 
-html {
-  scroll-behavior: smooth;
+@media (hover: hover) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Custom scrollbar — editorial sharp style */
@@ -293,11 +295,6 @@ h1, h2, h3, h4, h5, h6, .serif {
 
 /* ===== Mobile Performance & Touch Targets ===== */
 @media (max-width: 768px) {
-  /* Ensure minimum 44px touch targets (WCAG 2.5.5) */
-  a, button {
-    min-height: 44px;
-    min-width: 44px;
-  }
   /* Disable heavy background gradients on mobile for GPU savings */
   html, body {
     background: var(--surface);

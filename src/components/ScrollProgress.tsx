@@ -67,7 +67,6 @@ export default function ScrollProgress() {
         backgroundColor: 'var(--secondary)', // Matches brand gold flavor
         transformOrigin: '0% 50%',
         transform: 'scaleX(0)',
-        willChange: 'transform',
         zIndex: 9999, 
         animation: pathname === '/' && !hasAnimated ? 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.4s both' : 'none'
       }} 

@@ -643,6 +643,15 @@
   100% { transform: translateX(-50%); } 
 }
 
+@media (max-width: 767px) {
+  .sliderTrack {
+    animation-duration: 60s;
+  }
+  .toolCard, .toolCardDark, .toolCardVariant {
+    transition: none;
+  }
+}
+
 .toolkitGrid {
   display: grid;
   grid-template-columns: 1fr;
