@@ -196,6 +196,8 @@
   -webkit-mask-image: radial-gradient(ellipse at 80% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
   z-index: -1;
   pointer-events: none;
+  transform: translateZ(0);
+  will-change: transform;
 }
 @media (min-width: 768px) {
   .heroSection {
@@ -472,6 +474,8 @@
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
   z-index: -1;
   pointer-events: none;
+  transform: translateZ(0);
+  will-change: transform;
 }
 @media (min-width: 768px) { .insightsSection { padding: 12rem 0; } }
 
