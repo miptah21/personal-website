@@ -329,22 +329,22 @@
 
 /* ---------- Mobile GPU Optimization ---------- */
 @media (max-width: 767px) {
-  /* Disable 3D rendering context entirely */
+  /* Restore 3D context for the flip to work, but keep perspective manageable */
   .nameTagScene {
-    perspective: none;
+    perspective: 1200px;
   }
   .idCardInner {
-    transform-style: flat;
+    transform-style: preserve-3d;
   }
 
-  /* Kill ALL infinite animations */
-  .idPhoto,
+  /* Keep infinite animations disabled for performance */
   .orbitalRing,
   .orbitalRingSecond,
   .glowPulse,
   .statusPulse {
     animation: none !important;
   }
+
 
   /* Hide purely decorative elements that add GPU layers */
   .orbitalRing,
