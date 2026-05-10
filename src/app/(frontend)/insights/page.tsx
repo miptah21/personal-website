@@ -34,30 +34,30 @@ export default async function InsightsList() {
           {posts.map((post, index) => {
             const cover = typeof post.coverImage === 'object' && post.coverImage !== null ? post.coverImage : null;
             return (
-              <ScrollReveal delay={index * 0.1} key={post.slug} className={styles.insightCard}>
-                <div>
-                  <div>
-                    <div className={styles.insightImageWrapper}>
-                      <Image
-                        src={cover?.url || '/default-insight-cover.png'}
-                        alt={cover?.alt || post.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className={styles.insightImage}
-                      />
-                    </div>
-                    <p className={styles.insightCategory}>{post.category || 'Insight'}</p>
-                    <h4 className={styles.insightTitle}>
-                      <Link href={`/insights/${post.slug}`} className={styles.insightTitleLink}>
+              <ScrollReveal delay={index * 0.1} key={post.slug}>
+                <Link href={`/insights/${post.slug}`} className={styles.insightCard} style={{ display: 'flex', textDecoration: 'none', color: 'inherit' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+                    <div>
+                      <div className={styles.insightImageWrapper}>
+                        <Image
+                          src={cover?.url || '/default-insight-cover.png'}
+                          alt={cover?.alt || post.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className={styles.insightImage}
+                        />
+                      </div>
+                      <p className={styles.insightCategory}>{post.category || 'Insight'}</p>
+                      <h4 className={styles.insightTitle}>
                         {post.title}
-                      </Link>
-                    </h4>
+                      </h4>
+                    </div>
+                    <div className={styles.insightFooter}>
+                      <span>{(post.publishedAt || post.createdAt) ? new Date((post.publishedAt || post.createdAt) as string).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase() : ''}</span>
+                      <span className="material-symbols-outlined">&#8599;</span>
+                    </div>
                   </div>
-                  <div className={styles.insightFooter}>
-                    <span>{(post.publishedAt || post.createdAt) ? new Date((post.publishedAt || post.createdAt) as string).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase() : ''}</span>
-                    <span className="material-symbols-outlined">&#8599;</span>
-                  </div>
-                </div>
+                </Link>
               </ScrollReveal>
             );
           })}

@@ -9,7 +9,7 @@ export type ProjectsSectionProps = {
 
 function ProjectCard({ project, isHero }: { project: ProjectDoc; isHero: boolean }) {
   return (
-    <div className={`${styles.projectCard}${isHero ? ` ${styles.projectCardHero}` : ''}`}>
+    <Link href="/projects" className={`${styles.projectCard}${isHero ? ` ${styles.projectCardHero}` : ''}`} style={{ display: 'block', textDecoration: 'none' }}>
       {/* Gradient background */}
       <div
         className={styles.projectCardBg}
@@ -35,9 +35,7 @@ function ProjectCard({ project, isHero }: { project: ProjectDoc; isHero: boolean
       <div className={styles.projectContent}>
         <p className={styles.projectCategory}>{project.category}</p>
         <h4 className={styles.projectTitle}>
-          <Link href="/projects" className={styles.projectTitleLink}>
-            {project.title}
-          </Link>
+          {project.title}
         </h4>
         <p className={styles.projectDescription}>{project.description}</p>
         <div className={styles.projectTags}>
@@ -46,7 +44,7 @@ function ProjectCard({ project, isHero }: { project: ProjectDoc; isHero: boolean
           ))}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
