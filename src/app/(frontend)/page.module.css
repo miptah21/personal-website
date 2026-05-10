@@ -49,6 +49,10 @@
   background-color: rgba(251, 249, 244, 0.7);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  transform: var(--nav-transform, translateY(0));
+}
+.navAnimate {
+  animation: slideDownNav 0.8s cubic-bezier(0.22, 1, 0.36, 1) 2.6s both;
 }
 .navContainer {
   display: flex;
@@ -607,7 +611,7 @@
 .sliderMarquee {
   display: flex;
   overflow: hidden;
-  width: 100vw;
+  width: 100%;
   position: relative;
   left: 50%;
   right: 50%;
@@ -1890,39 +1894,7 @@
 
 /* --- High-Performance Aesthetic Animations --- */
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  .heroTitle {
-    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  
-  .heroSubtitle, .heroDescription, .btnRoundedPrimary {
-    opacity: 0;
-    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  
-  .heroSubtitle { animation-delay: 0.1s; }
-  .heroDescription { animation-delay: 0.2s; }
-  .btnRoundedPrimary { animation-delay: 0.3s; }
-
-  .heroImageWrapper {
-    opacity: 0;
-    animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-  }
-
-  .toolCardAnim {
-    opacity: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
+  /* Animations removed because ScrollReveal handles them via JS IntersectionObserver now, preventing Safari scroll replay bugs */
   .flipSlot {
     display: grid;
     grid-template-areas: "slotOverlay";

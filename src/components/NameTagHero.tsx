@@ -181,8 +181,7 @@ export default function NameTagHero() {
               fill
               sizes="(max-width: 768px) 100vw, 420px"
               className={styles.idPhoto}
-              priority
-              fetchPriority="high"
+              loading="lazy"
             />
             <div className={styles.idCardOverlay} aria-hidden="true" />
             <div className={styles.holographicShimmer} aria-hidden="true" />

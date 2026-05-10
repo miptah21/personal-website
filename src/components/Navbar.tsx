@@ -20,20 +20,29 @@ export default function Navbar() {
   useEffect(() => {
     if (pathname !== '/') {
       setHasAnimated(true);
+    } else if (!hasAnimated) {
+      // Garantikan animasi dihapus setelah selesai (2.6s delay + 0.8s duration = 3.4s)
+      const timer = setTimeout(() => {
+        setHasAnimated(true);
+      }, 3500);
+      return () => clearTimeout(timer);
     }
-  }, [pathname]);
+  }, [pathname, hasAnimated]);
 
   // Direct DOM manipulation for show/hide — avoids React re-render on scroll
   useEffect(() => {
+    if (typeof window !== 'undefined' && (window as any)._vanillaNavScroll) {
+      window.removeEventListener('scroll', (window as any)._vanillaNavScroll);
+      delete (window as any)._vanillaNavScroll;
+    }
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      const nav = navRef.current;
-      if (!nav) return;
       
       if (currentScrollY > lastScrollY.current && currentScrollY > 50 && !isMobileMenuOpen) {
-        nav.style.transform = 'translateY(-100%)';
+        document.body.style.setProperty('--nav-transform', 'translateY(-100%)');
       } else {
-        nav.style.transform = 'translateY(0)';
+        document.body.style.setProperty('--nav-transform', 'translateY(0)');
       }
       
       lastScrollY.current = currentScrollY;
@@ -85,12 +94,10 @@ export default function Navbar() {
   return (
     <nav 
       ref={navRef} 
-      className={styles.navBar} 
+      className={`${styles.navBar} ${pathname === '/' && !hasAnimated ? styles.navAnimate : ''}`} 
       style={{ 
-        transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
-        animation: pathname === '/' && !hasAnimated ? 'slideDownNav 0.8s cubic-bezier(0.22, 1, 0.36, 1) 2.6s both' : 'none'
+        transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)'
       }} 
-      onAnimationEnd={() => setHasAnimated(true)}
       aria-label="Main navigation"
     >
         <div className={styles.navContainer}>

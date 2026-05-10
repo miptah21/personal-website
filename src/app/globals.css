@@ -24,10 +24,12 @@
 }
 
 /* Base resets & typography */
-html,
+html {
+  overflow-x: clip;
+}
+
 body {
   max-width: 100vw;
-  overflow-x: clip;
   background-color: var(--surface);
   background: 
     radial-gradient(circle at 15% 10%, rgba(23, 49, 36, 0.03) 0%, transparent 40%),
@@ -48,6 +50,17 @@ body {
   100% {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@keyframes heroReveal {
+  from {
+    opacity: 0;
+    transform: var(--reveal-start, translate(0));
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
   }
 }
 

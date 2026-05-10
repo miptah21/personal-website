@@ -1,9 +1,18 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function ScrollProgress() {
   const progressRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname() || '/';
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      setHasAnimated(true);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     let ticking = false;
@@ -60,7 +69,9 @@ export default function ScrollProgress() {
         transform: 'scaleX(0)',
         willChange: 'transform',
         zIndex: 9999, 
+        animation: pathname === '/' && !hasAnimated ? 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.4s both' : 'none'
       }} 
+      onAnimationEnd={() => setHasAnimated(true)}
       ref={progressRef}
       aria-hidden="true"
     />

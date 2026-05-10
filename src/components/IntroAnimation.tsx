@@ -13,26 +13,17 @@ export default function IntroAnimation() {
   useEffect(() => {
     // Hanya jalankan intro jika pengguna berada di halaman utama
     if (pathname === '/') {
-      // Force scroll ke atas saat refresh/load
-      if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, 0);
-
       setIsVisible(true);
-      
-      document.body.style.overflow = 'hidden';
 
-      // CSS menangani animasi fade out (mulai di 2.1s, selesai pada 2.6s). 
-      // Timer ini hanya untuk menghapus elemen dari DOM (unmount) dan mengembalikan scroll.
+      // Hapus elemen dari DOM setelah animasi benar-benar selesai (2.8s)
       const unmountTimer = setTimeout(() => {
         setIsVisible(false);
-        document.body.style.overflow = '';
       }, 2800);
 
       return () => {
         clearTimeout(unmountTimer);
-        document.body.style.overflow = '';
+        document.body.style.overflow = ''; // Cleanup darurat
+        document.documentElement.style.overflow = '';
       };
     }
   }, [pathname]);

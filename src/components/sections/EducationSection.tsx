@@ -15,11 +15,11 @@ export default function EducationSection({ education }: EducationSectionProps) {
       <div className={styles.container}>
         <div className={styles.eduGrid}>
           {/* Left: Sticky headline */}
-          <ScrollReveal className={styles.eduHeaderCol}>
+          <div className={styles.eduHeaderCol}>
             <div className={styles.eduStickyHeadline}>
               <h2 style={{ fontSize: 'inherit', fontWeight: 'inherit', margin: 0 }}>Education</h2>
             </div>
-          </ScrollReveal>
+          </div>
 
           {/* Right: Education cards */}
           <div className={styles.eduContentCol}>

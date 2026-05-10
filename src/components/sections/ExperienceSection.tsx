@@ -12,7 +12,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
     <section className={styles.experienceSection} id="experience">
       <div className={styles.container}>
         <div className={styles.expGrid}>
-          <ScrollReveal className={styles.expHeaderCol}>
+          <div className={styles.expHeaderCol}>
             <div className={styles.expStickyHeadline}>
               <h2 style={{ fontSize: 'inherit', fontWeight: 'inherit', margin: 0 }}>Experience</h2>
               <div style={{ marginTop: '2rem', display: 'block' }}>
@@ -21,7 +21,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                 </Link>
               </div>
             </div>
-          </ScrollReveal>
+          </div>
           <ScrollReveal delay={0.2} className={styles.expListCol}>
             <div aria-label="Professional experience">
               {experiences.length > 0 ? experiences.map((exp, index) => {

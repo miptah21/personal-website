@@ -28,19 +28,24 @@ export default function ScrollReveal({
   className = '',
   threshold = 0.1,
   once = true,
+  priority = false,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  // Pre-compute the initial transform string
   const getInitialTransform = () => {
-    if (direction === 'up') return `translateY(${distance}px)`;
-    if (direction === 'down') return `translateY(-${distance}px)`;
-    if (direction === 'left') return `translateX(${distance}px)`;
-    if (direction === 'right') return `translateX(-${distance}px)`;
-    return 'translate(0)';
+    switch (direction) {
+      case 'up': return `translateY(${distance}px)`;
+      case 'down': return `translateY(-${distance}px)`;
+      case 'left': return `translateX(${distance}px)`;
+      case 'right': return `translateX(-${distance}px)`;
+      default: return 'none';
+    }
   };
 
   useEffect(() => {
+    // If priority is true, the CSS animation handles everything. We skip JS observer.
+    if (priority) return;
+
     const element = ref.current;
     if (!element) return;
 
@@ -80,10 +85,18 @@ export default function ScrollReveal({
       observer.disconnect();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [threshold, once]);
+  }, [threshold, once, priority]);
+
+  const ssrStyle = priority ? {
+    '--reveal-start': getInitialTransform(),
+    animation: `heroReveal ${duration}s cubic-bezier(0.25, 1, 0.5, 1) ${delay}s both`
+  } as React.CSSProperties : {
+    opacity: 0,
+    transform: getInitialTransform()
+  } as React.CSSProperties;
 
   return (
-    <div ref={ref} className={`${styles.revealWrapper} ${className}`}>
+    <div ref={ref} className={`${styles.revealWrapper} ${className}`} style={ssrStyle}>
       {children}
     </div>
   );
