@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getExperiences } from '@/lib/queries';
 import { RichText } from '@payloadcms/richtext-lexical/react';
 import styles from './experience.module.css';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'Experience | Miftahudin Akbar',
@@ -28,38 +29,40 @@ export default async function ExperiencePage() {
           Back to Home
         </Link>
 
-        <header className={styles.header}>
-          <div className={styles.headerInner}>
-            <div>
-              <p className={styles.eyebrow}>
-                <span className={styles.eyebrowLine} />
-                Resume &amp; Career History
-              </p>
-              <h1 className={styles.headline}>
-                Professional
-                <br />
-                Experience
-              </h1>
-              <p className={styles.headerDescription}>
-                A detailed look at my career trajectory, the scope of my responsibilities,
-                and the measurable impact I&lsquo;ve delivered across various organizations.
-              </p>
-            </div>
-
-            {totalCompanies > 0 && (
-              <div className={styles.headerStats}>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>{totalYears}+</div>
-                  <div className={styles.statLabel}>Years</div>
-                </div>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>{totalCompanies}</div>
-                  <div className={styles.statLabel}>Roles</div>
-                </div>
+        <ScrollReveal>
+          <header className={styles.header}>
+            <div className={styles.headerInner}>
+              <div>
+                <p className={styles.eyebrow}>
+                  <span className={styles.eyebrowLine} />
+                  Resume &amp; Career History
+                </p>
+                <h1 className={styles.headline}>
+                  Professional
+                  <br />
+                  Experience
+                </h1>
+                <p className={styles.headerDescription}>
+                  A detailed look at my career trajectory, the scope of my responsibilities,
+                  and the measurable impact I&lsquo;ve delivered across various organizations.
+                </p>
               </div>
-            )}
-          </div>
-        </header>
+
+              {totalCompanies > 0 && (
+                <div className={styles.headerStats}>
+                  <div className={styles.stat}>
+                    <div className={styles.statValue}>{totalYears}+</div>
+                    <div className={styles.statLabel}>Years</div>
+                  </div>
+                  <div className={styles.stat}>
+                    <div className={styles.statValue}>{totalCompanies}</div>
+                    <div className={styles.statLabel}>Roles</div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </header>
+        </ScrollReveal>
 
         <div className={styles.divider} />
 
@@ -71,48 +74,49 @@ export default async function ExperiencePage() {
               const isActive = exp.isActive ?? false;
 
               return (
-                <article
-                  key={exp.id || index}
-                  className={`${styles.entry}${isLast ? ` ${styles.entryLast}` : ''}${isActive ? ` ${styles.entryActive}` : ''}`}
-                  role="listitem"
-                >
-                  <div className={styles.entryHeader}>
-                    <div className={styles.entryMeta}>
-                      <span className={styles.entryNumber}>{numStr}</span>
-                      <h2 className={styles.company}>{exp.company}</h2>
-                      <p className={styles.role}>{exp.role}</p>
+                <ScrollReveal delay={index * 0.15} key={exp.id || index}>
+                  <article
+                    className={`${styles.entry}${isLast ? ` ${styles.entryLast}` : ''}${isActive ? ` ${styles.entryActive}` : ''}`}
+                    role="listitem"
+                  >
+                    <div className={styles.entryHeader}>
+                      <div className={styles.entryMeta}>
+                        <span className={styles.entryNumber}>{numStr}</span>
+                        <h2 className={styles.company}>{exp.company}</h2>
+                        <p className={styles.role}>{exp.role}</p>
+                      </div>
+                      <span className={styles.dates}>
+                        {exp.startDate} — {exp.endDate}
+                      </span>
                     </div>
-                    <span className={styles.dates}>
-                      {exp.startDate} — {exp.endDate}
-                    </span>
-                  </div>
 
-                  <div className={styles.entryBody}>
-                    {exp.scope && (
-                      <div className={styles.scope}>
-                        <p>{exp.scope}</p>
-                      </div>
-                    )}
+                    <div className={styles.entryBody}>
+                      {exp.scope && (
+                        <div className={styles.scope}>
+                          <p>{exp.scope}</p>
+                        </div>
+                      )}
 
-                    {!!exp.impactAndOutcomes && (
-                      <div className={styles.outcomes}>
-                        <RichText
-                          data={exp.impactAndOutcomes as import('lexical').SerializedEditorState}
-                        />
-                      </div>
-                    )}
+                      {!!exp.impactAndOutcomes && (
+                        <div className={styles.outcomes}>
+                          <RichText
+                            data={exp.impactAndOutcomes as import('lexical').SerializedEditorState}
+                          />
+                        </div>
+                      )}
 
-                    {exp.skills && exp.skills.length > 0 && (
-                      <div className={styles.skills}>
-                        {exp.skills.map((s, idx) => (
-                          <span key={s.id || idx} className={styles.skillPill}>
-                            {s.skill}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </article>
+                      {exp.skills && exp.skills.length > 0 && (
+                        <div className={styles.skills}>
+                          {exp.skills.map((s, idx) => (
+                            <span key={s.id || idx} className={styles.skillPill}>
+                              {s.skill}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                </ScrollReveal>
               );
             })}
           </div>

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import styles from '../page.module.css';
 import { getInsights } from '@/lib/queries';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'The Monograph | Miftahudin Akbar',
@@ -24,14 +25,17 @@ export default async function InsightsList() {
           <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_back</span>
           Back to Home
         </Link>
-        <h1 className="display-lg" style={{ marginBottom: '1rem', color: 'var(--primary-container)' }}>The Monograph</h1>
-        <p className="label-sm" style={{ color: 'var(--outline)', marginBottom: '4rem' }}>All Insights</p>
+        <ScrollReveal>
+          <h1 className="display-lg" style={{ marginBottom: '1rem', color: 'var(--primary-container)' }}>The Monograph</h1>
+          <p className="label-sm" style={{ color: 'var(--outline)', marginBottom: '4rem' }}>All Insights</p>
+        </ScrollReveal>
         
         <div className="grid grid-cols-3">
-          {posts.map((post) => {
+          {posts.map((post, index) => {
             const cover = typeof post.coverImage === 'object' && post.coverImage !== null ? post.coverImage : null;
             return (
-              <div key={post.slug} className={styles.insightCard}>
+              <ScrollReveal delay={index * 0.1} key={post.slug} className={styles.insightCard}>
+                <div>
                   <div>
                     <div className={styles.insightImageWrapper}>
                       <Image
@@ -53,7 +57,8 @@ export default async function InsightsList() {
                     <span>{(post.publishedAt || post.createdAt) ? new Date((post.publishedAt || post.createdAt) as string).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase() : ''}</span>
                     <span className="material-symbols-outlined">&#8599;</span>
                   </div>
-              </div>
+                </div>
+              </ScrollReveal>
             );
           })}
         </div>

@@ -4,6 +4,7 @@ import styles from '../page.module.css';
 import pageStyles from './page.module.css';
 import { getAllProjects } from '@/lib/queries';
 import type { ProjectDoc } from '@/lib/queries';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'The Laboratory | Miftahudin Akbar',
@@ -113,18 +114,22 @@ export default async function ProjectsPage() {
           Back to Home
         </Link>
 
-        <div className={pageStyles.projectsPageHeader}>
-          <h1 className={pageStyles.projectsPageTitle}>The Laboratory</h1>
-          <p className={pageStyles.projectsPageSubtitle}>All Projects</p>
-          <p className={pageStyles.projectsPageDescription}>
-            A curated archive of systems I&apos;ve designed, built, and shipped — spanning computational finance, 
-            machine learning infrastructure, and real-time data engineering.
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className={pageStyles.projectsPageHeader}>
+            <h1 className={pageStyles.projectsPageTitle}>The Laboratory</h1>
+            <p className={pageStyles.projectsPageSubtitle}>All Projects</p>
+            <p className={pageStyles.projectsPageDescription}>
+              A curated archive of systems I&apos;ve designed, built, and shipped — spanning computational finance, 
+              machine learning infrastructure, and real-time data engineering.
+            </p>
+          </div>
+        </ScrollReveal>
 
         <div className={pageStyles.projectsPageGrid}>
-          {allProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+          {allProjects.map((project, index) => (
+            <ScrollReveal delay={index * 0.15} key={project.id}>
+              <ProjectCard project={project} />
+            </ScrollReveal>
           ))}
         </div>
       </div>
