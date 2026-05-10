@@ -40,16 +40,27 @@ export default function IntroAnimation() {
     <div className={`${styles.introContainer} ${isFading ? styles.fadeOut : ''}`} aria-hidden="true">
       <svg
         className={styles.mSvg}
-        viewBox="0 0 100 100"
+        viewBox="0 0 200 200"
         xmlns="http://www.w3.org/2000/svg"
       >
+        {/* Golden Underline */}
+        <path
+          className={styles.underlinePath}
+          pathLength="100"
+          d="M 45,155 C 80,140 140,130 165,135"
+          fill="none"
+          stroke="#cca850"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+        {/* Elegant Signature M */}
         <path
           className={styles.mPath}
           pathLength="100"
-          d="M 15,75 C 20,40 25,20 35,20 C 45,20 35,70 45,80 C 55,60 60,20 70,20 C 80,20 70,70 80,80 C 85,85 95,80 95,65"
+          d="M 50,100 C 30,115 40,60 80,50 C 70,80 60,130 60,140 C 75,100 95,60 110,65 C 105,90 95,130 95,130 C 105,100 120,70 130,75 C 125,100 120,140 135,130"
           fill="none"
-          stroke="var(--on-surface, #1b1c19)"
-          strokeWidth="2.5"
+          stroke="#093325"
+          strokeWidth="4"
           strokeLinecap="round"
           strokeLinejoin="round"
         />

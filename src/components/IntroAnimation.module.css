@@ -16,9 +16,25 @@
 }
 
 .mSvg {
-  width: 140px;
-  height: 140px;
-  animation: scaleUp 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  width: 240px;
+  height: 240px;
+  animation: scaleUp 3.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.underlinePath {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawLine 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: 1.2s; /* Mulai ditarik saat M hampir selesai */
+}
+
+@keyframes drawLine {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 .mPath {
