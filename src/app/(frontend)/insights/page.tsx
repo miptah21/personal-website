@@ -30,7 +30,7 @@ export default async function InsightsList() {
           <p className="label-sm" style={{ color: 'var(--outline)', marginBottom: '4rem' }}>All Insights</p>
         </ScrollReveal>
         
-        <div className="grid grid-cols-3">
+        <div className={styles.insightsGrid}>
           {posts.map((post, index) => {
             const cover = typeof post.coverImage === 'object' && post.coverImage !== null ? post.coverImage : null;
             return (
