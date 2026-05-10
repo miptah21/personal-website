@@ -135,12 +135,17 @@
 }
 
 .mobileMenuBtn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   color: var(--primary-container);
   cursor: pointer;
   padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 28px;
 }
 @media (min-width: 768px) {
   .mobileMenuBtn { display: none; }
