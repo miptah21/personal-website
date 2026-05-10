@@ -1,8 +1,12 @@
 import styles from '@/app/(frontend)/page.module.css';
 import type { AwardDoc } from '@/lib/queries';
-import { AwardLightbox } from '../AwardLightbox';
+import dynamic from 'next/dynamic';
 import ScrollReveal from '@/components/ScrollReveal';
 import Icon from '@/components/Icon';
+
+const AwardLightbox = dynamic(() => import('../AwardLightbox').then(mod => ({ default: mod.AwardLightbox })), {
+  ssr: false,
+});
 
 interface AwardsSectionProps {
   awards: AwardDoc[];

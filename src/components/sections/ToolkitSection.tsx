@@ -1,8 +1,12 @@
 import styles from '@/app/(frontend)/page.module.css';
-import AnimatedToolkitGrid from '@/components/AnimatedToolkitGrid';
+import dynamic from 'next/dynamic';
 import ScrollReveal from '@/components/ScrollReveal';
 import Icon from '@/components/Icon';
 import type { ToolDoc } from '@/lib/queries';
+
+const AnimatedToolkitGrid = dynamic(() => import('@/components/AnimatedToolkitGrid'), {
+  ssr: false,
+});
 
 interface ToolkitSectionProps {
   tools: ToolDoc[];
