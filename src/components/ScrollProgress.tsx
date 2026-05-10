@@ -59,7 +59,7 @@ export default function ScrollProgress() {
         transformOrigin: '0% 50%',
         transform: 'scaleX(0)',
         willChange: 'transform',
-        zIndex: 1000, 
+        zIndex: 9999, 
       }} 
       ref={progressRef}
       aria-hidden="true"
