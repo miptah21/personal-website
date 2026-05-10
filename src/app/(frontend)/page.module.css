@@ -516,7 +516,8 @@
 @media (min-width: 768px) { .insightsGrid { grid-template-columns: repeat(3, 1fr); } }
 
 .insightCard {
-  background-color: #FDFBFA; /* Very subtle off-white, between #FBF9F4 and #FFFFFF */
+  background-color: var(--surface);
+  border: 1px solid rgba(194, 200, 194, 0.3);
   padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
@@ -524,7 +525,7 @@
   height: 500px;
   position: relative;
   cursor: pointer;
-  transition: background-color 0.5s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.5s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s;
 }
 .insightCard:hover {
   background-color: var(--surface-container-highest);
