@@ -12,8 +12,16 @@ export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  
   const menuRef = useRef<HTMLDivElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      setHasAnimated(true);
+    }
+  }, [pathname]);
 
   // Direct DOM manipulation for show/hide — avoids React re-render on scroll
   useEffect(() => {
@@ -80,8 +88,9 @@ export default function Navbar() {
       className={styles.navBar} 
       style={{ 
         transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
-        animation: pathname === '/' ? 'slideDownNav 0.8s cubic-bezier(0.22, 1, 0.36, 1) 2.6s both' : 'none'
+        animation: pathname === '/' && !hasAnimated ? 'slideDownNav 0.8s cubic-bezier(0.22, 1, 0.36, 1) 2.6s both' : 'none'
       }} 
+      onAnimationEnd={() => setHasAnimated(true)}
       aria-label="Main navigation"
     >
         <div className={styles.navContainer}>

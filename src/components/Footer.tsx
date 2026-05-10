@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className={styles.footer}>
         <div className={styles.footerContainer}>
           <div className={styles.footerBrand}>
-            <span className={styles.footerLogo}>M.</span>
+            <Link href="/" className={styles.footerLogo} aria-label="Miftahudin Akbar Home">M.</Link>
             <p className={styles.footerCopyright}>© {new Date().getFullYear()} Miftahudin Akbar. Designed for the Financial Professional.</p>
           </div>
           <div className={styles.footerNav}>
