@@ -9,7 +9,9 @@ export default function HeroSection() {
         <div className={styles.heroGrid}>
           <ScrollReveal delay={3.4} className={styles.heroLeft}>
             <p className={styles.heroEyebrow}>Computational Finance Professional</p>
-            <h1 className={styles.heroTitle}>Miftahudin<br/>Akbar.</h1>
+            <h1 className={styles.heroTitle}>
+              Miftahudin <span style={{ fontSize: '0.35em', opacity: 0.7, fontWeight: 400, fontStyle: 'italic', letterSpacing: '0.02em', verticalAlign: 'middle', display: 'inline-block', transform: 'translateY(-0.4em)', fontFamily: 'var(--font-serif)' }}>(Miftah)</span><br/>Akbar.
+            </h1>
             <div className={styles.heroBody}>
               <p className={styles.heroSubtitle}>
                 Bridging the gap between complex financial systems and data-driven intelligence.
