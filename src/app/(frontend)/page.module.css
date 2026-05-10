@@ -102,15 +102,14 @@
   border-radius: 16px;
   border: 1px solid rgba(194, 200, 194, 0.3);
   
-  transform: translateY(-10px) scale(0.95);
-  transform-origin: top right;
+  transform: translateY(-10px);
   opacity: 0;
   pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.2s ease, transform 0.2s ease;
   box-shadow: 0 24px 48px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04);
 }
 .navLinksOpen {
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
 }
