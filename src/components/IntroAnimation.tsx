@@ -46,10 +46,10 @@ export default function IntroAnimation() {
         <path
           className={styles.mPath}
           pathLength="100"
-          d="M 20 80 L 20 20 L 50 50 L 80 20 L 80 80"
+          d="M 15,75 C 20,40 25,20 35,20 C 45,20 35,70 45,80 C 55,60 60,20 70,20 C 80,20 70,70 80,80 C 85,85 95,80 95,65"
           fill="none"
           stroke="var(--on-surface, #1b1c19)"
-          strokeWidth="6"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
