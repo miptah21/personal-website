@@ -5,9 +5,11 @@ import { usePathname } from 'next/navigation';
 import styles from './IntroAnimation.module.css';
 
 export default function IntroAnimation() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isFading, setIsFading] = useState(false);
   const pathname = usePathname();
+  // Inisialisasi isVisible dengan mengecek pathname agar langsung di-render oleh Server (SSR)
+  // Ini mencegah "flash" konten halaman sebelum animasi muncul
+  const [isVisible, setIsVisible] = useState(pathname === '/');
+  const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
     // Hanya jalankan intro jika pengguna berada di halaman utama
