@@ -516,7 +516,7 @@
 @media (min-width: 768px) { .insightsGrid { grid-template-columns: repeat(3, 1fr); } }
 
 .insightCard {
-  background-color: var(--surface);
+  background-color: var(--surface-container-lowest);
   padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
