@@ -8,21 +8,24 @@ import styles from '@/app/(frontend)/page.module.css';
 
 export default function Navbar() {
   const pathname = usePathname() || '/';
-  const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
+  const navRef = useRef<HTMLElement>(null);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
 
+  // Direct DOM manipulation for show/hide — avoids React re-render on scroll
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      const nav = navRef.current;
+      if (!nav) return;
       
       if (currentScrollY > lastScrollY.current && currentScrollY > 50 && !isMobileMenuOpen) {
-        setIsVisible(false); // Hide when scrolling down unless menu is open
+        nav.style.transform = 'translateY(-100%)';
       } else {
-        setIsVisible(true);  // Show when scrolling up
+        nav.style.transform = 'translateY(0)';
       }
       
       lastScrollY.current = currentScrollY;
@@ -72,7 +75,7 @@ export default function Navbar() {
   }, [isMobileMenuOpen, handleMenuKeyDown]);
 
   return (
-    <nav className={styles.navBar} style={{ transform: isVisible ? 'translateY(0)' : 'translateY(-100%)', transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)' }} aria-label="Main navigation">
+    <nav ref={navRef} className={styles.navBar} style={{ transition: 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)' }} aria-label="Main navigation">
         <div className={styles.navContainer}>
           <Link href="/" className={styles.navLogo} aria-label="Miftahudin Akbar Home">M.</Link>
           
@@ -98,3 +101,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

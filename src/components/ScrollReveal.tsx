@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './ScrollReveal.module.css';
 
 interface ScrollRevealProps {
@@ -14,6 +14,11 @@ interface ScrollRevealProps {
   once?: boolean; // Whether it triggers only once
 }
 
+/**
+ * Scroll-reveal animation component.
+ * Uses direct DOM style mutation (no setState) to avoid forced reflows
+ * from React re-renders during IntersectionObserver callbacks.
+ */
 export default function ScrollReveal({
   children,
   delay = 0,
@@ -24,20 +29,43 @@ export default function ScrollReveal({
   threshold = 0.1,
   once = true,
 }: ScrollRevealProps) {
-  const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  // Pre-compute the initial transform string
+  const getInitialTransform = () => {
+    if (direction === 'up') return `translateY(${distance}px)`;
+    if (direction === 'down') return `translateY(-${distance}px)`;
+    if (direction === 'left') return `translateX(${distance}px)`;
+    if (direction === 'right') return `translateX(-${distance}px)`;
+    return 'translate(0)';
+  };
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
 
+    // Set initial hidden state via DOM (avoids SSR mismatch by only running on client)
+    const transition = `opacity ${duration}s cubic-bezier(0.25, 1, 0.5, 1) ${delay}s, transform ${duration}s cubic-bezier(0.25, 1, 0.5, 1) ${delay}s`;
+    element.style.opacity = '0';
+    element.style.transform = getInitialTransform();
+    element.style.transition = transition;
+    element.style.willChange = 'opacity, transform';
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          // Reveal: mutate DOM directly — no React re-render needed
+          element.style.opacity = '1';
+          element.style.transform = 'translate(0)';
+          // Clean up willChange after transition completes to free compositor memory
+          element.addEventListener('transitionend', () => {
+            element.style.willChange = 'auto';
+          }, { once: true });
           if (once) observer.disconnect();
         } else if (!once) {
-          setIsVisible(false);
+          element.style.opacity = '0';
+          element.style.transform = getInitialTransform();
+          element.style.willChange = 'opacity, transform';
         }
       },
       {
@@ -51,26 +79,11 @@ export default function ScrollReveal({
     return () => {
       observer.disconnect();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [threshold, once]);
 
-  // Kalkulasi gaya awal (sebelum terlihat)
-  const getTransform = () => {
-    if (direction === 'up') return `translateY(${distance}px)`;
-    if (direction === 'down') return `translateY(-${distance}px)`;
-    if (direction === 'left') return `translateX(${distance}px)`;
-    if (direction === 'right') return `translateX(-${distance}px)`;
-    return 'translate(0)';
-  };
-
-  const style: React.CSSProperties = {
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translate(0)' : getTransform(),
-    transition: `opacity ${duration}s cubic-bezier(0.25, 1, 0.5, 1) ${delay}s, transform ${duration}s cubic-bezier(0.25, 1, 0.5, 1) ${delay}s`,
-    willChange: isVisible ? 'auto' : 'opacity, transform',
-  };
-
   return (
-    <div ref={ref} style={style} className={`${styles.revealWrapper} ${className}`}>
+    <div ref={ref} className={`${styles.revealWrapper} ${className}`}>
       {children}
     </div>
   );

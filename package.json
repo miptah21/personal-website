@@ -30,6 +30,7 @@
     "@next/bundle-analyzer": "^16.2.6",
     "@types/node": "^20.19.39",
     "@types/react": "^19.2.14",
+    "critters": "^0.0.25",
     "cross-env": "^10.1.0",
     "eslint": "^9.39.4",
     "eslint-config-next": "16.2.2",
@@ -50,7 +51,9 @@
     "react-dom": "19.2.4"
   },
   "browserslist": [
-    "defaults and supports es6-module",
-    "maintained node versions"
+    "chrome >= 109",
+    "edge >= 109",
+    "firefox >= 115",
+    "safari >= 16.4"
   ]
 }

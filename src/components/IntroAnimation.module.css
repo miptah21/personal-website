@@ -6,26 +6,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: all;
+  /* Animasi fade out otomatis dari CSS, sinkron dengan animasi gambar */
+  animation: containerFadeOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 2.1s;
 }
 
-.fadeOut {
-  opacity: 0;
-  pointer-events: none;
+@keyframes containerFadeOut {
+  0% {
+    opacity: 1;
+    pointer-events: all;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
 }
 
 .mSvg {
   width: 240px;
   height: 240px;
-  animation: scaleUp 3.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: scaleUp 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .underlinePath {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
-  animation: drawLine 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  animation-delay: 1.2s; /* Mulai ditarik saat M hampir selesai */
+  animation: drawLine 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: 0.8s; /* Mulai ditarik saat M hampir selesai */
 }
 
 @keyframes drawLine {
@@ -40,8 +49,8 @@
 .mPath {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
-  /* Garis akan digambar selama 1.8 detik */
-  animation: drawM 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  /* Garis akan digambar selama 1.2 detik */
+  animation: drawM 1.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
   animation-delay: 0.2s; /* Sedikit delay sebelum mulai */
 }
 

@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import IntroAnimation from '@/components/IntroAnimation';
 
 const ScrollProgress = dynamic(() => import('@/components/ScrollProgress'), { ssr: false });
-const IntroAnimation = dynamic(() => import('@/components/IntroAnimation'), { ssr: false });
 
 export default function ClientShell() {
   // Load Material Symbols font asynchronously (non-render-blocking)
@@ -23,3 +23,4 @@ export default function ClientShell() {
     </>
   );
 }
+

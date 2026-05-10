@@ -7,11 +7,13 @@ import "../globals.css";
 const manrope = Manrope({
   variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const newsreader = Newsreader({
   variable: "--font-serif",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -35,7 +37,20 @@ export default function FrontendLayout({
 }>) {
   return (
     <html lang="en" className={`${manrope.variable} ${newsreader.variable}`} suppressHydrationWarning>
-      <body>
+      <head>
+        {/* Preconnect to Google Fonts origins for faster Material Symbols loading */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body suppressHydrationWarning>
+        {/* Lock scrolling on homepage before React hydrates — prevents content flash behind intro */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if(location.pathname==='/'){document.body.style.overflow='hidden'}`,
+          }}
+        />
         <ClientShell />
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
@@ -47,3 +62,4 @@ export default function FrontendLayout({
     </html>
   );
 }
+

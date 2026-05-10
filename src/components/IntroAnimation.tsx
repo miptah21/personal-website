@@ -9,7 +9,6 @@ export default function IntroAnimation() {
   // Inisialisasi isVisible dengan mengecek pathname agar langsung di-render oleh Server (SSR)
   // Ini mencegah "flash" konten halaman sebelum animasi muncul
   const [isVisible, setIsVisible] = useState(pathname === '/');
-  const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
     // Hanya jalankan intro jika pengguna berada di halaman utama
@@ -21,19 +20,17 @@ export default function IntroAnimation() {
       window.scrollTo(0, 0);
 
       setIsVisible(true);
-      setIsFading(false);
       
       document.body.style.overflow = 'hidden';
 
-      const fadeTimer = setTimeout(() => setIsFading(true), 2500);
-      
+      // CSS menangani animasi fade out (mulai di 2.1s, selesai pada 2.6s). 
+      // Timer ini hanya untuk menghapus elemen dari DOM (unmount) dan mengembalikan scroll.
       const unmountTimer = setTimeout(() => {
         setIsVisible(false);
         document.body.style.overflow = '';
-      }, 3300);
+      }, 2800);
 
       return () => {
-        clearTimeout(fadeTimer);
         clearTimeout(unmountTimer);
         document.body.style.overflow = '';
       };
@@ -45,7 +42,7 @@ export default function IntroAnimation() {
   const M_PATH = "M 50,100 C 30,115 40,60 80,50 C 70,80 60,130 60,140 C 75,100 95,60 110,65 C 105,90 95,130 95,130 C 105,100 120,70 130,75 C 125,100 120,140 135,130";
 
   return (
-    <div className={`${styles.introContainer} ${isFading ? styles.fadeOut : ''}`} aria-hidden="true">
+    <div className={styles.introContainer} aria-hidden="true">
       <svg
         className={styles.mSvg}
         viewBox="0 0 200 200"

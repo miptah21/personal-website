@@ -6,6 +6,18 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // Inline critical CSS above the fold via critters — eliminates render-blocking CSS
+    optimizeCss: true,
+    // Tree-shake unused exports from heavy packages (Payload, Lexical)
+    optimizePackageImports: [
+      '@payloadcms/richtext-lexical',
+      '@payloadcms/next',
+      '@payloadcms/ui',
+    ],
+    // Strict per-page CSS chunking — prevents unused CSS from other routes
+    cssChunking: 'strict',
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
