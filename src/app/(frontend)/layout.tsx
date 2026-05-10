@@ -38,23 +38,14 @@ export default function FrontendLayout({
   return (
     <html lang="en" className={`${manrope.variable} ${newsreader.variable}`} suppressHydrationWarning>
       <head>
-        {/* Load Material Symbols font asynchronously without blocking render */}
+        {/* Load Material Symbols font synchronously to prevent FOUT (Flash of Unstyled Text) */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link 
-          rel="preload"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" 
-          as="style"
+          rel="stylesheet" 
         />
-        <noscript>
-          {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-          <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
-        </noscript>
-        <script dangerouslySetInnerHTML={{ __html: `
-          var l=document.createElement('link');l.rel='stylesheet';
-          l.href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap';
-          document.head.appendChild(l);
-        `}} />
       </head>
       <body suppressHydrationWarning>
         {/* Lock scrolling on homepage before React hydrates — prevents content flash behind intro */}

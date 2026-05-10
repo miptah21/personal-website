@@ -66,6 +66,15 @@ export default function NameTagHero() {
         } 
       : { x: 0, y: baseRotateY, z: 0 };
 
+    // Disable tilt/sway on mobile or touch devices
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+      const rx = 0;
+      const ry = baseRotateY;
+      const rz = 0;
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`;
+      return;
+    }
+
     // Smooth interpolation (lerp)
     currentRotation.current.x += (target.x - currentRotation.current.x) * 0.08;
     currentRotation.current.y += (target.y - currentRotation.current.y) * 0.08;

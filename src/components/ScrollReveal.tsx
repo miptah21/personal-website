@@ -12,6 +12,7 @@ interface ScrollRevealProps {
   className?: string;
   threshold?: number; // 0 to 1
   once?: boolean; // Whether it triggers only once
+  priority?: boolean; // If true, uses pure CSS animation (bypasses IntersectionObserver)
 }
 
 /**
