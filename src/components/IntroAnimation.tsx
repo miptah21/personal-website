@@ -1,29 +1,27 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import styles from './IntroAnimation.module.css';
 
 export default function IntroAnimation() {
   const [isVisible, setIsVisible] = useState(false);
   const [isFading, setIsFading] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    // Mengecek apakah animasi sudah dimainkan di sesi ini
-    const hasPlayed = sessionStorage.getItem('intro_played');
-    
-    if (!hasPlayed) {
+    // Hanya jalankan intro jika pengguna berada di halaman utama
+    if (pathname === '/') {
       setIsVisible(true);
-      // Mencegah user scroll ke bawah saat intro berjalan
+      setIsFading(false);
+      
       document.body.style.overflow = 'hidden';
 
-      // Mulai proses fade-out perlahan
       const fadeTimer = setTimeout(() => setIsFading(true), 2500);
       
-      // Hapus komponen dari DOM setelah fade-out selesai
       const unmountTimer = setTimeout(() => {
         setIsVisible(false);
-        sessionStorage.setItem('intro_played', 'true');
-        document.body.style.overflow = ''; // Kembalikan scroll
+        document.body.style.overflow = '';
       }, 3300);
 
       return () => {
@@ -32,7 +30,7 @@ export default function IntroAnimation() {
         document.body.style.overflow = '';
       };
     }
-  }, []);
+  }, [pathname]);
 
   if (!isVisible) return null;
 
