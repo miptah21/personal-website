@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import { Manrope, Newsreader } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ScrollProgress from "@/components/ScrollProgress";
-import IntroAnimation from "@/components/IntroAnimation";
+import ClientShell from "@/components/ClientShell";
 import "../globals.css";
-
 const manrope = Manrope({
   variable: "--font-sans",
   subsets: ["latin"],
@@ -37,24 +35,8 @@ export default function FrontendLayout({
 }>) {
   return (
     <html lang="en" className={`${manrope.variable} ${newsreader.variable}`} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
-          as="style"
-        />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" 
-          rel="stylesheet" 
-          /* @ts-expect-error React 19 stylesheet precedence */
-          precedence="default"
-        />
-      </head>
       <body>
-        <IntroAnimation />
-        <ScrollProgress />
+        <ClientShell />
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
         <div id="main-content">

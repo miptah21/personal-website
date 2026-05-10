@@ -197,7 +197,6 @@
   z-index: -1;
   pointer-events: none;
   transform: translateZ(0);
-  will-change: transform;
 }
 @media (min-width: 768px) {
   .heroSection {
@@ -475,7 +474,6 @@
   z-index: -1;
   pointer-events: none;
   transform: translateZ(0);
-  will-change: transform;
 }
 @media (min-width: 768px) { .insightsSection { padding: 12rem 0; } }
 

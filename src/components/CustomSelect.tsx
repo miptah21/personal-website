@@ -112,7 +112,6 @@ export default function CustomSelect({
         className={`${styles.selectTrigger} ${isOpen ? styles.selectTriggerOpen : ''}`}
         onClick={() => !disabled && setIsOpen((prev) => !prev)}
         onKeyDown={handleKeyDown}
-        role="combobox"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-controls={`${id}-listbox`}
@@ -125,38 +124,37 @@ export default function CustomSelect({
         </span>
       </button>
 
-      {/* Dropdown */}
-      {isOpen && (
-        <ul
-          ref={listRef}
-          id={`${id}-listbox`}
-          className={styles.selectDropdown}
-          role="listbox"
-          aria-activedescendant={focusedIndex >= 0 ? `${id}-opt-${focusedIndex}` : undefined}
-        >
-          {options.map((option, index) => (
-            <li
-              key={option.value}
-              id={`${id}-opt-${index}`}
-              role="option"
-              aria-selected={option.value === selected.value}
-              className={`${styles.selectOption} ${
-                option.value === selected.value ? styles.selectOptionActive : ''
-              } ${index === focusedIndex ? styles.selectOptionFocused : ''}`}
-              onClick={() => {
-                setSelected(option)
-                setIsOpen(false)
-              }}
-              onMouseEnter={() => setFocusedIndex(index)}
-            >
-              <span>{option.label}</span>
-              {option.value === selected.value && (
-                <Icon name="check" size={16} />
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+      {/* Dropdown — always in DOM for aria-controls validity */}
+      <ul
+        ref={listRef}
+        id={`${id}-listbox`}
+        className={styles.selectDropdown}
+        role="listbox"
+        aria-activedescendant={focusedIndex >= 0 ? `${id}-opt-${focusedIndex}` : undefined}
+        style={isOpen ? undefined : { display: 'none' }}
+      >
+        {options.map((option, index) => (
+          <li
+            key={option.value}
+            id={`${id}-opt-${index}`}
+            role="option"
+            aria-selected={option.value === selected.value}
+            className={`${styles.selectOption} ${
+              option.value === selected.value ? styles.selectOptionActive : ''
+            } ${index === focusedIndex ? styles.selectOptionFocused : ''}`}
+            onClick={() => {
+              setSelected(option)
+              setIsOpen(false)
+            }}
+            onMouseEnter={() => setFocusedIndex(index)}
+          >
+            <span>{option.label}</span>
+            {option.value === selected.value && (
+              <Icon name="check" size={16} />
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

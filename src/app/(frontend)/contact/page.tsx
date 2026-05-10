@@ -29,7 +29,7 @@ export default function ContactPage() {
           {/* Left — Context Column */}
           <ScrollReveal delay={0}>
             <div className={styles.contextCol}>
-              <h2 className={styles.eyebrow}>Inquiries &amp; Partnerships</h2>
+              <p className={styles.eyebrow}>Inquiries &amp; Partnerships</p>
               <h1 className={styles.headline}>
                 Let&apos;s Build Something<br />
                 <em>Together.</em>

@@ -41,7 +41,7 @@ export default async function InsightsList() {
                     <div>
                       <div className={styles.insightImageWrapper}>
                         <Image
-                          src={cover?.url || '/default-insight-cover.png'}
+                          src={cover?.url || '/default-insight-cover.webp'}
                           alt={cover?.alt || post.title}
                           fill
                           sizes="(max-width: 768px) 100vw, 33vw"
@@ -51,7 +51,7 @@ export default async function InsightsList() {
                       <p className={styles.insightCategory}>{post.category || 'Insight'}</p>
                       <h2 className={styles.insightTitle}>
                         {post.title}
-                      </h4>
+                      </h2>
                     </div>
                     <div className={styles.insightFooter}>
                       <span>{(post.publishedAt || post.createdAt) ? new Date((post.publishedAt || post.createdAt) as string).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase() : ''}</span>

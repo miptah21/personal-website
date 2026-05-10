@@ -10,7 +10,7 @@ export default function AboutSection() {
           <ScrollReveal direction="right" className={styles.aboutImageCol}>
             <div className={styles.aboutImageWrapper}>
               <Image 
-                src="/abstract.png" 
+                src="/abstract.webp" 
                 alt="Abstract geometric pattern representing systems thinking" 
                 fill 
                 sizes="(max-width: 768px) 100vw, 50vw"

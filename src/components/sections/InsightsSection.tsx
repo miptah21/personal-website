@@ -33,7 +33,7 @@ export default function InsightsSection({ insights }: InsightsSectionProps) {
                     <div>
                       <div className={styles.insightImageWrapper}>
                         <Image
-                          src={(cover && 'url' in cover && cover.url) ? cover.url : '/default-insight-cover.png'}
+                          src={(cover && 'url' in cover && cover.url) ? cover.url : '/default-insight-cover.webp'}
                           alt={(cover && 'alt' in cover && cover.alt) ? cover.alt : post.title}
                           fill
                           sizes="(max-width: 768px) 100vw, 33vw"
