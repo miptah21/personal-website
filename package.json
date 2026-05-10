@@ -12,15 +12,15 @@
     "payload": "payload"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "3.82.0",
-    "@payloadcms/next": "3.82.0",
-    "@payloadcms/richtext-lexical": "3.82.0",
-    "@payloadcms/storage-vercel-blob": "3.82.0",
+    "@payloadcms/db-postgres": "3.84.1",
+    "@payloadcms/next": "3.84.1",
+    "@payloadcms/richtext-lexical": "3.84.1",
+    "@payloadcms/storage-vercel-blob": "3.84.1",
     "@types/nodemailer": "^8.0.0",
     "graphql": "^16.13.2",
-    "next": "16.2.2",
+    "next": "16.2.6",
     "nodemailer": "^8.0.5",
-    "payload": "3.82.0",
+    "payload": "3.84.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "sharp": "^0.34.5",
@@ -44,8 +44,8 @@
     "unrs-resolver"
   ],
   "overrides": {
-    "@payloadcms/ui": "3.82.0",
-    "@payloadcms/richtext-lexical": "3.82.0",
+    "@payloadcms/ui": "3.84.1",
+    "@payloadcms/richtext-lexical": "3.84.1",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
