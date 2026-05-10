@@ -55,6 +55,8 @@ export default function AnimatedPortrait() {
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true);
+    // Graceful degradation: skip heavy SVG pixel manipulation on mobile
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) return;
     scaleRef.current.target = 40;
     cancelAnimationFrame(rafRef.current);
     rafRef.current = requestAnimationFrame(animate);
@@ -62,6 +64,7 @@ export default function AnimatedPortrait() {
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) return;
     scaleRef.current.target = 0;
     // Animation loop continues until scale reaches ~0
   }, []);
@@ -125,10 +128,7 @@ export default function AnimatedPortrait() {
       </div>
 
       {/* Front layer: Real photo with liquid filter */}
-      <div
-        className={styles.photoLayer}
-        style={{ filter: 'url(#liquid-distortion)' }}
-      >
+      <div className={`${styles.photoLayer} ${styles.liquidFilterEnabled}`}>
         <Image
           src={portraitImg}
           alt="Portrait of Miftahudin Akbar"

@@ -58,6 +58,12 @@
   object-fit: cover;
 }
 
+@media (min-width: 769px) {
+  .liquidFilterEnabled {
+    filter: url(#liquid-distortion);
+  }
+}
+
 /* When liquid distortion is active, partially fade
    the photo so the illustration behind shows through */
 .revealed .photoLayer {
