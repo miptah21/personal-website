@@ -152,6 +152,7 @@ export default function NameTagHero() {
               sizes="(max-width: 768px) 100vw, 420px"
               className={styles.idPhoto}
               priority
+              fetchPriority="high"
             />
             <div className={styles.idCardOverlay} aria-hidden="true" />
             <div className={styles.holographicShimmer} aria-hidden="true" />
@@ -181,6 +182,7 @@ export default function NameTagHero() {
               sizes="(max-width: 768px) 100vw, 420px"
               className={styles.idPhoto}
               priority
+              fetchPriority="high"
             />
             <div className={styles.idCardOverlay} aria-hidden="true" />
             <div className={styles.holographicShimmer} aria-hidden="true" />
