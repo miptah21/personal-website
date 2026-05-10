@@ -4,9 +4,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import Icon from '@/components/Icon';
 import type { ToolDoc } from '@/lib/queries';
 
-const AnimatedToolkitGrid = dynamic(() => import('@/components/AnimatedToolkitGrid'), {
-  ssr: false,
-});
+const AnimatedToolkitGrid = dynamic(() => import('@/components/AnimatedToolkitGrid'));
 
 interface ToolkitSectionProps {
   tools: ToolDoc[];

@@ -4,9 +4,7 @@ import dynamic from 'next/dynamic';
 import ScrollReveal from '@/components/ScrollReveal';
 import Icon from '@/components/Icon';
 
-const AwardLightbox = dynamic(() => import('../AwardLightbox').then(mod => ({ default: mod.AwardLightbox })), {
-  ssr: false,
-});
+const AwardLightbox = dynamic(() => import('../AwardLightbox').then(mod => ({ default: mod.AwardLightbox })));
 
 interface AwardsSectionProps {
   awards: AwardDoc[];
