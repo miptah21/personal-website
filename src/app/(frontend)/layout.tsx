@@ -48,18 +48,9 @@ export default function FrontendLayout({
         <link 
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" 
           rel="stylesheet" 
-          media="print"
-          // eslint-disable-next-line react/no-unknown-property
-          onLoad={(e) => {
-            (e.target as HTMLLinkElement).media = 'all';
-          }}
+          /* @ts-expect-error React 19 stylesheet precedence */
+          precedence="default"
         />
-        <noscript>
-          <link 
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" 
-            rel="stylesheet" 
-          />
-        </noscript>
       </head>
       <body>
         <IntroAnimation />
