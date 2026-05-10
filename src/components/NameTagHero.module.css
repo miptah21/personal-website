@@ -327,13 +327,20 @@
 
 /* ---------- Mobile GPU Optimization ---------- */
 @media (max-width: 767px) {
-  /* Disable heavy infinite animations on mobile */
-  .idPhoto,
-  .orbitalRing,
-  .orbitalRingSecond,
-  .glowPulse {
-    animation: none !important;
+  /* Slow down infinite animations on mobile to conserve battery and reduce GPU load, rather than disabling them */
+  .idPhoto {
+    animation-duration: 20s !important;
   }
+  .orbitalRing {
+    animation-duration: 45s !important;
+  }
+  .orbitalRingSecond {
+    animation-duration: 60s !important;
+  }
+  .glowPulse {
+    animation-duration: 8s !important;
+  }
+
   
   /* Remove expensive backdrop-filter but keep the original glass-like semi-transparent white color */
   .idBottomBar {
