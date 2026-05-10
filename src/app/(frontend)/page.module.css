@@ -721,6 +721,12 @@
   position: sticky;
   top: 8rem;
 }
+@media (max-width: 767px) {
+  .expStickyHeadline {
+    position: relative;
+    top: 0;
+  }
+}
 
 .expItem {
   display: flex;
