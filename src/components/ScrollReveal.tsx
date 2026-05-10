@@ -55,7 +55,6 @@ export default function ScrollReveal({
     element.style.opacity = '0';
     element.style.transform = getInitialTransform();
     element.style.transition = transition;
-    element.style.willChange = 'opacity, transform';
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -63,15 +62,10 @@ export default function ScrollReveal({
           // Reveal: mutate DOM directly — no React re-render needed
           element.style.opacity = '1';
           element.style.transform = 'translate(0)';
-          // Clean up willChange after transition completes to free compositor memory
-          element.addEventListener('transitionend', () => {
-            element.style.willChange = 'auto';
-          }, { once: true });
           if (once) observer.disconnect();
         } else if (!once) {
           element.style.opacity = '0';
           element.style.transform = getInitialTransform();
-          element.style.willChange = 'opacity, transform';
         }
       },
       {
