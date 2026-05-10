@@ -41,17 +41,48 @@ export default function FrontendLayout({
         {/* Load Material Symbols font asynchronously without blocking render */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link 
+          rel="preload"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" 
-          rel="stylesheet" 
+          as="style"
         />
+        <noscript>
+          {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+          <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
+        </noscript>
+        <script dangerouslySetInnerHTML={{ __html: `
+          var l=document.createElement('link');l.rel='stylesheet';
+          l.href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap';
+          document.head.appendChild(l);
+        `}} />
       </head>
       <body suppressHydrationWarning>
         {/* Lock scrolling on homepage before React hydrates — prevents content flash behind intro */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `if(location.pathname==='/'){document.body.style.overflow='hidden'}`,
+            __html: `if(location.pathname==='/'){
+              if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+              window.scrollTo(0,0);
+              document.documentElement.style.overflow='hidden';
+              document.body.style.overflow='hidden';
+              
+              setTimeout(function() {
+                document.documentElement.style.overflow='';
+                document.body.style.overflow='';
+              }, 2400);
+
+              window._lastScrollY = 0;
+              window._vanillaNavScroll = function() {
+                var currentScrollY = window.scrollY;
+                if (currentScrollY > window._lastScrollY && currentScrollY > 50) {
+                  document.body.style.setProperty('--nav-transform', 'translateY(-100%)');
+                } else {
+                  document.body.style.setProperty('--nav-transform', 'translateY(0)');
+                }
+                window._lastScrollY = currentScrollY;
+              };
+              window.addEventListener('scroll', window._vanillaNavScroll, { passive: true });
+            }`,
           }}
         />
         <ClientShell />

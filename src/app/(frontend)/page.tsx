@@ -34,12 +34,14 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const latestInsights = await getInsights(3);
-  const tools = await getTools(50);
-  const experiences = await getExperiences(10);
-  const featuredProjects = await getFeaturedProjects(3);
-  const awards = await getAwards(10);
-  const education = await getEducation(10);
+  const [latestInsights, tools, experiences, featuredProjects, awards, education] = await Promise.all([
+    getInsights(3),
+    getTools(50),
+    getExperiences(10),
+    getFeaturedProjects(3),
+    getAwards(10),
+    getEducation(10),
+  ]);
   
   return (
     <main>
