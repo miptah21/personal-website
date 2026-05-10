@@ -33,7 +33,7 @@ const ToolCard = ({ tool }: { tool: Tool }) => {
     <div className={cardClass} style={{ height: '100%' }}>
       <div>
         <Icon name={tool.icon} className={iconClass} size={24} />
-        <h4 className={titleClass}>{tool.title}</h4>
+        <h3 className={titleClass}>{tool.title}</h3>
         <p className={descClass}>{tool.description}</p>
       </div>
     </div>

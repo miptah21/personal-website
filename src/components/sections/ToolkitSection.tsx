@@ -52,7 +52,7 @@ export default function ToolkitSection({ tools }: ToolkitSectionProps) {
                         <div key={`${tool.id}-${index}`} className={cardClass}>
                           <div>
                             <Icon name={tool.icon} className={iconClass} size={24} />
-                            <h4 className={titleClass}>{tool.title}</h4>
+                            <h3 className={titleClass}>{tool.title}</h3>
                             <p className={descClass}>{tool.description}</p>
                           </div>
                         </div>

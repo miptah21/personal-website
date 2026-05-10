@@ -23,7 +23,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
             </div>
           </ScrollReveal>
           <ScrollReveal delay={0.2} className={styles.expListCol}>
-            <div role="list" aria-label="Professional experience">
+            <div aria-label="Professional experience">
               {experiences.length > 0 ? experiences.map((exp, index) => {
                 const numStr = (index + 1).toString().padStart(2, '0');
                 const isLast = index === experiences.length - 1;
@@ -31,12 +31,11 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                   <div
                     key={exp.id || index}
                     className={`${styles.expItem}${isLast ? ` ${styles.expItemLast}` : ''}`}
-                    role="listitem"
                   >
                     <div className={styles.expItemMain}>
                       <span className={styles.expNumber} aria-hidden="true">{numStr}</span>
                       <div>
-                        <h4 className={styles.expCompany}>{exp.company}</h4>
+                        <h3 className={styles.expCompany}>{exp.company}</h3>
                         <p className={styles.expRole}>{exp.role}</p>
                       </div>
                     </div>

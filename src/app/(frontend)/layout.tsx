@@ -40,10 +40,26 @@ export default function FrontendLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+          as="style"
+        />
         <link 
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" 
           rel="stylesheet" 
+          media="print"
+          // eslint-disable-next-line react/no-unknown-property
+          onLoad={(e) => {
+            (e.target as HTMLLinkElement).media = 'all';
+          }}
         />
+        <noscript>
+          <link 
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" 
+            rel="stylesheet" 
+          />
+        </noscript>
       </head>
       <body>
         <IntroAnimation />

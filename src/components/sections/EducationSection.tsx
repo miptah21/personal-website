@@ -46,10 +46,10 @@ export default function EducationSection({ education }: EducationSectionProps) {
                   </div>
 
                   {/* Metrics: GPA + Graduation */}
-                  <div className={styles.eduMetrics} role="list" aria-label="Academic metrics">
+                  <div className={styles.eduMetrics} aria-label="Academic metrics">
                     {edu.gpa && (
                       <>
-                        <div className={styles.eduMetricItem} role="listitem">
+                        <div className={styles.eduMetricItem}>
                           <p className={styles.eduMetricNumber}>{edu.gpa}</p>
                           <p className={styles.eduMetricLabel}>
                             GPA{edu.gpaScale ? ` / ${edu.gpaScale}` : ''}
@@ -58,7 +58,7 @@ export default function EducationSection({ education }: EducationSectionProps) {
                         <div className={styles.eduMetricDivider} aria-hidden="true" />
                       </>
                     )}
-                    <div className={styles.eduMetricItem} role="listitem">
+                    <div className={styles.eduMetricItem}>
                       <p className={styles.eduMetricNumber}>
                         {edu.graduationDate.replace(/[^\d]/g, '').slice(0, 4) || edu.graduationDate}
                       </p>
@@ -99,9 +99,9 @@ export default function EducationSection({ education }: EducationSectionProps) {
                         {edu.courseworkGroups.map((group) => (
                           <div key={group.id || group.groupLabel} className={styles.eduCourseworkGroup}>
                             <p className={styles.eduCourseworkGroupLabel}>{group.groupLabel}</p>
-                            <div className={styles.eduPills} role="list" aria-label={`${group.groupLabel} courses`}>
+                            <div className={styles.eduPills} aria-label={`${group.groupLabel} courses`}>
                               {group.courses?.map((c) => (
-                                <span key={c.id || c.course} className={styles.skillPill} role="listitem">
+                                <span key={c.id || c.course} className={styles.skillPill}>
                                   {c.course}
                                 </span>
                               ))}

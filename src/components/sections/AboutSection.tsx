@@ -33,12 +33,12 @@ export default function AboutSection() {
                   Through a rigorous application of Systems Thinking, I dismantle complex organizational frictions to build lean, data-driven frameworks that scale. Every line of code is an architectural choice.
                 </p>
               </div>
-              <div className={styles.statsFlex} role="list" aria-label="Key statistics">
-                <div role="listitem">
+              <div className={styles.statsFlex} aria-label="Key statistics">
+                <div>
                   <p className={styles.statNumber}>12+</p>
                   <p className={styles.statLabel}>Strategic Deployments</p>
                 </div>
-                <div role="listitem">
+                <div>
                   <p className={styles.statNumber}>04</p>
                   <p className={styles.statLabel}>Global Institutions</p>
                 </div>

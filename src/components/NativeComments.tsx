@@ -137,7 +137,7 @@ export default function NativeComments({ slug }: { slug: string }) {
 
   return (
     <div style={{ maxWidth: '800px', width: '100%', borderTop: '1px solid var(--surface-container-high)', paddingTop: '4rem', marginTop: '6rem' }}>
-      <h3 className="label-sm" style={{ marginBottom: '2rem', color: 'var(--secondary)' }}>Participant Discussion</h3>
+      <h2 className="label-sm" style={{ marginBottom: '2rem', color: 'var(--secondary)' }}>Participant Discussion</h2>
       
       {errorMsg ? (
         <div style={{ padding: '2rem', backgroundColor: 'var(--surface-container)', color: 'var(--on-surface-variant)', fontStyle: 'italic', fontSize: '0.875rem', margin: '0 0 2rem 0' }}>

@@ -49,12 +49,12 @@ export default function AwardsSection({ awards }: AwardsSectionProps) {
           </div>
         </ScrollReveal>
 
-        <div className={styles.awardsGrid} role="list" aria-label="Awards and certifications">
+        <div className={styles.awardsGrid} aria-label="Awards and certifications">
           {awardsWithCerts.map((award, index) => {
             const numStr = (index + 1).toString().padStart(2, '0');
             return (
               <ScrollReveal delay={index * 0.15} key={award.id || index}>
-                <div className={styles.awardCard} role="listitem">
+                <div className={styles.awardCard}>
                   {/* Top decorative row */}
                   <div className={styles.awardCardTop}>
                     <span className={styles.awardNumber} aria-hidden="true">{numStr}</span>

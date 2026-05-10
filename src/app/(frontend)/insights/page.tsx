@@ -49,7 +49,7 @@ export default async function InsightsList() {
                         />
                       </div>
                       <p className={styles.insightCategory}>{post.category || 'Insight'}</p>
-                      <h4 className={styles.insightTitle}>
+                      <h2 className={styles.insightTitle}>
                         {post.title}
                       </h4>
                     </div>

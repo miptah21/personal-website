@@ -23,13 +23,13 @@ export default function InsightsSection({ insights }: InsightsSectionProps) {
           </div>
         </ScrollReveal>
         
-        <div className={styles.insightsGrid} role="list" aria-label="Latest insights">
+        <div className={styles.insightsGrid} aria-label="Latest insights">
           {insights.map((post, index) => {
             const cover = typeof post.coverImage === 'object' && post.coverImage !== null ? post.coverImage : null;
             return (
               <ScrollReveal delay={index * 0.15} key={post.slug}>
                 <Link href={`/insights/${post.slug}`} className={styles.insightCard} style={{ display: 'flex', textDecoration: 'none', color: 'inherit' }}>
-                  <div role="listitem" style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
                     <div>
                       <div className={styles.insightImageWrapper}>
                         <Image

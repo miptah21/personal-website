@@ -40,7 +40,7 @@ function ProjectCard({ project }: { project: ProjectDoc }) {
       {/* Card content */}
       <div className={styles.projectContent}>
         <p className={styles.projectCategory}>{project.category}</p>
-        <h3 className={styles.projectTitle}>{project.title}</h3>
+        <h2 className={styles.projectTitle}>{project.title}</h2>
         <p className={styles.projectDescription}>{project.description}</p>
         <div className={styles.projectTags}>
           {project.tags?.map((tagItem) => (

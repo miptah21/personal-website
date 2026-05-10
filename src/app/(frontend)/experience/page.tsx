@@ -66,7 +66,7 @@ export default async function ExperiencePage() {
         <div className={styles.divider} />
 
         {experiences.length > 0 ? (
-          <div className={styles.timeline} role="list" aria-label="Detailed professional experience">
+          <div className={styles.timeline} aria-label="Detailed professional experience">
             {experiences.map((exp, index) => {
               const numStr = (index + 1).toString().padStart(2, '0');
               const isLast = index === experiences.length - 1;
@@ -76,7 +76,6 @@ export default async function ExperiencePage() {
                 <ScrollReveal delay={index * 0.15} key={exp.id || index}>
                   <article
                     className={`${styles.entry}${isLast ? ` ${styles.entryLast}` : ''}${isActive ? ` ${styles.entryActive}` : ''}`}
-                    role="listitem"
                   >
                     <div className={styles.entryHeader}>
                       <div className={styles.entryMeta}>

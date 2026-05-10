@@ -1482,7 +1482,7 @@
 
 .lightboxImage {
   object-fit: contain;
-  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(0 32px 64px rgba(0, 0, 0, 0.5));
 }
 
 @media (max-width: 768px) {

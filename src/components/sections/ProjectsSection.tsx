@@ -61,10 +61,10 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           </div>
         </ScrollReveal>
 
-        <div className={styles.projectsGrid} role="list" aria-label="Featured projects">
+        <div className={styles.projectsGrid} aria-label="Featured projects">
           {projects.map((project, index) => (
             <ScrollReveal delay={index * 0.2} key={project.id}>
-              <div role="listitem">
+              <div>
                 <ProjectCard project={project} isHero={index === 0} />
               </div>
             </ScrollReveal>
