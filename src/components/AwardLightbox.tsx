@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import Icon from '@/components/Icon';
 import styles from '@/app/(frontend)/page.module.css';
 
@@ -127,12 +128,17 @@ export function AwardLightbox({ awards }: AwardLightboxProps) {
           )}
 
           {/* Image Only */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={active.certificateUrl!}
-            alt={active.certificateAlt}
-            className={styles.lightboxImage}
-          />
+          <div className={styles.lightboxImageWrap}>
+            <Image
+              src={active.certificateUrl!}
+              alt={active.certificateAlt}
+              fill
+              className={styles.lightboxImage}
+              sizes="(max-width: 768px) 95vw, 90vw"
+              priority={true}
+              quality={90}
+            />
+          </div>
         </div>
       )}
     </>

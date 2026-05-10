@@ -2,6 +2,8 @@
 
 import { useRef, useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
+import portraitImg from '../../public/portrait.webp';
+import portraitIllImg from '../../public/portrait-illustration.webp';
 import styles from './AnimatedPortrait.module.css';
 
 /**
@@ -112,11 +114,12 @@ export default function AnimatedPortrait() {
       {/* Back layer: Animated line-art illustration */}
       <div className={styles.illustrationLayer}>
         <Image
-          src="/portrait-illustration.png"
+          src={portraitIllImg}
           alt=""
           fill
           sizes="420px"
           className={styles.illustration}
+          placeholder="blur"
           aria-hidden="true"
         />
       </div>
@@ -127,12 +130,13 @@ export default function AnimatedPortrait() {
         style={{ filter: 'url(#liquid-distortion)' }}
       >
         <Image
-          src="/portrait.webp"
+          src={portraitImg}
           alt="Portrait of Miftahudin Akbar"
           fill
           sizes="(max-width: 768px) 100vw, 420px"
           className={styles.photo}
           style={{ objectPosition: 'top center' }}
+          placeholder="blur"
           priority
         />
       </div>

@@ -254,3 +254,36 @@ h1, h2, h3, h4, h5, h6, .serif {
   display: block;
   margin: 2rem auto;
 }
+
+/* ===== Accessibility: Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== Mobile Performance & Touch Targets ===== */
+@media (max-width: 768px) {
+  /* Ensure minimum 44px touch targets (WCAG 2.5.5) */
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  /* Disable heavy background gradients on mobile for GPU savings */
+  html, body {
+    background: var(--surface);
+  }
+}
+
+/* ===== High Contrast Mode Support ===== */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 2px solid LinkText;
+  }
+}

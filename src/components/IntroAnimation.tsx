@@ -14,6 +14,12 @@ export default function IntroAnimation() {
   useEffect(() => {
     // Hanya jalankan intro jika pengguna berada di halaman utama
     if (pathname === '/') {
+      // Force scroll ke atas saat refresh/load
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+
       setIsVisible(true);
       setIsFading(false);
       

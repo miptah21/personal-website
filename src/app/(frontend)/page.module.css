@@ -178,7 +178,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 6rem; /* Restored closer distance */
+  padding-top: 7.5rem; /* Extra space to clear fixed navbar on mobile */
   padding-bottom: 4rem;
   position: relative;
 }
@@ -1464,8 +1464,10 @@
 }
 
 .lightboxImageWrap {
-  max-width: 72vw;
-  max-height: 70vh;
+  position: relative;
+  width: 90vw;
+  height: 80vh;
+  max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1473,21 +1475,19 @@
 
 @media (max-width: 768px) {
   .lightboxImageWrap {
-    max-width: 88vw;
-    max-height: 60vh;
+    width: 95vw;
+    height: 70vh;
   }
 }
 
 .lightboxImage {
-  max-width: 100%;
-  max-height: 70vh;
   object-fit: contain;
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 768px) {
   .lightboxImage {
-    max-height: 60vh;
+    /* No specific changes needed for Image component here, handled by wrapper */
   }
 }
 

@@ -111,11 +111,15 @@ export default function NativeComments({ slug }: { slug: string }) {
          />
          
          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-           <button onClick={() => handleLike(c.id)} style={{ background: 'none', border: 'none', color: likedLocal.includes(c.id) ? 'var(--on-surface)' : 'var(--secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: 0, fontFamily: 'var(--font-sans)', fontSize: '0.875rem' }}>
-              <Icon name="thumb_up" size={16} />
+           <button onClick={() => handleLike(c.id)} style={{ background: 'none', border: 'none', color: 'var(--secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: 0, fontFamily: 'var(--font-sans)', fontSize: '0.875rem' }}>
+              <Icon name={likedLocal.includes(c.id) ? "thumb_up" : "thumb_up_outline"} size={16} />
               {c.likes > 0 ? c.likes : 'Like'}
            </button>
-           <button onClick={() => setReplyingTo({ id: c.id, author: c.author })} style={{ background: 'none', border: 'none', color: 'var(--secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: 0, fontFamily: 'var(--font-sans)', fontSize: '0.875rem' }}>
+           <button onClick={() => {
+             setReplyingTo({ id: c.id, author: c.author });
+             const form = document.getElementById('comment-form');
+             if (form) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+           }} style={{ background: 'none', border: 'none', color: 'var(--secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', padding: 0, fontFamily: 'var(--font-sans)', fontSize: '0.875rem' }}>
               <Icon name="arrow_forward" size={16} />
               Reply
            </button>
@@ -142,7 +146,7 @@ export default function NativeComments({ slug }: { slug: string }) {
       ) : null}
 
       {/* Form Area */}
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '4rem', backgroundColor: 'var(--surface-container-low)', padding: '2rem' }}>
+      <form id="comment-form" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '4rem', backgroundColor: 'var(--surface-container-low)', padding: '2rem' }}>
         {replyingTo && (
            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'var(--surface)', padding: '0.5rem 1rem', borderLeft: '3px solid var(--black)' }}>
               <span style={{ fontSize: '0.875rem', color: 'var(--on-surface-variant)' }}>Replying to <strong>{replyingTo.author}</strong></span>
