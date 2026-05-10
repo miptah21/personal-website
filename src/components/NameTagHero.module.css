@@ -329,26 +329,40 @@
 
 /* ---------- Mobile GPU Optimization ---------- */
 @media (max-width: 767px) {
-  /* Slow down infinite animations on mobile to conserve battery and reduce GPU load, rather than disabling them */
-  .idPhoto {
-    animation-duration: 20s !important;
+  /* Disable 3D rendering context entirely */
+  .nameTagScene {
+    perspective: none;
   }
-  .orbitalRing {
-    animation-duration: 45s !important;
-  }
-  .orbitalRingSecond {
-    animation-duration: 60s !important;
-  }
-  .glowPulse {
-    animation-duration: 8s !important;
+  .idCardInner {
+    transform-style: flat;
   }
 
-  
-  /* Remove expensive backdrop-filter but keep the original glass-like semi-transparent white color */
+  /* Kill ALL infinite animations */
+  .idPhoto,
+  .orbitalRing,
+  .orbitalRingSecond,
+  .glowPulse,
+  .statusPulse {
+    animation: none !important;
+  }
+
+  /* Hide purely decorative elements that add GPU layers */
+  .orbitalRing,
+  .orbitalRingSecond,
+  .glowPulse {
+    display: none !important;
+  }
+
+  /* Remove expensive backdrop-filter */
   .idBottomBar {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     background: rgba(255, 255, 255, 0.25) !important;
+  }
+
+  /* Simplify box-shadows */
+  .cardFront, .cardBack {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
 }
 
