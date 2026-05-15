@@ -68,7 +68,7 @@ export default function ScrollProgress() {
         transformOrigin: '0% 50%',
         transform: 'scaleX(0)',
         zIndex: 9999, 
-        animation: pathname === '/' && !hasAnimated ? 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2.4s both' : 'none'
+        animation: pathname === '/' && !hasAnimated ? 'fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) 1s both' : 'none'
       }} 
       onAnimationEnd={() => setHasAnimated(true)}
       ref={progressRef}

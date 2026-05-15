@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import styles from './IntroAnimation.module.css';
 
+const INTRO_DURATION_MS = 1300;
+
 export default function IntroAnimation() {
   const pathname = usePathname();
   // Inisialisasi isVisible dengan mengecek pathname agar langsung di-render oleh Server (SSR)
@@ -15,10 +17,9 @@ export default function IntroAnimation() {
     if (pathname === '/') {
       setIsVisible(true);
 
-      // Hapus elemen dari DOM setelah animasi benar-benar selesai (2.8s)
       const unmountTimer = setTimeout(() => {
         setIsVisible(false);
-      }, 2800);
+      }, INTRO_DURATION_MS);
 
       return () => {
         clearTimeout(unmountTimer);

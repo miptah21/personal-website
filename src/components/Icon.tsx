@@ -30,7 +30,9 @@ export type IconName =
   | 'format_clear'
   | 'school'
   | 'emoji_events'
-  | 'work_history';
+  | 'work_history'
+  | 'account_balance'
+  | 'candlestick_chart';
 
 interface IconProps {
   name: IconName | string;
@@ -86,6 +88,10 @@ const PATHS: Record<string, string> = {
     'M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z',
   work_history:
     'M16.67 13.13C18.04 14.06 19 15.32 19 17v3h4v-3c0-2.18-3.58-3.47-6.33-3.87zM15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4c-.47 0-.91.1-1.33.24a5.98 5.98 0 010 7.52c.42.14.86.24 1.33.24zM9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM9 13c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z',
+  account_balance:
+    'M4 10v7h3v-7H4zm6 0v7h3v-7h-3zm-8 9v3h20v-3H2zm14-9v7h3v-7h-3zm-4-9L2 6v2h20V6L12 1z',
+  candlestick_chart:
+    'M7 3h2v3h2v10H9v5H7v-5H5V6h2V3zm0 5v6h2V8H7zm8-5h2v8h2v7h-2v3h-2v-3h-2v-7h2V3zm0 10v3h2v-3h-2z',
   thumb_up:
     'M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 2 7.59 8.59C7.22 8.95 7 9.45 7 10v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z',
   thumb_up_outline:
