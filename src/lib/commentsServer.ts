@@ -3,6 +3,12 @@
 import { revalidatePath } from 'next/cache';
 import { getPayload } from 'payload';
 import configPromise from '@/payload.config';
+import type { CommentNode } from '@/lib/queries';
+
+function getErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : 'Unknown';
+}
+
 function sanitizeHTML(html: string) {
   if (!html) return '';
   let clean = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
@@ -13,7 +19,6 @@ function sanitizeHTML(html: string) {
   clean = clean.replace(/href="javascript:[^"]*"/gi, 'href="#"');
   return clean;
 }
-import type { CommentNode } from '@/lib/queries';
 
 async function getInsightId(slug: string) {
   const payload = await getPayload({ config: configPromise });
@@ -68,9 +73,9 @@ export async function getCommentsAction(slug: string) {
     });
 
     return { comments: rootComments };
-  } catch (error: any) {
+  } catch (error) {
     console.error('getCommentsAction ERROR:', error);
-    return { error: `Database failure: ${error?.message || 'Unknown'}`, comments: [] };
+    return { error: `Database failure: ${getErrorMessage(error)}`, comments: [] };
   }
 }
 

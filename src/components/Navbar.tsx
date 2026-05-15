@@ -6,6 +6,12 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Icon from '@/components/Icon';
 import styles from '@/app/(frontend)/page.module.css';
 
+declare global {
+  interface Window {
+    _vanillaNavScroll?: EventListener;
+  }
+}
+
 export default function Navbar() {
   const pathname = usePathname() || '/';
   const lastScrollY = useRef(0);
@@ -31,9 +37,9 @@ export default function Navbar() {
 
   // Direct DOM manipulation for show/hide — avoids React re-render on scroll
   useEffect(() => {
-    if (typeof window !== 'undefined' && (window as any)._vanillaNavScroll) {
-      window.removeEventListener('scroll', (window as any)._vanillaNavScroll);
-      delete (window as any)._vanillaNavScroll;
+    if (typeof window !== 'undefined' && window._vanillaNavScroll) {
+      window.removeEventListener('scroll', window._vanillaNavScroll);
+      delete window._vanillaNavScroll;
     }
 
     const handleScroll = () => {
@@ -125,4 +131,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
