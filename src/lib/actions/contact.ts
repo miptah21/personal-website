@@ -2,7 +2,7 @@
 
 import { z } from 'zod'
 import { getPayloadClient } from '@/lib/queries'
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 import { headers } from 'next/headers'
 function sanitizeHTML(html: string) {
   if (!html) return '';
@@ -63,15 +63,11 @@ function looksLikeSpam(message: string): boolean {
   return (urlMatches?.length ?? 0) > 3
 }
 
-// ---------- Gmail transporter ----------
-function createTransporter() {
-  return nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  })
+// ---------- Resend email client ----------
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return null
+  return new Resend(apiKey)
 }
 
 // ---------- Server Action ----------
@@ -156,13 +152,11 @@ export async function submitContact(
     return { error: 'Something went wrong. Please try again later.' }
   }
 
-  // 7. Send email notification via Gmail SMTP
-  const gmailUser = process.env.GMAIL_USER
-  const gmailPass = process.env.GMAIL_APP_PASSWORD
-  if (gmailUser && gmailPass) {
+  // 7. Send email notification via Resend (HTTP-based, works on Vercel)
+  const recipientEmail = process.env.GMAIL_USER
+  const resend = getResendClient()
+  if (resend && recipientEmail) {
     try {
-      const transporter = createTransporter()
-
       const subjectLabels: Record<string, string> = {
         general: 'General Inquiry',
         collaboration: 'Collaboration',
@@ -170,19 +164,11 @@ export async function submitContact(
         other: 'Other',
       }
 
-      await transporter.sendMail({
-        from: `"Portfolio Contact" <${gmailUser}>`,
-        to: gmailUser,
+      const { error: sendError } = await resend.emails.send({
+        from: `Portfolio Contact <onboarding@resend.dev>`,
+        to: [recipientEmail],
         replyTo: email,
         subject: `[Portfolio] ${subjectLabels[subject] ?? subject} from ${name}`,
-        text: [
-          `Name: ${name}`,
-          `Email: ${email}`,
-          `Subject: ${subjectLabels[subject] ?? subject}`,
-          '',
-          'Message:',
-          message,
-        ].join('\n'),
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #173124; border-bottom: 2px solid #775A19; padding-bottom: 8px;">
@@ -203,10 +189,18 @@ export async function submitContact(
           </div>
         `,
       })
+
+      if (sendError) {
+        console.error('[Contact] Resend email error:', sendError)
+      } else {
+        console.log(`[Contact] Email notification sent to ${recipientEmail}`)
+      }
     } catch (err) {
       // Email failure is non-critical — submission is already stored in CMS
       console.error('[Contact] Failed to send email notification:', err)
     }
+  } else {
+    console.warn('[Contact] Email skipped: RESEND_API_KEY or GMAIL_USER not configured')
   }
 
   recordSubmission(ip)
