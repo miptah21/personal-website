@@ -28,19 +28,25 @@ export default function RichTextEditor({
   const editorRef = useRef<HTMLDivElement>(null)
   const hiddenInputRef = useRef<HTMLInputElement>(null)
 
-
   // Sync contentEditable HTML to hidden input on every change
   const syncToHiddenInput = useCallback(() => {
-    if (editorRef.current) {
+    if (editorRef.current && hiddenInputRef.current) {
       const html = editorRef.current.innerHTML
-      if (hiddenInputRef.current) {
-        hiddenInputRef.current.value = html
-      }
+      hiddenInputRef.current.value = html
       if (onChange) {
         onChange(html)
       }
     }
   }, [onChange])
+
+  // Attach a force-sync listener so the parent form can trigger sync before submit
+  useEffect(() => {
+    const editor = editorRef.current
+    if (!editor) return
+    const handleForceSync = () => syncToHiddenInput()
+    editor.addEventListener('forcesync', handleForceSync)
+    return () => editor.removeEventListener('forcesync', handleForceSync)
+  }, [syncToHiddenInput])
 
   const execCommand = useCallback((command: string, commandValue?: string) => {
     document.execCommand(command, false, commandValue)
@@ -157,6 +163,7 @@ export default function RichTextEditor({
         data-placeholder={placeholder}
         onInput={syncToHiddenInput}
         onBlur={syncToHiddenInput}
+        onKeyUp={syncToHiddenInput}
         suppressContentEditableWarning
       />
 

@@ -133,7 +133,9 @@ export async function submitContact(
 
   // Extract plain text for validation
   const plainMessage = stripHtmlTags(message)
+  console.log(`[Contact] Submission from ${email}: raw=${rawMessage?.length ?? 0} chars, plain=${plainMessage?.length ?? 0} chars, plain="${plainMessage?.substring(0, 80)}"`)
   if (plainMessage.length < 10) {
+    console.log(`[Contact] Rejected: plain message too short (${plainMessage.length} chars)`)
     return { error: 'Please fix the errors below.', fieldErrors: { message: ['Message must be at least 10 characters.'] } }
   }
 

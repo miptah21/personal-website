@@ -42,7 +42,18 @@ export default function ContactForm() {
   }
 
   return (
-    <form ref={formRef} action={formAction} className={styles.contactForm} noValidate autoComplete="off">
+    <form
+      ref={formRef}
+      action={formAction}
+      className={styles.contactForm}
+      noValidate
+      autoComplete="off"
+      onSubmit={() => {
+        // Force-sync RichTextEditor hidden input before form submission
+        const editor = document.getElementById('contact-message')
+        if (editor) editor.dispatchEvent(new Event('forcesync'))
+      }}
+    >
       {/* Honeypot — hidden from humans, visible to bots */}
       <div aria-hidden="true" className={styles.honeypot}>
         <label htmlFor="company_website">Company Website</label>
