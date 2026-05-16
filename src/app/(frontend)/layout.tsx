@@ -23,6 +23,17 @@ export const metadata: Metadata = {
   },
   title: "Miftahudin Akbar | Portfolio",
   description: "Bridging the gap between complex financial systems and data-driven intelligence.",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/manifest.json',
   verification: {
     google: 'uvBW6_4PZAiyrUmKNZeea-OqOTqZ_Hwn9f_pGwVYPyA',
   },
