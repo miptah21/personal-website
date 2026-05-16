@@ -153,7 +153,7 @@ export async function submitContact(
   }
 
   // 7. Send email notification via Resend (HTTP-based, works on Vercel)
-  const recipientEmail = process.env.GMAIL_USER
+  const recipientEmail = process.env.GMAIL_USER || process.env.NEXT_PUBLIC_CONTACT_EMAIL
   const resend = getResendClient()
   if (resend && recipientEmail) {
     try {
